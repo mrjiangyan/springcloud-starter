@@ -1,0 +1,37 @@
+def artifactId = 'com.touchbiz.log.starter'
+
+dependencies {
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-context', version: "${ springCloudVersion }"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${ springBootVersion }"
+    implementation group: 'org.springframework', name: 'spring-web', version: "${ springVersion }"
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: "${ springBootVersion }"
+    implementation group: 'joda-time', name: 'joda-time', version: '2.10'
+    implementation group: 'joda-time', name: 'joda-time', version: '2.10'
+    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+//    compile 'org.apache.commons.io:commonsIO:2.7'
+//    implementation "org.reactivestreams:reactive-streams:1.0.2"
+}
+
+
+uploadArchives {
+    configuration = configurations['archives']
+    repositories {
+        mavenDeployer {
+            // 注释1
+            pom.groupId = "$project.group"
+            pom.version = "$project.version"
+            pom.artifactId = "$artifactId"
+            // 注释2
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description '日志访问公共类库'
+            }
+            // 注释3
+            repository(url: "$repositoryUrl") {
+                authentication(userName: "$mavenUserName", password: "$mavenPassword")
+            }
+        }
+    }
+}
+

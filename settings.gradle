@@ -1,0 +1,12 @@
+rootProject.name = 'com.touchbiz.starter'
+
+include ':db-starter'
+include ':config-starter'
+include ':mq-starter'
+include ':log-starter'
+include ':web-starter'
+include ':webflux-starter'
+include ':cache-starter'
+include ':example'
+include ':example-webflux'
+

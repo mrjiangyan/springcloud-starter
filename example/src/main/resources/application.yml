@@ -1,0 +1,61 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: com.touchbiz.starter.example
+  mvc:
+    throw-exception-if-no-handler-found: true
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+  redis:
+    database: 0
+    host: 127.0.0.20
+    port: 6379
+    password:
+    lettuce:
+      pool:
+        # 接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最小空闲连接
+        max-idle: 8
+        # 连接池中的最大空闲连接
+        min-idle: 0
+    # 连接超时时间
+    timeout: 2000ms
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#feign 配置
+#feign:
+#  hystrix:
+#    enabled: true
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 15000
+#        readTimeout: 15000
+#        loggerLevel: full
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy:  SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 15000
+
+
+test:  ${spring.application.name}
+
+logging:
+  config: classpath:logback-spring.xml

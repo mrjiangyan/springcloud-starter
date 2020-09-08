@@ -1,0 +1,56 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: com.touchbiz.starter.example
+  mvc:
+    throw-exception-if-no-handler-found: true
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+  messages:
+    basename: i18n/messages
+    cache-second: 3600
+    encoding: UTF-8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#feign 配置
+#feign:
+#  hystrix:
+#    enabled: true
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 15000
+#        readTimeout: 15000
+#        loggerLevel: full
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy:  SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 15000
+
+
+logging:
+  config: classpath:logback-spring.xml
+
+swagger:
+  enable: true
+  host: www.baidu.com
+
+springfox:
+  documentation:
+      open-api:
+        enabled: true

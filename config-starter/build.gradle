@@ -1,0 +1,38 @@
+def artifactId = 'com.touchbiz.config.starter'
+
+
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: "${ springBootVersion }"
+    implementation group: 'org.springframework.boot', name: 'spring-boot', version: "${ springBootVersion }"
+    implementation group: 'org.springframework', name: 'spring-context', version: "${ springVersion }"
+    compile "io.springfox:springfox-boot-starter:${swaggerVersion}"
+//    implementation(group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "${jacksonVerson}")
+//    implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonVerson}")
+//    implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonVerson}")
+//    implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jacksonVerson}")
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
+}
+
+
+uploadArchives {
+    configuration = configurations['archives']
+    repositories {
+        mavenDeployer {
+            // 注释1
+            pom.groupId = "$project.group"
+            pom.version = "$project.version"
+            pom.artifactId = "$artifactId"
+            // 注释2
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description '数据库访问公共类库'
+            }
+            // 注释3
+            repository(url: "$repositoryUrl") {
+                authentication(userName: "$mavenUserName", password: "$mavenPassword")
+            }
+        }
+    }
+}
+

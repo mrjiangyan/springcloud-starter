@@ -1,0 +1,35 @@
+def artifactId = 'com.touchbiz.cache.starter'
+
+dependencies {
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: "${commonLang3Version}"
+    implementation group: "org.aspectj", name: "aspectjweaver", version: "${aspectjVersion}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${ jacksonVersion }"
+    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${ springBootVersion }"
+    implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.8.0'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
+}
+
+
+uploadArchives {
+    configuration = configurations['archives']
+    repositories {
+        mavenDeployer {
+            // 注释1
+            pom.groupId = "$project.group"
+            pom.version = "$project.version"
+            pom.artifactId = "$artifactId"
+            // 注释2
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description '数据库访问公共类库'
+            }
+            // 注释3
+            repository(url: "$repositoryUrl") {
+                authentication(userName: "$mavenUserName", password: "$mavenPassword")
+            }
+        }
+    }
+}
+
