@@ -26,7 +26,7 @@ import java.util.Arrays;
 public class ResponseBodyResultHandlerAspect {
 
     @Autowired(required = false)
-    private LocaleMessage message;
+    private com.touchbiz.webflux.starter.configuration.LocaleMessage message;
 
     @SneakyThrows
     @Around(value = "execution(* org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler.handleResult(..)) && args(exchange, result)", argNames = "point,exchange,result")
@@ -35,10 +35,7 @@ public class ResponseBodyResultHandlerAspect {
             final Mono<ApiResult> responseMono = ((Mono) result.getReturnValue()).map(responseValue -> responseValue instanceof ApiResult ? responseValue : ApiResult.getCustomResponse(IResultMsg.APIEnum.SERVER_ERROR,responseValue));
             //对该处做处理，启用多语言的相关控制
             if(message != null) {
-                responseMono.subscribe(apiResult->{
-                    apiResult.setMessage(message.getMessage("ERROR_"+ apiResult.getStatus(),apiResult.getMessage(),exchange));
-
-                });
+                responseMono.subscribe(apiResult-> apiResult.setMessage(message.getMessage("ERROR_"+ apiResult.getStatus(),apiResult.getMessage(),exchange)));
             }
             return point.proceed(Arrays.asList(
                     exchange,

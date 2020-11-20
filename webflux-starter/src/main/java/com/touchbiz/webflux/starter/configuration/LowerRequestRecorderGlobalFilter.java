@@ -1,7 +1,9 @@
 package com.touchbiz.webflux.starter.configuration;
 
+import io.netty.handler.codec.http.HttpScheme;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
+import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -15,9 +17,11 @@ import java.net.URI;
 @Component
 public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
 
+    private final String[] pathIgnored = new String[]{"actuator","swagger","api-docs"};
+
     private Mono<Void> finishLog(ServerWebExchange ex) {
-        return LogUtil.recorderResponse(ex)
-                .doOnSuccess(x -> log.info(LogUtil.getLogData(ex) + "\n\n\n"));
+        return com.touchbiz.webflux.starter.configuration.LogUtil.recorderResponse(ex)
+                .doOnSuccess(x -> log.info(com.touchbiz.webflux.starter.configuration.LogUtil.getLogData(ex) + "\n\n\n"));
     }
 
     @Override
@@ -30,15 +34,22 @@ public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest originalRequest = exchange.getRequest();
         URI originalRequestUrl = originalRequest.getURI();
-
-        //只记录http的请求
-        String scheme = originalRequestUrl.getScheme();
-        if ((!"http".equals(scheme) && !"https".equals(scheme))) {
+        MediaType mediaType = originalRequest.getHeaders().getContentType();
+        if(mediaType != null &&  mediaType.equals(MediaType.MULTIPART_FORM_DATA)){
+            log.info("multi-data-request:url:{},header:{}",originalRequestUrl, originalRequest.getHeaders());
             return chain.filter(exchange);
         }
 
-        if (originalRequestUrl.getPath().contains("actuator")) {
+        //只记录http的请求
+        String scheme = originalRequestUrl.getScheme();
+        if ((!HttpScheme.HTTP.name().toString().equals(scheme) && !HttpScheme.HTTPS.name().toString().equals(scheme))) {
             return chain.filter(exchange);
+        }
+
+        for(String path : pathIgnored){
+            if (originalRequestUrl.getPath().contains(path)) {
+                return chain.filter(exchange);
+            }
         }
 
         String upgrade = originalRequest.getHeaders().getUpgrade();
@@ -46,18 +57,19 @@ public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
             return chain.filter(exchange);
         }
 
+
         // 在 GatewayFilter 之前执行， 此时的request时最初的request
-        RecorderServerHttpRequestDecorator request = new RecorderServerHttpRequestDecorator(exchange.getRequest());
+        com.touchbiz.webflux.starter.configuration.RecorderServerHttpRequestDecorator request = new com.touchbiz.webflux.starter.configuration.RecorderServerHttpRequestDecorator(exchange.getRequest());
 
         // 此时的response时 发送回客户端的 response
-        RecorderServerHttpResponseDecorator response = new RecorderServerHttpResponseDecorator(exchange.getResponse());
+        com.touchbiz.webflux.starter.configuration.RecorderServerHttpResponseDecorator response = new com.touchbiz.webflux.starter.configuration.RecorderServerHttpResponseDecorator(exchange.getResponse());
 
         ServerWebExchange ex = exchange.mutate()
                 .request(request)
                 .response(response)
                 .build();
 
-        return LogUtil.recorderOriginalRequest(ex)
+        return com.touchbiz.webflux.starter.configuration.LogUtil.recorderOriginalRequest(ex)
                 .then(Mono.defer(() -> chain.filter(ex)))
                 .then(Mono.defer(() -> finishLog(ex)));
     }

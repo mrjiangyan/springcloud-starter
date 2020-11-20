@@ -1,4 +1,4 @@
-//package com.touchbiz.log.starter;
+package com.touchbiz.log.starter;//package com.touchbiz.log.starter;
 //
 //
 //import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;

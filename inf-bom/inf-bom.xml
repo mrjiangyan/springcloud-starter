@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.touchbiz.ssp</groupId>
+    <artifactId>inf-bom</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <name>inf-bom</name>
+    <description>第三方jar包统一管理</description>
+
+    <properties>
+        <commonEntity.version>1.2.3.RELEASE</commonEntity.version>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <db-starter.version>2.1.0.RELEASE</db-starter.version>
+        <webflux-starter.version>2.1.0.RELEASE</webflux-starter.version>
+        <log-starter.version>1.1.30.RELEASE</log-starter.version>
+        <config-starter.version>2.1.0.RELEASE</config-starter.version>
+        <cache-starter.version>2.1.7.RELEASE</cache-starter.version>
+        <common.version>1.4.0.RELEASE</common.version>
+        <lombok.version>1.18.12</lombok.version>
+        <swagger3.version>3.0.0</swagger3.version>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+        <springcloudalibaba.version>2.2.1.RELEASE</springcloudalibaba.version>
+        <spring-cloud-commons.version>2.2.1.RELEASE</spring-cloud-commons.version>
+        <feign.form.version>3.8.0</feign.form.version>
+        <feign.form.spring.version>3.8.0</feign.form.spring.version>
+        <jmock.version>1.41</jmock.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.touchbiz</groupId>
+                <artifactId>common-entity</artifactId>
+                <version>${commonEntity.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.touchbiz</groupId>
+                <artifactId>common-utils</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.touchbiz.starter</groupId>
+                <artifactId>com.touchbiz.cache.starter</artifactId>
+                <version>${cache-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>fastjson</artifactId>
+                        <groupId>com.alibaba</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jackson-dataformat-xml</artifactId>
+                        <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- 数据库相关 直接使用中台基础库配置 -->
+            <dependency>
+                <groupId>com.touchbiz.starter</groupId>
+                <artifactId>com.touchbiz.db.starter</artifactId>
+                <version>${db-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.touchbiz.starter</groupId>
+                <artifactId>com.touchbiz.webflux.starter</artifactId>
+                <version>${webflux-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.touchbiz.starter</groupId>
+                <artifactId>com.touchbiz.config.starter</artifactId>
+                <version>${config-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.touchbiz.starter</groupId>
+                <artifactId>com.touchbiz.cache.starter</artifactId>
+                <version>${cache-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2041383-release-F0cHwt/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2041383-snapshot-zwplf4/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

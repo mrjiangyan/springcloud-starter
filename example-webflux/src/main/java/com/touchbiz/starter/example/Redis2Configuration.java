@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -17,7 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.time.Duration;
 
-@Configuration
+//@Configuration
 public class Redis2Configuration {
 
     @Value("${spring.redis2.timeout}")
@@ -29,8 +28,7 @@ public class Redis2Configuration {
     @Bean("redis2Pool")
     @ConfigurationProperties(prefix = "spring.redis2.lettuce.pool")
     public BaseObjectPoolConfig redisPool(){
-        GenericObjectPoolConfig config =  new GenericObjectPoolConfig();
-        return config;
+        return new GenericObjectPoolConfig();
     }
 
     /**
@@ -68,7 +66,7 @@ public class Redis2Configuration {
      * @return
      */
     @Bean(name = "redisTemplate2")
-    public RedisTemplate cacheRedisTemplate(Redis2Config config,  GenericObjectPoolConfig redis2Pool) {
+    public RedisTemplate cacheRedisTemplate(Redis2Config config, GenericObjectPoolConfig redis2Pool) {
         return RedisConfiguration.template(cacheRedisConnectionFactory(config,redis2Pool.clone()));
     }
     @Bean(name = "redisLettuceTemplate2")

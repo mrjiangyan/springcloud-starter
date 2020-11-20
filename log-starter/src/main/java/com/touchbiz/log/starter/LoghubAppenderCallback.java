@@ -1,4 +1,4 @@
-//package com.touchbiz.log.starter;
+package com.touchbiz.log.starter;//package com.touchbiz.log.starter;
 //
 //import com.aliyun.openservices.aliyun.log.producer.Callback;
 //import com.aliyun.openservices.aliyun.log.producer.Result;

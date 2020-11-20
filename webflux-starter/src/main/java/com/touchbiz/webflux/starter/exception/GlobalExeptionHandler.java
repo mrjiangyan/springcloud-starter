@@ -43,6 +43,7 @@ public class GlobalExeptionHandler {
         return ApiResult.getCustomResponse(IResultMsg.APIEnum.FAILED);
     }
 
+
     //500错误
     @ExceptionHandler({ConversionNotSupportedException.class, HttpMessageNotWritableException.class})
     public ApiResult server500(RuntimeException ex) {

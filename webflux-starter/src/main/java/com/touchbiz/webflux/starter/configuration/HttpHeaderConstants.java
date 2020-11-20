@@ -1,7 +1,7 @@
 package com.touchbiz.webflux.starter.configuration;
 
 /**
- * @Author: Steven Jiang(mrjiangyan@hotmail.com)
+ * @Author: Steven Jiang(jiangyan@touchbiz-cars.com)
  * @Date: 2018/9/28 12：00
  */
 public final class HttpHeaderConstants {
@@ -14,6 +14,9 @@ public final class HttpHeaderConstants {
     public static final String HEADER_TIMESTAMP = "timestamp";
     public static final String HEADER_TENMANT_ID = "tenantId";
     public static final String HEADER_PROJECT = "project";
+
+    public static final String HEADER_TOPLIST_SECRET = "touchbiz-API-Secret";
+    public static final String HEADER_TOPLIST_APPKEY = " touchbiz-API-Key";
 
     private HttpHeaderConstants() {
 

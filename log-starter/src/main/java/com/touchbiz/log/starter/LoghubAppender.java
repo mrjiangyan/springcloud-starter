@@ -1,4 +1,4 @@
-//package com.touchbiz.log.starter;
+package com.touchbiz.log.starter;//package com.touchbiz.log.starter;
 //
 //import ch.qos.logback.classic.spi.IThrowableProxy;
 //import ch.qos.logback.classic.spi.LoggingEvent;

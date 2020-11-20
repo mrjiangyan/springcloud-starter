@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface IRedisTemplate {
+
     /**
      * 指定缓存失效时间
      *
@@ -38,6 +39,8 @@ public interface IRedisTemplate {
     <T> boolean setObject(String key, T value, long time);
 
     long incr(String key, long delta);
+
+    long incr(String key);
 
     long decr(String key, long delta);
 
@@ -91,7 +94,35 @@ public interface IRedisTemplate {
 
     long lRemove(String key, long count, Object value);
 
-    <T> List<T> getObjectList(String key,Class<T> tClass);
+    <T> List<T> getObjectList(String key, Class<T> tClass);
 
-    boolean setObjectList(String key,List<?> list, long time);
+    boolean setObjectList(String key, List<?> list, long time);
+
+    /**
+     * 抢占设置
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    Boolean setNx(String key, Object value);
+
+    /**
+     * 抢占设置加时间
+     *
+     * @param key
+     * @param value
+     * @param timeout
+     * @return
+     */
+    Boolean setNx(String key, Object value, long timeout);
+
+    /**
+     * 先获取，没有并设置
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    Object getSet(String key, Object value);
 }

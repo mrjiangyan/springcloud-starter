@@ -38,7 +38,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -66,7 +66,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.hasKey(key);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -126,7 +126,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             redisTemplate.opsForValue().set(key, value);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -149,7 +149,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -166,7 +166,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -184,6 +184,11 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             throw new RuntimeException("递增因子必须大于0");
         }
         return redisTemplate.opsForValue().increment(key, delta);
+    }
+
+    @Override
+    public long incr(String key) {
+        return redisTemplate.opsForValue().increment(key);
     }
 
     /**
@@ -238,7 +243,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             redisTemplate.opsForHash().putAll(key, map);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -260,7 +265,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -279,7 +284,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             redisTemplate.opsForHash().put(key, item, value);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -302,7 +307,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -368,7 +373,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForSet().members(key);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return null;
         }
     }
@@ -385,7 +390,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForSet().isMember(key, value);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -402,7 +407,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForSet().add(key, values);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return 0;
         }
     }
@@ -424,7 +429,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return count;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return 0;
         }
     }
@@ -440,7 +445,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForSet().size(key);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return 0;
         }
     }
@@ -457,7 +462,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForSet().remove(key, values);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return 0;
         }
     }
@@ -476,7 +481,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForList().range(key, start, end);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return null;
         }
     }
@@ -492,7 +497,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForList().size(key);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return 0;
         }
     }
@@ -509,7 +514,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForList().index(key, index);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return null;
         }
     }
@@ -527,7 +532,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             redisTemplate.opsForList().rightPush(key, value);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -549,7 +554,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -567,7 +572,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             redisTemplate.opsForList().rightPushAll(key, value);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -589,7 +594,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             }
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -608,7 +613,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
             redisTemplate.opsForList().set(key, index, value);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return false;
         }
     }
@@ -626,7 +631,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
         try {
             return redisTemplate.opsForList().remove(key, count, value);
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
             return 0;
         }
     }
@@ -635,21 +640,55 @@ public class RedisLettuceTemplate implements IRedisTemplate {
     @Override
     public <T> List<T> getObjectList(String key, Class<T> tClass) {
         Object value = redisTemplate.opsForValue().get(key);
-        if(StringUtils.isEmpty(value)){
+        if (StringUtils.isEmpty(value)) {
             return Collections.emptyList();
         }
-        return JsonUtils.json2list((String)value,tClass);
+        return JsonUtils.json2list((String) value, tClass);
     }
 
     @Override
     public boolean setObjectList(String key, List<?> list, long time) {
         try {
             redisTemplate.opsForValue().set(key, JsonUtils.toJson(list));
-            expire(key,time);
+            expire(key, time);
             return true;
         } catch (Exception e) {
-            log.error("redis error:",e);
+            log.error("redis error:", e);
         }
         return false;
+    }
+
+    @Override
+    public Boolean setNx(String key, Object value) {
+        try {
+            Boolean result = redisTemplate.opsForValue().setIfAbsent(key, value);
+            if (result != null) {
+                return result;
+            }
+        } catch (Throwable e) {
+            log.error("setNXEX error", e);
+        }
+
+        return false;
+    }
+
+    @Override
+    public Boolean setNx(String key, Object value, long timeout) {
+        try {
+            Boolean result = redisTemplate.opsForValue().setIfAbsent(key, value, timeout, TimeUnit.SECONDS);
+            if (result != null) {
+                return result;
+            }
+        } catch (Throwable e) {
+            log.error("setNXEX error", e);
+        }
+
+        return false;
+    }
+
+    @Override
+    public Object getSet(String key, Object value) {
+        return key == null ? null : redisTemplate.opsForValue().getAndSet(key, value);
+
     }
 }

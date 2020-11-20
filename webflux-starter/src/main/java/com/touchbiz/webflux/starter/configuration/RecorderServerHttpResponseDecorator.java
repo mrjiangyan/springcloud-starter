@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class RecorderServerHttpResponseDecorator extends ServerHttpResponseDecorator {
-    private DataBufferWrapper data = null;
+    private com.touchbiz.webflux.starter.configuration.DataBufferWrapper data = null;
 
     public RecorderServerHttpResponseDecorator(ServerHttpResponse delegate) {
         super(delegate);
