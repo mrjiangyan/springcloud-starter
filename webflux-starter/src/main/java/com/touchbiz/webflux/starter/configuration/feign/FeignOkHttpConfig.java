@@ -22,9 +22,9 @@ public class FeignOkHttpConfig {
     @Bean
     public okhttp3.OkHttpClient client(OkHttpClientFactory httpClientFactory,
                                        FeignHttpClientProperties httpClientProperties) {
-        Boolean followRedirects = httpClientProperties.isFollowRedirects();
-        Integer connectTimeout = httpClientProperties.getConnectionTimeout();
-        Boolean disableSslValidation = httpClientProperties.isDisableSslValidation();
+        boolean followRedirects = httpClientProperties.isFollowRedirects();
+        int connectTimeout = httpClientProperties.getConnectionTimeout();
+        boolean disableSslValidation = httpClientProperties.isDisableSslValidation();
         return httpClientFactory.createBuilder(disableSslValidation)
                 .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
                 .followRedirects(followRedirects).connectionPool(new ConnectionPool())

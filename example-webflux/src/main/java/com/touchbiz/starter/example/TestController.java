@@ -1,17 +1,20 @@
 package com.touchbiz.starter.example;
 
 import com.touchbiz.cache.starter.annotation.MonoCacheable;
-import com.touchbiz.cache.starter.annotation.NonReactorCacheable;
+import com.touchbiz.cache.starter.annotation.RedisCache;
 import com.touchbiz.common.entity.exception.BizException;
 import com.touchbiz.common.entity.result.ApiResult;
+import com.touchbiz.webflux.starter.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -22,32 +25,16 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@Api("test")
-public class TestController {
-
-    @GetMapping
-    public Mono<Object> get(final ServerHttpRequest request) {
-        return Mono.just(request.getHeaders());
-    }
-
-    @NonReactorCacheable(keyPrefix = "AAA",redisKey = "#id")
-    @GetMapping("/long")
-    public Mono<Long> testLong(final ServerHttpRequest request) {
-        return Mono.just(1089713253179727872L);
-    }
+@Api
+public class TestController extends BaseController {
 
     @ApiOperation("dddd")
     @PostMapping
-    public Mono<ApiResult> post(@RequestBody AAA aaa) {
+    public Mono<ApiResult> post(@ApiIgnore ServerHttpRequest request, @RequestBody @Validated AAA aaa) {
         log.info("aaa:{}", aaa);
-
         return Mono.justOrEmpty(ApiResult.getSuccessResponse());
     }
 
-    @GetMapping("/test")
-    public ApiResult test() throws Exception {
-        throw new Exception("444");
-    }
 
     @PostMapping("/test")
     public Mono<ApiResult> test(@RequestBody @Valid AAA aaa) {
@@ -57,7 +44,7 @@ public class TestController {
 
     @SneakyThrows
     @GetMapping("/test/time/{id}")
-    @NonReactorCacheable(keyPrefix = "AAA",redisKey = "#id")
+    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
     public ApiResult<AAA> testLocalDateTime(@PathVariable("id") @Validated @Max(10) Integer id) {
         AAA a = new AAA();
         a.setTime(LocalDateTime.now());
@@ -67,18 +54,41 @@ public class TestController {
         return ApiResult.getSuccessResponse(a);
     }
 
+    @SneakyThrows
+    @GetMapping("/query")
+    @RedisCache(keyPrefix = "AAA",redisKey = "#query")
+    public ApiResult<AAA> query(AAA query) {
+        return ApiResult.getSuccessResponse(query);
+    }
+
     @GetMapping("/test/list")
     @MonoCacheable(keyPrefix = "REDIS", redisKey = "#id")
-    public Mono<ApiResult<List<AAA>>> testList(@RequestParam Integer id) {
+    Mono<ApiResult<List<AAA>>> testList(@RequestParam Integer id) {
+        log.info("---------testList----------");
         AAA a = new AAA();
         a.setTime(LocalDateTime.now());
         AAA b = new AAA();
         b.setTime(LocalDateTime.now().plusDays(1));
-        return Mono.just(ApiResult.getSuccessResponse(Arrays.asList(a,b)));
+        ApiResult result =  ApiResult.getSuccessResponse(Arrays.asList(a,b));
+        log.info("-----{}-----", result);
+        return Mono.just(result);
+    }
+
+    @GetMapping("/test/list2")
+    @MonoCacheable(keyPrefix = "REDIS", redisKey = "#id")
+    private Mono<ApiResult<List<AAA>>> testList2(@RequestParam Integer id) {
+        log.info("---------testList----------");
+        AAA a = new AAA();
+        a.setTime(LocalDateTime.now());
+        AAA b = new AAA();
+        b.setTime(LocalDateTime.now().plusDays(1));
+        ApiResult result =  ApiResult.getSuccessResponse(Arrays.asList(a,b));
+        log.info("-----{}-----", result);
+        return Mono.just(result);
     }
 
     @GetMapping("/test/list1")
-    @NonReactorCacheable(keyPrefix = "AAA",redisKey = "#id")
+    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
     public ApiResult<List<AAA>> testList1(@Valid @NotNull(message = "sdjksjf")Integer id) {
         AAA a = new AAA();
         a.setTime(LocalDateTime.now());

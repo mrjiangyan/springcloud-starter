@@ -19,7 +19,7 @@ public class SpringMonoCache<T> extends AbstractSpringRedisCache<T> implements M
      * @param redisTemplate The spring redisTemplate
      * @param type  The Class of region cache type
      */
-    public SpringMonoCache(com.touchbiz.cache.starter.IRedisTemplate redisTemplate, Class<T> type) {
+    public SpringMonoCache(IRedisTemplate redisTemplate, Class<T> type) {
         super(redisTemplate, type);
     }
 
@@ -31,7 +31,7 @@ public class SpringMonoCache<T> extends AbstractSpringRedisCache<T> implements M
      * @return The Mono type cache entity
      */
     @Override
-    public Mono<T> find(Mono<T> retriever, InternalCacheConfig config) {
+    public Mono<T> find(Object retriever, InternalCacheConfig config) {
         return generactorCacheWriter(retriever,config);
     }
 

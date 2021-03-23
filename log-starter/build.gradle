@@ -1,13 +1,17 @@
 def artifactId = 'com.touchbiz.log.starter'
 
 dependencies {
+    compile "org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}"
+    compile "org.springframework.cloud:spring-cloud-openfeign-core:${openFeignVersion}"
+    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    implementation group: "org.aspectj", name: "aspectjweaver", version: "${aspectjVersion}"
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-context', version: "${ springCloudVersion }"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${ springBootVersion }"
     implementation group: 'org.springframework', name: 'spring-web', version: "${ springVersion }"
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: "${ springBootVersion }"
     implementation group: 'joda-time', name: 'joda-time', version: '2.10'
     implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-
+    implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
+    implementation project(':config-starter')
 }
 
 

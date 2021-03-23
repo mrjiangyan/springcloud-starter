@@ -29,14 +29,22 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExeptionHandler {
 
-    //400错误
+    /**
+     * 400错误
+     * @param ex
+     * @return
+     */
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public ApiResult requestNotReadable(HttpMessageNotReadableException ex) {
         log.error("HttpMessageNotReadableException", ex);
         return ApiResult.getCustomResponse(IResultMsg.APIEnum.FAILED);
     }
 
-    //400错误
+    /**
+     * 400错误
+     * @param ex
+     * @return
+     */
     @ExceptionHandler({TypeMismatchException.class})
     public ApiResult requestTypeMismatch(TypeMismatchException ex) {
         log.error("TypeMismatchException", ex);
@@ -44,7 +52,11 @@ public class GlobalExeptionHandler {
     }
 
 
-    //500错误
+    /**
+     * 500错误
+     * @param ex
+     * @return
+     */
     @ExceptionHandler({ConversionNotSupportedException.class, HttpMessageNotWritableException.class})
     public ApiResult server500(RuntimeException ex) {
         log.error("500...", ex);
@@ -71,35 +83,12 @@ public class GlobalExeptionHandler {
         }));
     }
 
-    @ExceptionHandler(BizException.class)
-    public ApiResult<Void> bizExceptionHandle(BizException e) {
-        log.error("BizException error", e);
-        return ApiResult.getCustomResponse(e.getMsg());
-    }
-
-    @ExceptionHandler(ParamException.class)
-    public ApiResult paramExceptionHandle(ParamException e) {
-        log.error("ParamException error", e);
-        return ApiResult.getCustomResponse(e.getMsg());
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
     public ApiResult illegalArgumentExceptionHandler(IllegalArgumentException e) {
         log.warn("Illegal argument exception", e);
         return ApiResult.getCustomResponse(IResultMsg.APIEnum.PARAM_ERROR, e.getMessage());
     }
 
-    @ExceptionHandler(RpcException.class)
-    public ApiResult rpcExceptionHandler(RpcException e) {
-        log.error("Rpc exception", e);
-        return ApiResult.getCustomResponse(e.getMsg());
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ApiResult runtimeExceptionHandle(RuntimeException e) {
-        log.error("RuntimeException caught", e);
-        return ApiResult.getCustomResponse(IResultMsg.APIEnum.FAILED);
-    }
 
     @ExceptionHandler(Exception.class)
     public ApiResult exceptionHandle(Exception e) {

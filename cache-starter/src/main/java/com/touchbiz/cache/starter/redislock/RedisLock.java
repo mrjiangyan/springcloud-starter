@@ -70,7 +70,7 @@ public @interface RedisLock {
         /**
          * 对象属性
          */
-        OBJECT_PROPERTIES;
+        OBJECT_PROPERTIES
     }
 
 
@@ -86,6 +86,6 @@ public @interface RedisLock {
         /**
          * 返回NULL
          */
-        RETURN_NULL;
+        RETURN_NULL
     }
 }

@@ -13,20 +13,19 @@ import java.util.UUID;
 @Slf4j
 public class DistributedRedisLock {
 
-    private RedisTemplate<Object, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
-    private ThreadLocal<String> lockKey = new ThreadLocal<>();
+    private final ThreadLocal<String> lockKey = new ThreadLocal<>();
 
     public static final String UNLOCK_LUA;
 
     static {
-        String sb = "if redis.call(\"get\",KEYS[1]) == ARGV[1] " +
+        UNLOCK_LUA = "if redis.call(\"get\",KEYS[1]) == ARGV[1] " +
                 "then " +
                 "    return redis.call(\"del\",KEYS[1]) " +
                 "else " +
                 "    return 0 " +
                 "end ";
-        UNLOCK_LUA = sb;
     }
 
     public DistributedRedisLock(RedisTemplate<Object, Object> redisTemplate) {

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * * dev环境开启swagger文档【启用swagger之前，请配置如下三个变量swagger.enable,swagger.title,swagger.basePackage】
  *
- * @Author: Steven Jiang(mrjiangyan@hotmail.com)
+ * @Author: Steven Jiang(jiangyan@touchbiz.com.cn)
  * @Date: 2018/9/28 12：00
  */
 @Data

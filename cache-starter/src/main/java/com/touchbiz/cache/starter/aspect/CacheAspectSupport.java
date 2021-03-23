@@ -2,13 +2,15 @@ package com.touchbiz.cache.starter.aspect;
 
 import com.touchbiz.cache.starter.IRedisTemplate;
 import com.touchbiz.cache.starter.annotation.MonoCacheable;
-import com.touchbiz.cache.starter.annotation.NonReactorCacheable;
+import com.touchbiz.cache.starter.annotation.RedisCache;
 import com.touchbiz.cache.starter.reactor.InternalCacheConfig;
 import com.touchbiz.cache.starter.reactor.ReactorCache;
 import com.touchbiz.cache.starter.reactor.SpringMonoCache;
 import com.touchbiz.cache.starter.reactor.SpringNonReactorCache;
+import lombok.var;
 import org.springframework.cache.interceptor.CacheOperationInvoker;
 import org.springframework.util.Assert;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
@@ -24,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 class CacheAspectSupport extends AbstractAnnotationCacheAspect {
 
-    //    private final ConcurrentHashMap<Cache, ReactorCache> cacheResolverMap;
     private final ConcurrentHashMap<Method, Class<?>> cacheTypeMap;
 
     /**
@@ -52,11 +53,11 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
                 annotation.ignoreError(),
                 annotation.errorExpire());
 
-        return execute(invoker.invoke(), returnType, config,annotation);
+        return execute(invoker, returnType, config,annotation);
     }
 
 
-    Object execute(NonReactorCacheable annotation, final CacheOperationInvoker invoker, final Method method, final Object[] args) {
+    Object execute(RedisCache annotation, final CacheOperationInvoker invoker, final Method method, final Object[] args) {
         Assert.notNull(invoker, "CacheOperationInvoker should be not null");
         Assert.notNull(method, "Method should be not null");
         Assert.notEmpty(args, "Method argument should be not empty");
@@ -70,25 +71,22 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
                 annotation.ignoreError(),
                 annotation.errorExpire());
 
-        return execute(invoker.invoke(), returnType, config,annotation);
+        return execute(invoker, returnType, config,annotation);
     }
 
     @SuppressWarnings("unchecked")
-    private Object execute(final Object proceed,final Class<?> type, final InternalCacheConfig config,final Object annonation) {
-        Assert.notNull(proceed, "Proceed object should be not null");
+    private Object execute(final CacheOperationInvoker invoker,final Class<?> type, final InternalCacheConfig config,final Object annonation) {
+        Assert.notNull(invoker, "Proceed invoker should be not null");
         Assert.notNull(config, "Cache key should be not null");
         Assert.notNull(type, "Cache type should be not null");
 
         final ReactorCache cacheResolver = getCacheResolver(type,annonation instanceof MonoCacheable);
-        return cacheResolver.find(annonation instanceof MonoCacheable ? proceed: Mono.just(proceed), config);
+        return cacheResolver.find(invoker, config);
     }
 
     @SuppressWarnings("unchecked")
     private ReactorCache getCacheResolver(final Class<?> type,Boolean isMono) {
-        if(isMono){
-            return new SpringMonoCache(redisTemplate, type);
-        }
-        return new SpringNonReactorCache(redisTemplate, type);
+        return isMono ? new SpringMonoCache(redisTemplate, type) : new SpringNonReactorCache(redisTemplate, type);
     }
 
 
@@ -96,16 +94,17 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
         try {
             return cacheTypeMap.computeIfAbsent(method, m -> {
                 final ParameterizedType parameterizedType = (ParameterizedType) m.getGenericReturnType();
-                if(parameterizedType.getActualTypeArguments()[0] instanceof ParameterizedTypeImpl){
-                    ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType.getActualTypeArguments()[0];
-                    return type.getRawType();
-                }
-                if(parameterizedType instanceof ParameterizedTypeImpl){
+                if(!parameterizedType.getRawType().equals(Mono.class) && !parameterizedType.getRawType().equals(Flux.class)){
                     ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType;
                     return type.getRawType();
                 }
-                ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType.getActualTypeArguments()[0];
-                return type.getRawType();
+                var clazz = parameterizedType.getActualTypeArguments()[0];
+                if(clazz instanceof ParameterizedTypeImpl){
+                    ParameterizedTypeImpl type = (ParameterizedTypeImpl)clazz;
+                    return type.getRawType();
+                }
+                return (Class<?>) clazz;
+
             });
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid return type");

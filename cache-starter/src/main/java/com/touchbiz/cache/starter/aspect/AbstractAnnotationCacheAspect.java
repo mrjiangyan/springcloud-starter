@@ -1,22 +1,15 @@
 package com.touchbiz.cache.starter.aspect;
 
 import com.touchbiz.cache.starter.SpelParser;
-import lombok.Getter;
-import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 
-@RefreshScope
 abstract class AbstractAnnotationCacheAspect {
 
-    @Value("${enableCache:true}")
-    @Getter
-    protected Boolean enableCache;
 
     /**
      * 获取返回类型
@@ -24,17 +17,7 @@ abstract class AbstractAnnotationCacheAspect {
      * @param point
      * @return
      */
-    protected Class getAnnotatedReturnType(ProceedingJoinPoint point) {
-        return getMethod(point).getReturnType();
-    }
-
-    /**
-     * 获取返回类型
-     *
-     * @param point
-     * @return
-     */
-    protected Method getMethod(ProceedingJoinPoint point) {
+    protected Method getMethod(JoinPoint point) {
         //获取方法
         return ((MethodSignature) (point.getSignature())).getMethod();
     }

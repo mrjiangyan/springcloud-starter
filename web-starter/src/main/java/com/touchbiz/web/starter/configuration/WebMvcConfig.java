@@ -12,10 +12,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 /**
  * @author rt (wangyi20@meituan.com)
@@ -26,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
-        return new StringHttpMessageConverter(Charset.forName(UTF_8));
+        return new StringHttpMessageConverter(StandardCharsets.UTF_8);
     }
 
     /**

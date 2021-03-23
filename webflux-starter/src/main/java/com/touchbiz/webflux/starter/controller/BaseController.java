@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * @Author: Steven Jiang(mrjiangyan@hotmail.com)
+ * @Author: Steven Jiang(jiangyan@touchbiz-cars.com)
  * @Date: 2018/9/28 12：00
  */
 @Slf4j

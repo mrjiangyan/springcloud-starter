@@ -30,14 +30,10 @@ class ReactorAnnotationCacheAspect extends AbstractAnnotationCacheAspect{
     }
 
     @Around("@annotation(redisCache) && " +
-            "executionOfAnyPublicMonoMethod()")
+            "executionOfAnyMonoMethod()")
     final Object around(final ProceedingJoinPoint joinPoint, MonoCacheable redisCache) throws Throwable {
         final Method method = getMethod(joinPoint);
         final Object[] args = joinPoint.getArgs().clone();
-
-        if(!getEnableCache()){
-            return joinPoint.proceed(args);
-        }
 
         final CacheOperationInvoker aspectJInvoker = () -> {
             try {
@@ -58,8 +54,8 @@ class ReactorAnnotationCacheAspect extends AbstractAnnotationCacheAspect{
         return joinPoint.proceed(args);
     }
 
-
     @Pointcut(value = "execution(reactor.core.publisher.Mono *(..))")
-    private void executionOfAnyPublicMonoMethod() {
+    private void executionOfAnyMonoMethod() {
     }
+
 }

@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
  * @param <T> The Mono type of return value
  * @author Minkiu Kim
  */
-public interface MonoCache<T> extends ReactorCache<Mono<T>, Mono<T>> {
+public interface MonoCache<T> extends ReactorCache<Object, Mono<T>> {
 
     /**
      * Find Mono cache entity for the given key.
@@ -18,6 +18,6 @@ public interface MonoCache<T> extends ReactorCache<Mono<T>, Mono<T>> {
      * @return The Mono type cache entity
      */
     @Override
-    Mono<T> find(Mono<T> retriever, InternalCacheConfig config);
+    Mono<T> find(Object retriever, InternalCacheConfig config);
 
 }

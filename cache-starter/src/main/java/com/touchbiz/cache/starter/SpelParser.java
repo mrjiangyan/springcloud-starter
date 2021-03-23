@@ -1,5 +1,6 @@
 package com.touchbiz.cache.starter;
 
+import com.touchbiz.common.utils.tools.JsonUtils;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -25,8 +26,8 @@ public class SpelParser {
             return null;
         }
         for (int i = 0; i < args.length; i++) {
-            String s = args[i].toString();
-            context.setVariable(paramsNames[i], s);
+            String param = JsonUtils.toJson(args[i]);
+            context.setVariable(paramsNames[i], param);
         }
         return exp.getValue(context, String.class);
 

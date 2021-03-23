@@ -1,5 +1,6 @@
 package com.touchbiz.cache.starter;
 
+import com.touchbiz.common.entity.exception.ParamException;
 import com.touchbiz.common.utils.tools.JsonUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -181,7 +182,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
     @Override
     public long incr(String key, long delta) {
         if (delta < 0) {
-            throw new RuntimeException("递增因子必须大于0");
+            throw new ParamException("递增因子必须大于0");
         }
         return redisTemplate.opsForValue().increment(key, delta);
     }
@@ -201,7 +202,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
     @Override
     public long decr(String key, long delta) {
         if (delta < 0) {
-            throw new RuntimeException("递减因子必须大于0");
+            throw new ParamException("递减因子必须大于0");
         }
         return redisTemplate.opsForValue().increment(key, -delta);
     }

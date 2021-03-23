@@ -2,17 +2,13 @@ def artifactId = 'com.touchbiz.cache.starter'
 
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${ springBootVersion }"
-
-    compile group: 'io.projectreactor.addons', name: 'reactor-extra', version: '3.4.0'
-
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: "${commonLang3Version}"
-    implementation group: "org.aspectj", name: "aspectjweaver", version: "${aspectjVersion}"
     implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${ jacksonVersion }"
     implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-context', version: "${ springCloudVersion }"
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${ springBootVersion }"
+
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.8.0'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }

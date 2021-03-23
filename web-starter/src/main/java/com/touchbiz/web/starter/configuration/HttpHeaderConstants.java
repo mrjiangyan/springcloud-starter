@@ -1,7 +1,7 @@
 package com.touchbiz.web.starter.configuration;
 
 /**
- * @Author: Steven Jiang(mrjiangyan@hotmail.com)
+ * @Author: Steven Jiang(jiangyan@touchbiz-cars.com)
  * @Date: 2018/9/28 12：00
  */
 public final class HttpHeaderConstants {

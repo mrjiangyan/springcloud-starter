@@ -9,26 +9,22 @@ group = 'com.touchbiz.starter'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-//repositories {
-//    mavenCentral()
-//}
-
-
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${ springBootVersion }"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: "${springBootVersion}"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${springBootVersion}"
     compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.8.0'
-//    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${ springBootVersion }")
-//    implementation(group: 'org.springframework.boot', name: 'spring-boot', version: "${ springBootVersion }")
     implementation project(':webflux-starter')
     implementation project(':cache-starter')
+    implementation project(':log-starter')
     implementation project(':config-starter')
-//    implementation project(':cache-starter')
-//    implementation project(':log-starter')
-
-
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compile 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.2'
+    compile 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.1.RELEASE'
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: "${springBootVersion}"
+
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.3.RELEASE'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }

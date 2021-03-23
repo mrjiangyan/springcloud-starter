@@ -43,10 +43,7 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
         Field[] fields = result.getClass().getDeclaredFields();
 
         //进行对象转map操作
-        int var5 = fields.length;
-
-        for(int var6 = 0; var6 < var5; ++var6) {
-            Field field = fields[var6];
+        for (Field field : fields) {
             field.setAccessible(true);
             map.put(field.getName(), field.get(result));
         }

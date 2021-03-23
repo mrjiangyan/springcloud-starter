@@ -15,7 +15,7 @@ import java.util.*;
 @Aspect
 public class DistributedRedisLockAspect {
 
-    private DistributedRedisLock distributedRedisLock;
+    private final DistributedRedisLock distributedRedisLock;
 
     public DistributedRedisLockAspect(DistributedRedisLock distributedRedisLock) {
         this.distributedRedisLock = distributedRedisLock;
@@ -30,11 +30,11 @@ public class DistributedRedisLockAspect {
         String key = redisLock.key();
         if (StringUtils.isBlank(key)) {
             Object[] args = pjp.getArgs();
-            if (redisLock.bindType().equals(RedisLock.BindType.DEFAULT)) {
+            if (RedisLock.BindType.DEFAULT.equals(redisLock.bindType())) {
                 key = StringUtils.join(args);
-            } else if (redisLock.bindType().equals(RedisLock.BindType.ARGS_INDEX)) {
+            } else if (RedisLock.BindType.ARGS_INDEX.equals(redisLock.bindType())) {
                 key = getArgsKey(redisLock, args);
-            } else if (redisLock.bindType().equals(RedisLock.BindType.OBJECT_PROPERTIES)) {
+            } else if (RedisLock.BindType.OBJECT_PROPERTIES.equals(redisLock.bindType())) {
                 key = getObjectPropertiesKey(redisLock, args);
             }
         }
@@ -100,12 +100,25 @@ public class DistributedRedisLockAspect {
             Object argObject = args[classNamesArgsIndex.get(className)];
 
             Class<?> clazz = classNameClass.get(className);
-            Field field = clazz.getDeclaredField(propertiesName);
+
+            Field field = findFiled(clazz, propertiesName);
             field.setAccessible(true);
             Object object = field.get(argObject);
             keylist.add(object);
         }
         return StringUtils.join(keylist.toArray());
+    }
+
+    private Field findFiled(Class<?> clazz,String  propertiesName){
+        for(Field filed : clazz.getDeclaredFields()){
+            if(filed.getName().equals(propertiesName)){
+                return filed;
+            }
+        }
+        if(clazz.getSuperclass() == null){
+            return null;
+        }
+        return findFiled(clazz.getSuperclass(), propertiesName);
     }
 
     /**
@@ -131,7 +144,6 @@ public class DistributedRedisLockAspect {
      * @return Map<类名, 类>
      */
     private Map<String, Class<?>> getClassNameClass(Object[] args) {
-        int len = args.length;
         Map<String, Class<?>> nameClass = new HashMap<>();
         for (Object arg : args) {
             Class<?> clazz = arg.getClass();

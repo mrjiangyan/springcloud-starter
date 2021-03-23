@@ -26,7 +26,7 @@ import java.util.Arrays;
 public class ResponseBodyResultHandlerAspect {
 
     @Autowired(required = false)
-    private com.touchbiz.webflux.starter.configuration.LocaleMessage message;
+    private LocaleMessage message;
 
     @SneakyThrows
     @Around(value = "execution(* org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler.handleResult(..)) && args(exchange, result)", argNames = "point,exchange,result")

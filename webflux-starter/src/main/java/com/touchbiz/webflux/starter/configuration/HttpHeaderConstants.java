@@ -10,13 +10,11 @@ public final class HttpHeaderConstants {
     public static final String HEADER_TRACE = "traceId";
     public static final String HEADER_TOKEN = "token";
     public static final String HEADER_USER = "user";
+    public static final String HEADER_CHANNEL = "channel";
     public static final String HEADER_APP_KEY = "appKey";
     public static final String HEADER_TIMESTAMP = "timestamp";
     public static final String HEADER_TENMANT_ID = "tenantId";
     public static final String HEADER_PROJECT = "project";
-
-    public static final String HEADER_TOPLIST_SECRET = "touchbiz-API-Secret";
-    public static final String HEADER_TOPLIST_APPKEY = " touchbiz-API-Key";
 
     private HttpHeaderConstants() {
 

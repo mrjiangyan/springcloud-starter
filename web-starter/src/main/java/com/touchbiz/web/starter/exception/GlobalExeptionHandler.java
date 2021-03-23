@@ -43,6 +43,21 @@ public class GlobalExeptionHandler {
         return ApiResult.getCustomResponse(IResultMsg.APIEnum.FAILED);
     }
 
+
+    //405错误
+    @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
+    public ApiResult request405(HttpRequestMethodNotSupportedException ex) {
+        log.error("405...", ex);
+        return ApiResult.getCustomResponse(IResultMsg.APIEnum.FAILED);
+    }
+
+    //406错误
+    @ExceptionHandler({HttpMediaTypeNotAcceptableException.class})
+    public ApiResult request406(HttpMediaTypeNotAcceptableException ex) {
+        log.error("406...", ex);
+        return ApiResult.getCustomResponse(IResultMsg.APIEnum.FAILED);
+    }
+
     //500错误
     @ExceptionHandler({ConversionNotSupportedException.class, HttpMessageNotWritableException.class})
     public ApiResult server500(RuntimeException ex) {
@@ -68,6 +83,17 @@ public class GlobalExeptionHandler {
         return ApiResult.getCustomResponse(IResultMsg.APIEnum.PARAM_ERROR, e.getMessage());
     }
 
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ApiResult missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        log.warn("Required parameter missing", e);
+        return ApiResult.getCustomResponse(IResultMsg.APIEnum.PARAM_ERROR, e.getMessage());
+    }
+
+//    @ExceptionHandler
+//    public ApiResult handleResourceNotFoundException(NoHandlerFoundException nhre) {
+//        log.error(nhre.getMessage(), nhre);
+//        return ApiResult.getErrorResponse(nhre);
+//    }
 
     @ExceptionHandler(RpcException.class)
     public ApiResult rpcExceptionHandler(RpcException e) {

@@ -1,0 +1,28 @@
+def artifactId = 'com.touchbiz.validation.starter'
+
+dependencies {
+}
+
+
+uploadArchives {
+    configuration = configurations['archives']
+    repositories {
+        mavenDeployer {
+            // 注释1
+            pom.groupId = "$project.group"
+            pom.version = "$project.version"
+            pom.artifactId = "$artifactId"
+            // 注释2
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description '数据验证公共类库'
+            }
+            // 注释3
+            repository(url: "$repositoryUrl") {
+                authentication(userName: "$mavenUserName", password: "$mavenPassword")
+            }
+        }
+    }
+}
+

@@ -1,5 +1,8 @@
-package com.touchbiz.webflux.starter.configuration;
+package com.touchbiz.webflux.starter.filter;
 
+import com.touchbiz.webflux.starter.configuration.LogUtil;
+import com.touchbiz.webflux.starter.configuration.RecorderServerHttpRequestDecorator;
+import com.touchbiz.webflux.starter.configuration.RecorderServerHttpResponseDecorator;
 import io.netty.handler.codec.http.HttpScheme;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -17,11 +20,11 @@ import java.net.URI;
 @Component
 public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
 
-    private final String[] pathIgnored = new String[]{"actuator","swagger","api-docs"};
+    private final String[] pathIgnored = new String[]{"actuator","swagger","api-docs","doc.html","webjars"};
 
     private Mono<Void> finishLog(ServerWebExchange ex) {
-        return com.touchbiz.webflux.starter.configuration.LogUtil.recorderResponse(ex)
-                .doOnSuccess(x -> log.info(com.touchbiz.webflux.starter.configuration.LogUtil.getLogData(ex) + "\n\n\n"));
+        return LogUtil.recorderResponse(ex)
+                .doOnSuccess(x -> log.info(LogUtil.getLogData(ex)));
     }
 
     @Override
@@ -33,10 +36,12 @@ public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest originalRequest = exchange.getRequest();
+        if (originalRequest.getURI().getRawPath().contains("favicon.ico")) {
+            return exchange.getResponse().setComplete();
+        }
         URI originalRequestUrl = originalRequest.getURI();
         MediaType mediaType = originalRequest.getHeaders().getContentType();
         if(mediaType != null &&  mediaType.equals(MediaType.MULTIPART_FORM_DATA)){
-            log.info("multi-data-request:url:{},header:{}",originalRequestUrl, originalRequest.getHeaders());
             return chain.filter(exchange);
         }
 
@@ -59,17 +64,17 @@ public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
 
 
         // 在 GatewayFilter 之前执行， 此时的request时最初的request
-        com.touchbiz.webflux.starter.configuration.RecorderServerHttpRequestDecorator request = new com.touchbiz.webflux.starter.configuration.RecorderServerHttpRequestDecorator(exchange.getRequest());
+        RecorderServerHttpRequestDecorator request = new RecorderServerHttpRequestDecorator(exchange.getRequest());
 
         // 此时的response时 发送回客户端的 response
-        com.touchbiz.webflux.starter.configuration.RecorderServerHttpResponseDecorator response = new com.touchbiz.webflux.starter.configuration.RecorderServerHttpResponseDecorator(exchange.getResponse());
+        RecorderServerHttpResponseDecorator response = new RecorderServerHttpResponseDecorator(exchange.getResponse());
 
         ServerWebExchange ex = exchange.mutate()
                 .request(request)
                 .response(response)
                 .build();
 
-        return com.touchbiz.webflux.starter.configuration.LogUtil.recorderOriginalRequest(ex)
+        return LogUtil.recorderOriginalRequest(ex)
                 .then(Mono.defer(() -> chain.filter(ex)))
                 .then(Mono.defer(() -> finishLog(ex)));
     }

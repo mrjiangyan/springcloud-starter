@@ -8,13 +8,24 @@ spring:
     throw-exception-if-no-handler-found: true
   main:
     allow-bean-definition-overriding: true
-  jackson:
-    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+
   messages:
     basename: i18n/messages
     cache-second: 3600
     encoding: UTF-8
-
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    max-active: 300
+    password:
+    timeout: 500
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 500
+        min-idle: 0
 management:
   endpoints:
     web:
@@ -46,11 +57,25 @@ hystrix:
 logging:
   config: classpath:logback-spring.xml
 
-swagger:
+knife4j:
   enable: true
-  host: www.baidu.com
+  title: Standrad Demo
 
-springfox:
-  documentation:
-      open-api:
-        enabled: true
+
+
+ribbon:
+  okhttp:
+    enabled: true
+  http:
+    client:
+      enabled: false
+
+feign:
+  httpclient:
+    enabled: false
+    max-connections: 500
+  okhttp:
+    enabled: true
+
+
+

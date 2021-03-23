@@ -27,14 +27,14 @@ public class RedisConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.redis.lettuce.pool")
-    public GenericObjectPoolConfig redisPool(){
+    public GenericObjectPoolConfig redisPool() {
         return new GenericObjectPoolConfig();
     }
 
     @Bean
     public RedisStandaloneConfiguration redisConf(RedisConfig config) {
         RedisStandaloneConfiguration redisConfiguration = new
-                RedisStandaloneConfiguration(config.getHost(),config.getPort());
+                RedisStandaloneConfiguration(config.getHost(), config.getPort());
         redisConfiguration.setDatabase(config.getDatabase());
         redisConfiguration.setPassword(config.getPassword());
         return redisConfiguration;
@@ -54,7 +54,7 @@ public class RedisConfiguration {
         return template(factory);
     }
 
-    public static RedisTemplate<String, Object> template(LettuceConnectionFactory factory){
+    public static RedisTemplate<String, Object> template(LettuceConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
 

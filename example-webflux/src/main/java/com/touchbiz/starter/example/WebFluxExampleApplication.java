@@ -1,65 +1,50 @@
 package com.touchbiz.starter.example;
 
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.touchbiz.webflux.starter.configuration.feign.FeignConfiguration;
 import com.touchbiz.webflux.starter.controller.BaseController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
 @EnableWebFlux
-@EnableCaching
-@EnableAspectJAutoProxy
-@EnableDiscoveryClient
+@EnableAsync
 @SpringBootApplication(scanBasePackages = {
         "com.touchbiz.starter.example",
         "com.touchbiz.webflux.starter",
         "com.touchbiz.cache.starter",
+        "com.touchbiz.log.starter",
         "com.touchbiz.config.starter",
-        "com.alibaba.cloud.nacos",
-//        "com.touchbiz.db.starter",
 })
+
+@EnableKnife4j
+@EnableDiscoveryClient
+@EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableFeignClients(basePackages = {},defaultConfiguration = FeignConfiguration.class)
 public class WebFluxExampleApplication extends BaseController {
-
-//    @Qualifier("redisLettuceTemplate")
-//    @Autowired
-//    private IRedisTemplate redisTemplate;
-
-//    @Qualifier("redisLettuceTemplate2")
-//    @Autowired
-//    private IRedisTemplate redisTemplate2;
 
     public static void main(String[] args) {
         SpringApplication.run(WebFluxExampleApplication.class, args);
     }
 
-
-
-
-//    @Bean
-//    public ObjectMapper serializingObjectMapper() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-//        objectMapper.registerModule(new JavaTimeModule());
-//        return objectMapper;
-//    }
-
-//    @Bean
-//    public Formatter<LocalDateTime> localDateTimeFormatter() {
-//        return new Formatter<LocalDateTime>() {
-//            @Override
-//            public String print(LocalDateTime object, Locale locale) {
-//                return object.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//            }
+//    public static final String META_INF_RESOURCES = "classpath:/META-INF/resources/";
+//    ImmutableMap<String,
+//                String> webResourceMap = new ImmutableMap.Builder<String, String>().put("doc.html", META_INF_RESOURCES)
+//            .put("/webjars/**", "classpath:/META-INF/resources/webjars/").put("/service-worker.js", META_INF_RESOURCES)
+//            .put("/precache-manifest.*.js", META_INF_RESOURCES).build();
 //
-//            @Override
-//            public LocalDateTime parse(String text, Locale locale) throws ParseException {
-//                return LocalDateTime.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//            }
-//        };
+//
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        ImmutableSet<Map.Entry<String, String>> webResourceSet = webResourceMap.entrySet();
+//        webResourceSet.forEach(x -> registry.addResourceHandler(x.getKey()).addResourceLocations(x.getValue()));
 //    }
+
 
 
 }

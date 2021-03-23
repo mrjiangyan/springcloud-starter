@@ -3,7 +3,6 @@ package com.touchbiz.cache.starter.reactor;
 import com.touchbiz.cache.starter.IRedisTemplate;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
 
 /**
  * Mono cache implementation for spring cache
@@ -12,7 +11,7 @@ import reactor.core.publisher.Mono;
  * @author Minkiu Kim
  */
 @Slf4j
-public class SpringNonReactorCache<T> extends AbstractSpringRedisCache<T> implements ReactorCache<Mono<T>, T> {
+public class SpringNonReactorCache<T> extends AbstractSpringRedisCache<T> implements ReactorCache<Object, T> {
 
     public SpringNonReactorCache(IRedisTemplate redisTemplate, Class<T> type) {
         super(redisTemplate, type);
@@ -27,7 +26,7 @@ public class SpringNonReactorCache<T> extends AbstractSpringRedisCache<T> implem
      */
     @SneakyThrows
     @Override
-    public T find(Mono<T> retriever, InternalCacheConfig config) {
+    public T find(Object retriever, InternalCacheConfig config) {
         return generactorCacheWriter(retriever,config).toFuture().get();
 
     }

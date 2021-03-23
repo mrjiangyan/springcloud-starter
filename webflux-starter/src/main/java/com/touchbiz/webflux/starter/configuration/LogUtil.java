@@ -16,7 +16,11 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * @author steven
+ */
 public class LogUtil {
+
     private final static String REQUEST_RECORDER_LOG_BUFFER = "RequestRecorderGlobalFilter.request_recorder_log_buffer";
 
     private static boolean hasBody(HttpMethod method) {
@@ -37,11 +41,11 @@ public class LogUtil {
         //form没有记录
     }
 
-    private static Mono<Void> doRecordBody(StringBuffer logBuffer, Flux<DataBuffer> body, Charset charset) {
+    private static Mono<Void> doRecordBody(StringBuilder logBuffer, Flux<DataBuffer> body, Charset charset) {
+        logBuffer.append(",responseData:");
         return DataBufferUtilFix.join(body)
                 .doOnNext(wrapper -> {
                     logBuffer.append(new String(wrapper.getData(), charset));
-                    logBuffer.append("\n------------ end ------------\n\n");
                     wrapper.clear();
                 }).then();
     }
@@ -55,14 +59,14 @@ public class LogUtil {
     }
 
     public static Mono<Void> recorderOriginalRequest(ServerWebExchange exchange) {
-        StringBuffer logBuffer = new StringBuffer();
+        StringBuilder logBuffer = new StringBuilder();
         exchange.getAttributes().put(REQUEST_RECORDER_LOG_BUFFER, logBuffer);
 
         ServerHttpRequest request = exchange.getRequest();
-        return recorderRequest(request, request.getURI(), logBuffer.append("Origin Request:"));
+        return recorderRequest(request, request.getURI(), logBuffer.append("requestUrl:"));
     }
 
-    private static Mono<Void> recorderRequest(ServerHttpRequest request, URI uri, StringBuffer logBuffer) {
+    private static Mono<Void> recorderRequest(ServerHttpRequest request, URI uri, StringBuilder logBuffer) {
         if (uri == null) {
             uri = request.getURI();
         }
@@ -72,26 +76,18 @@ public class LogUtil {
 
         logBuffer
                 .append(method.toString()).append(' ')
-                .append(uri.toString()).append('\n');
+                .append(uri.toString());
 
-        logBuffer.append("------------request header------------\n");
-        headers.forEach((name, values) -> values.forEach(value -> logBuffer.append(name).append(":").append(value).append('\n')));
+        logBuffer.append(",requestHeader:");
+        headers.forEach((name, values) -> values.forEach(value -> logBuffer.append(name).append(":").append(value).append(';')));
 
         Charset bodyCharset = null;
         if (hasBody(method)) {
             long length = headers.getContentLength();
-            if (length <= 0) {
-                logBuffer.append("------------No body------------\n");
-            } else {
-                logBuffer.append("------------body length:").append(length).append(" contentType:");
+            if (length >0) {
                 MediaType contentType = headers.getContentType();
-                if (contentType == null) {
-                    logBuffer.append("null，not record body------------\n");
-                } else if (!shouldRecordBody(contentType)) {
-                    logBuffer.append(contentType.toString());
-                } else {
-                    bodyCharset = getMediaTypeCharset(contentType);
-                    logBuffer.append(contentType.toString()).append("------------\n");
+                if (contentType != null && shouldRecordBody(contentType)) {
+                   bodyCharset = getMediaTypeCharset(contentType);
                 }
             }
         }
@@ -100,48 +96,42 @@ public class LogUtil {
         if (bodyCharset != null) {
             return doRecordBody(logBuffer, request.getBody(), bodyCharset);
         } else {
-            logBuffer.append("------------ end ------------\n\n");
             return Mono.empty();
         }
     }
 
     public static Mono<Void> recorderResponse(ServerWebExchange exchange) {
         RecorderServerHttpResponseDecorator response = (RecorderServerHttpResponseDecorator) exchange.getResponse();
-        StringBuffer logBuffer = exchange.getAttribute(REQUEST_RECORDER_LOG_BUFFER);
+        StringBuilder logBuffer = exchange.getAttribute(REQUEST_RECORDER_LOG_BUFFER);
 
         HttpStatus code = response.getStatusCode();
         if (code == null) {
-            logBuffer.append("Return error").append("\n------------ end ------------\n");
             return Mono.empty();
         }
 
-        logBuffer.append("respponse:").append(code.value()).append(" ").append(code.getReasonPhrase());
+        logBuffer.append(",responseCode:").append(code.value());
 
         HttpHeaders headers = response.getHeaders();
-        logBuffer.append("\n------------response header------------\n");
-        headers.forEach((name, values) -> values.forEach(value -> logBuffer.append(name).append(":").append(value).append('\n')));
+        logBuffer.append(",responseHeader:");
+        headers.forEach((name, values) -> values.forEach(value -> logBuffer.append(name).append(":").append(value).append(';')));
 
         Charset bodyCharset = null;
         MediaType contentType = headers.getContentType();
         if (contentType == null) {
-            logBuffer.append("------------ contentType = null------------\n");
         } else if (!shouldRecordBody(contentType)) {
 
         } else {
             bodyCharset = getMediaTypeCharset(contentType);
-            logBuffer.append("------------body------------\n");
         }
 
         if (bodyCharset != null) {
             return doRecordBody(logBuffer, response.copy(), bodyCharset);
         } else {
-            logBuffer.append("\n------------ end ------------\n\n");
             return Mono.empty();
         }
     }
 
     public static String getLogData(ServerWebExchange exchange) {
-        StringBuffer logBuffer = exchange.getAttribute(REQUEST_RECORDER_LOG_BUFFER);
-        return logBuffer.toString();
+        return exchange.getAttribute(REQUEST_RECORDER_LOG_BUFFER).toString();
     }
 }

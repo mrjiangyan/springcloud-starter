@@ -23,9 +23,7 @@ import java.time.LocalDateTime;
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {
         "com.touchbiz.webflux.starter",
-        "com.touchbiz.cache.starter",
         "com.alibaba.cloud.nacos",
-//        "com.touchbiz.db.starter",
         "com.touchbiz.log.starter"
 })
 @RestController
@@ -37,6 +35,7 @@ public class ExampleApplication extends BaseController {
     public static void main(String[] args) {
         SpringApplication.run(ExampleApplication.class, args);
     }
+
 
 
     @GetMapping("/test")
