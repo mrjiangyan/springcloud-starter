@@ -1,8 +1,8 @@
-## Welcome to GitHub Pages
+## 欢迎使用Spring Cloud 快速启动框架
 
-You can use the [editor on GitHub](https://github.com/mrjiangyan/springcloud-starter/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+1. 简化最基础的Spring Cloud相关的配置
+2. 基于多环境管理的需要，针对不同的环境进行相应的配置。
+3. 服务治理和配置中心推荐采用
 
 ### Markdown
 
