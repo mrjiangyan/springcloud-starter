@@ -2,7 +2,6 @@ def artifactId = 'com.touchbiz.db.starter'
 
 
 dependencies {
-    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     compile group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
     compile group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
     compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"

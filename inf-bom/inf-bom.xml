@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>3.8</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -17,16 +17,16 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <db-starter.version>2.1.15.RELEASE</db-starter.version>
-        <webflux-starter.version>2.2.4.RELEASE</webflux-starter.version>
-        <log-starter.version>2.2.4.RELEASE</log-starter.version>
-        <config-starter.version>2.2.1.RELEASE</config-starter.version>
-        <cache-starter.version>2.2.2.RELEASE</cache-starter.version>
-        <mq-starter.version>2.1.0.RELEASE</mq-starter.version>
-        <validation-starter.version>2.1.15.RELEASE</validation-starter.version>
+        <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
+        <db-starter.version>1.0.RELEASE</db-starter.version>
+        <webflux-starter.version>1.0.RELEASE</webflux-starter.version>
+        <log-starter.version>1.0.RELEASE</log-starter.version>
+        <config-starter.version>1.0.RELEASE</config-starter.version>
+        <cache-starter.version>1.0.RELEASE</cache-starter.version>
+        <mq-starter.version>1.0.RELEASE</mq-starter.version>
+        <validation-starter.version>1.0.RELEASE</validation-starter.version>
 
-        <common.version>1.4.0.RELEASE</common.version>
+        <common.version>1.2.RELEASE</common.version>
         <lombok.version>1.18.12</lombok.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <springcloudalibaba.version>2.2.1.RELEASE</springcloudalibaba.version>
@@ -34,21 +34,14 @@
         <jmock.version>1.41</jmock.version>
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.5.20</swagger.version>
-        <cglib.version>3.3.0</cglib.version>
         <aliyun.oss.version>3.10.2</aliyun.oss.version>
         <hibernate.version>6.1.6.Final</hibernate.version>
         <servlet.version>4.0.1</servlet.version>
         <jsoup.version>1.12.1</jsoup.version>
         <fastjson.version>1.2.62</fastjson.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <proxy.version>1.20.RELEASE</proxy.version>
-        <baseService.version>1.0.7.RELEASE</baseService.version>
-        <ssp.hotel.version>1.2.0.RELEASE</ssp.hotel.version>
-        <commonEntity.version>1.2.32.RELEASE</commonEntity.version>
-        <api.version>1.1.91.RELEASE</api.version>
-        <enumeration.version>2.1.2.RELEASE</enumeration.version>
+        <commonEntity.version>1.2.RELEASE</commonEntity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <mapstruct.version>1.4.1.Final</mapstruct.version>
     </properties>
 
@@ -149,11 +142,6 @@
                 <groupId>com.touchbiz.starter</groupId>
                 <artifactId>com.touchbiz.cache.starter</artifactId>
                 <version>${cache-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib-nodep</artifactId>
-                <version>${cglib.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.swagger</groupId>
