@@ -1,7 +1,6 @@
 package com.touchbiz.log.starter.alarm;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.touchbiz.config.starter.configuration.MiddleSourceConfiguration;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectFactory;

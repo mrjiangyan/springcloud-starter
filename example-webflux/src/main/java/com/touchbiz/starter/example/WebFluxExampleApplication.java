@@ -40,19 +40,5 @@ public class WebFluxExampleApplication extends BaseController {
         SpringApplication.run(WebFluxExampleApplication.class, args);
     }
 
-//    public static final String META_INF_RESOURCES = "classpath:/META-INF/resources/";
-//    ImmutableMap<String,
-//                String> webResourceMap = new ImmutableMap.Builder<String, String>().put("doc.html", META_INF_RESOURCES)
-//            .put("/webjars/**", "classpath:/META-INF/resources/webjars/").put("/service-worker.js", META_INF_RESOURCES)
-//            .put("/precache-manifest.*.js", META_INF_RESOURCES).build();
-//
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        ImmutableSet<Map.Entry<String, String>> webResourceSet = webResourceMap.entrySet();
-//        webResourceSet.forEach(x -> registry.addResourceHandler(x.getKey()).addResourceLocations(x.getValue()));
-//    }
-
-
 
 }
