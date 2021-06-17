@@ -9,6 +9,7 @@ dependencies {
     implementation "io.springfox:springfox-bean-validators:${swaggerVersion}"
     implementation "io.springfox:springfox-core:${swaggerVersion}"
     implementation "io.swagger:swagger-annotations:1.5.20"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.2"
     implementation "io.springfox:springfox-oas:${swaggerVersion}"
     implementation "io.springfox:springfox-spi:${swaggerVersion}"
     implementation "io.springfox:springfox-spring-web:${swaggerVersion}"

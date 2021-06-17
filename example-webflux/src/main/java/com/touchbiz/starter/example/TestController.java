@@ -3,6 +3,7 @@ package com.touchbiz.starter.example;
 import com.touchbiz.cache.starter.annotation.MonoCacheable;
 import com.touchbiz.cache.starter.annotation.RedisCache;
 import com.touchbiz.common.entity.exception.BizException;
+import com.touchbiz.common.entity.query.BaseQuery;
 import com.touchbiz.common.entity.result.ApiResult;
 import com.touchbiz.webflux.starter.controller.BaseController;
 import io.swagger.annotations.Api;
@@ -37,9 +38,10 @@ public class TestController extends BaseController {
 
 
     @PostMapping("/test")
-    public Mono<ApiResult> test(@RequestBody @Valid AAA aaa) {
-        log.info("aaa:{}", aaa);
-        return Mono.just(ApiResult.getSuccessResponse(aaa));
+    public Mono<ApiResult<BaseQuery>> test(@RequestBody @Valid BaseQuery query) {
+        log.info("aaa:{}", query);
+        query.setEndDate(LocalDateTime.now());
+        return Mono.just(ApiResult.getSuccessResponse(query));
     }
 
     @SneakyThrows
