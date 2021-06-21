@@ -30,7 +30,7 @@ allprojects {
             mysqlVerision = '8.0.20'
             revision = '1.4.RELEASE'
             jacksonVersion = '2.11.1'
-            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN/'
+            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN'
 //            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2041383-release-F0cHwt/'
 
         }
