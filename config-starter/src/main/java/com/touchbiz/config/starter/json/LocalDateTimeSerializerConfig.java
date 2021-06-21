@@ -1,5 +1,6 @@
 package com.touchbiz.config.starter.json;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.TimeZone;
 
 /**
  * @author jamesluozhiwei
@@ -58,6 +60,17 @@ public class LocalDateTimeSerializerConfig {
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         objectMapper.registerModule(javaTimeModule);
+        //设置为中国上海时区
+        objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        //空值不序列化
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        //反序列化时，属性不存在的兼容处理
+        objectMapper.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        //属性大小写不敏感
+        objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
         return objectMapper;
     }
 
