@@ -8,7 +8,7 @@ allprojects {
     buildscript {
         ext {
             commonLang3Version = '3.10'
-            aspectjVersion = '1.9.5'
+            aspectjVersion = 'deploy.sh.5'
             springBootVersion = '2.3.2.RELEASE'
             springVersion = '5.2.8.RELEASE'
             springCloudVersion = '2.1.2.RELEASE'

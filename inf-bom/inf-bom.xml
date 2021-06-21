@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>1.9</version>
+    <version>1.10</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -18,8 +18,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
         <db-starter.version>1.1.RELEASE</db-starter.version>
-        <webflux-starter.version>1.2.RELEASE</webflux-starter.version>
-        <log-starter.version>1.2.RELEASE</log-starter.version>
+        <webflux-starter.version>1.4.RELEASE</webflux-starter.version>
+        <log-starter.version>1.4.RELEASE</log-starter.version>
         <config-starter.version>1.4.RELEASE</config-starter.version>
         <cache-starter.version>1.2.RELEASE</cache-starter.version>
         <mq-starter.version>1.0.RELEASE</mq-starter.version>
