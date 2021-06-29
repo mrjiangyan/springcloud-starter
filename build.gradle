@@ -12,11 +12,11 @@ allprojects {
             springBootVersion = '2.3.2.RELEASE'
             springVersion = '5.2.8.RELEASE'
             springCloudVersion = '2.1.2.RELEASE'
-            mavenUserName = '5f573af3e1cf498f370573c8'
-            mavenPassword = 'WDwiza3S(oFV'
+//            mavenUserName = '5f573af3e1cf498f370573c8'
+//            mavenPassword = 'WDwiza3S(oFV'
             //toplist配置
-//            mavenUserName = '5f03d6a0cc3021d7e3b10d1e'
-//            mavenPassword = 'OFLvR=ICCSgt'
+            mavenUserName = '5f03d6a0cc3021d7e3b10d1e'
+            mavenPassword = 'OFLvR=ICCSgt'
             lombokVersion = '1.18.12'
             nacosStarterVersion = '2.1.0.RELEASE'
             swaggerVersion = '3.0.0'
@@ -31,11 +31,11 @@ allprojects {
             openFeignVersion = '2.2.3.RELEASE'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.20'
-            revision = '1.4.RELEASE'
+            revision = '1.5.RELEASE'
             jacksonVersion = '2.11.1'
-            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN'
+//            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN'
 //toplist 配置
-//            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2041383-release-F0cHwt/'
+            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2041383-release-F0cHwt/'
 
         }
         repositories {

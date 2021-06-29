@@ -1,5 +1,6 @@
 package com.touchbiz.starter.example;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
@@ -54,7 +55,6 @@ public class DateConverterConfig {
         //javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
 
         objectMapper.registerModule(javaTimeModule);
-
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 //        objectMapper.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
