@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>1.13</version>
+    <version>1.14</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -38,7 +38,7 @@
         <servlet.version>4.0.1</servlet.version>
         <fastjson.version>1.2.62</fastjson.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <commonEntity.version>1.8.RELEASE</commonEntity.version>
+        <commonEntity.version>1.9.RELEASE</commonEntity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
     </properties>
