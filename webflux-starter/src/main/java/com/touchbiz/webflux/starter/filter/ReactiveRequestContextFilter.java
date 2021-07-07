@@ -13,8 +13,8 @@ import reactor.core.publisher.SignalType;
 
 import java.util.Map;
 
-@Configuration
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
+//@Configuration
+//@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class ReactiveRequestContextFilter implements WebFilter , Ordered {
 
     @Override

@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 
 @Slf4j
-@Component
+//@Component
 public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
 
     private final String[] pathIgnored = new String[]{"actuator","swagger","api-docs","doc.html","webjars"};
