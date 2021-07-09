@@ -31,7 +31,7 @@ allprojects {
             openFeignVersion = '2.2.3.RELEASE'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.20'
-            revision = '1.6.RELEASE'
+            revision = '1.8.RELEASE'
             jacksonVersion = '2.11.1'
 //            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN'
 //toplist 配置
