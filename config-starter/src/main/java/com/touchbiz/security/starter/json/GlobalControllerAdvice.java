@@ -1,4 +1,4 @@
-package com.touchbiz.config.starter.json;
+package com.touchbiz.security.starter.json;
 
 import com.touchbiz.common.utils.date.DateTimeFormat;
 import lombok.extern.slf4j.Slf4j;

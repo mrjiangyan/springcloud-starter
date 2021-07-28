@@ -2,6 +2,7 @@ package com.touchbiz.cache.starter.redislock;
 
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.connection.ReturnType;
 import org.springframework.data.redis.core.RedisCallback;
@@ -14,8 +15,6 @@ import java.util.UUID;
 public class DistributedRedisLock {
 
     private final RedisTemplate<Object, Object> redisTemplate;
-
-    private final ThreadLocal<String> lockKey = new ThreadLocal<>();
 
     public static final String UNLOCK_LUA;
 
@@ -69,16 +68,16 @@ public class DistributedRedisLock {
          * 释放锁的时候，有可能因为持锁之后方法执行时间大于锁的有效期，此时有可能已经被另外一个线程持有锁，所以不能直接删除
          * 使用lua脚本删除redis中匹配value的key，可以避免由于方法执行时间过长而redis锁自动过期失效的时候误删其他线程的锁
          */
+        var bytes = key.getBytes();
         try {
             RedisCallback<Boolean> callback = (connection) -> {
-                String value = lockKey.get();
-                return connection.eval(UNLOCK_LUA.getBytes(), ReturnType.BOOLEAN, 1, key.getBytes(), value.getBytes());
+                return connection.eval(UNLOCK_LUA.getBytes(), ReturnType.BOOLEAN, 1, bytes, bytes);
             };
             return redisTemplate.execute(callback);
         } catch (Exception e) {
             log.error("release lock occured an exception", e);
         } finally {
-            lockKey.remove();
+
         }
         return false;
     }
@@ -93,9 +92,8 @@ public class DistributedRedisLock {
     private boolean setRedisLock(String key, long expire) {
         try {
             RedisCallback<Boolean> callback = (connection) -> {
-                String uuid = UUID.randomUUID().toString();
-                lockKey.set(uuid);
-                return connection.set(key.getBytes(), uuid.getBytes(), Expiration.milliseconds(expire), RedisStringCommands.SetOption.SET_IF_ABSENT);
+                var bytes = key.getBytes();
+                return connection.set(bytes, bytes, Expiration.milliseconds(expire), RedisStringCommands.SetOption.SET_IF_ABSENT);
             };
             return redisTemplate.execute(callback);
         } catch (Exception e) {

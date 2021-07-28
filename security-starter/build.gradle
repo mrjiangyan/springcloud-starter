@@ -1,0 +1,46 @@
+def artifactId = 'com.touchbiz.security.starter'
+
+
+dependencies {
+    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
+
+    compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${springBootVersion}"
+
+    compileOnly group: 'org.springframework', name: 'spring-webflux', version: "${ springVersion }"
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${ springBootVersion }"
+//    compileOnly 'org.projectlombok:lombok'
+//    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }") {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test:3.3.8.RELEASE'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+uploadArchives {
+    configuration = configurations['archives']
+    repositories {
+        mavenDeployer {
+            // 注释1
+            pom.groupId = "$project.group"
+            pom.version = "$project.version"
+            pom.artifactId = "$artifactId"
+            // 注释2
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description '安全控制启动包'
+            }
+            // 注释3
+            repository(url: "$repositoryUrl") {
+                authentication(userName: "$mavenUserName", password: "$mavenPassword")
+            }
+        }
+    }
+}
+

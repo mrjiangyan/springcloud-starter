@@ -1,4 +1,4 @@
-package com.touchbiz.config.starter.json;
+package com.touchbiz.security.starter.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;

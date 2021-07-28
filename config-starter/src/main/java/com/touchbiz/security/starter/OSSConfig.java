@@ -1,4 +1,4 @@
-package com.touchbiz.config.starter;
+package com.touchbiz.security.starter;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.touchbiz.config.starter.configuration;
+package com.touchbiz.security.starter.configuration;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
