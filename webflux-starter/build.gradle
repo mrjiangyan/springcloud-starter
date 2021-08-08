@@ -3,39 +3,15 @@ def artifactId = 'com.touchbiz.webflux.starter'
 dependencies {
     // https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp
 
-    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
-    compile group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.0'
+    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
+    implementation group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${ springBootVersion }"
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: "${openFeignVersion}"
     implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
-    compile group: 'io.projectreactor', name: 'reactor-core', version: '3.3.11.RELEASE'
+    implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.3.11.RELEASE'
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
     testImplementation 'io.projectreactor:reactor-test:3.3.8.RELEASE'
 }
-
-
-uploadArchives {
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            // 注释1
-            pom.groupId = "$project.group"
-            pom.version = "$project.version"
-            pom.artifactId = "$artifactId"
-            // 注释2
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description 'Web相关公共类库'
-            }
-            // 注释3
-            repository(url: "$repositoryUrl") {
-                authentication(userName: "$mavenUserName", password: "$mavenPassword")
-            }
-        }
-    }
-}
-

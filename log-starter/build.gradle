@@ -1,9 +1,9 @@
 def artifactId = 'com.touchbiz.log.starter'
 
 dependencies {
-    compile "org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}"
-    compile "org.springframework.cloud:spring-cloud-openfeign-core:${openFeignVersion}"
-    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}"
+    implementation "org.springframework.cloud:spring-cloud-openfeign-core:${openFeignVersion}"
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     implementation group: "org.aspectj", name: "aspectjweaver", version: "${aspectjVersion}"
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-context', version: "${ springCloudVersion }"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${ springBootVersion }"
@@ -14,26 +14,4 @@ dependencies {
     implementation project(':config-starter')
 }
 
-
-uploadArchives {
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            // 注释1
-            pom.groupId = "$project.group"
-            pom.version = "$project.version"
-            pom.artifactId = "$artifactId"
-            // 注释2
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description '日志访问公共类库'
-            }
-            // 注释3
-            repository(url: "$repositoryUrl") {
-                authentication(userName: "$mavenUserName", password: "$mavenPassword")
-            }
-        }
-    }
-}
 
