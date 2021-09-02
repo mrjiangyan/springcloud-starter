@@ -1,34 +1,11 @@
 def artifactId = 'com.touchbiz.db.starter'
 
-
 dependencies {
-    compile group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
-    compile group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
-    compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"
-    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: "${ mybatisVersion }"
-    compile group: 'tk.mybatis', name: 'mapper', version: "${ tkVersion }"
+    implementation group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
+    implementation group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"
+    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: "${ mybatisVersion }"
+    implementation group: 'tk.mybatis', name: 'mapper', version: "${ tkVersion }"
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
-}
-
-uploadArchives {
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            // 注释1
-            pom.groupId = "$project.group"
-            pom.version = "$project.version"
-            pom.artifactId = "$artifactId"
-            // 注释2
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description '数据库访问公共类库'
-            }
-            // 注释3
-            repository(url: "$repositoryUrl") {
-                authentication(userName: "$mavenUserName", password: "$mavenPassword")
-            }
-        }
-    }
 }
 

@@ -1,9 +1,8 @@
 def artifactId = 'com.touchbiz.config.starter'
 
-
 dependencies {
     implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     compileOnly group: 'org.springframework', name: 'spring-webflux', version: "${ springVersion }"
     compileOnly group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: "${ springBootVersion }"
     implementation "io.springfox:springfox-bean-validators:${swaggerVersion}"
@@ -16,26 +15,4 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }
 
-
-uploadArchives {
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            // 注释1
-            pom.groupId = "$project.group"
-            pom.version = "$project.version"
-            pom.artifactId = "$artifactId"
-            // 注释2
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description '数据库访问公共类库'
-            }
-            // 注释3
-            repository(url: "$repositoryUrl") {
-                authentication(userName: "$mavenUserName", password: "$mavenPassword")
-            }
-        }
-    }
-}
 
