@@ -21,15 +21,12 @@ public class ReactiveRequestContextFilter implements WebFilter , Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ReactiveRequestContextHolder.put(request);
-//        if(exchange.getAttributes() != null){
-//            Map map = exchange.getAttributes();
-//            if(map.containsKey(HttpHeaderConstants.HEADER_USER)){
-//                ReactiveRequestContextHolder.putUser(map.get(HttpHeaderConstants.HEADER_USER));
-//            }
-//            if(map.containsKey(HttpHeaderConstants.HEADER_CHANNEL)){
-//                ReactiveRequestContextHolder.putChannel(Integer.parseInt(map.get(HttpHeaderConstants.HEADER_CHANNEL).toString()));
-//            }
-//        }
+        if(exchange.getAttributes() != null){
+            Map map = exchange.getAttributes();
+            if(map.containsKey(HttpHeaderConstants.HEADER_USER)){
+                ReactiveRequestContextHolder.putUser(map.get(HttpHeaderConstants.HEADER_USER));
+            }
+        }
         return chain.filter(exchange)
                 .doFinally(signalType -> {
                     if (SignalType.ON_COMPLETE == signalType) {

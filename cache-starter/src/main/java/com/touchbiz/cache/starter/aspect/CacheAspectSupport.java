@@ -7,6 +7,7 @@ import com.touchbiz.cache.starter.reactor.InternalCacheConfig;
 import com.touchbiz.cache.starter.reactor.ReactorCache;
 import com.touchbiz.cache.starter.reactor.SpringMonoCache;
 import com.touchbiz.cache.starter.reactor.SpringNonReactorCache;
+import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.cache.interceptor.CacheOperationInvoker;
 import org.springframework.util.Assert;
@@ -24,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Minkiu Kim
  */
+@Slf4j
 class CacheAspectSupport extends AbstractAnnotationCacheAspect {
 
     private final ConcurrentHashMap<Method, Class<?>> cacheTypeMap;
@@ -107,6 +109,7 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
 
             });
         } catch (Exception e) {
+            log.info("");
             throw new IllegalArgumentException("Invalid return type");
         }
 

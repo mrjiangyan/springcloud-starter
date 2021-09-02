@@ -30,7 +30,6 @@ public class NonReactorAnnotationCacheAspect extends AbstractAnnotationCacheAspe
     /**
      * 定义切点
      */
-
     @Around("@annotation(redisCache)")
     public Object around(ProceedingJoinPoint joinPoint, RedisCache redisCache) throws Throwable {
 

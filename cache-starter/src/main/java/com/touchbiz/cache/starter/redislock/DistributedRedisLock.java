@@ -9,8 +9,6 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
 
-import java.util.UUID;
-
 @Slf4j
 public class DistributedRedisLock {
 
