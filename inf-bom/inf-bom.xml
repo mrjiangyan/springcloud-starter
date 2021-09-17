@@ -80,7 +80,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>2.2.1.RELEASE</version>
+                <version>${springcloudalibaba.version}</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>fastjson</artifactId>
@@ -92,7 +92,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                <version>2.2.1.RELEASE</version>
+                <version>${springcloudalibaba.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -108,13 +108,13 @@
             <!-- 数据库相关 直接使用中台基础库配置 -->
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>db-starter</artifactId>
+                <artifactId>com.touchbiz.db.starter</artifactId>
                 <version>${db-starter.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>webflux-starter</artifactId>
+                <artifactId>com.touchbiz.webflux.starter</artifactId>
                 <version>${webflux-starter.version}</version>
             </dependency>
             <dependency>
