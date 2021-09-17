@@ -24,7 +24,7 @@ uploadArchives {
             pom.project {
                 name project.name
                 packaging 'jar'
-                description '数据库访问公共类库'
+                description '缓存访问公共类库'
             }
             // 注释3
             repository(url: "$repositoryUrl") {
