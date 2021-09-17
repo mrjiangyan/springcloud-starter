@@ -3,13 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.5.RELEASE</version>
+    </parent>
 
     <groupId>com.touchbiz</groupId>
-    <artifactId>inf-bom</artifactId>
+    <artifactId>starter-parent</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
-    <name>inf-bom</name>
+    <name>starter-parent</name>
     <description>第三方jar包统一管理</description>
 
     <properties>
@@ -80,7 +85,6 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>2.2.1.RELEASE</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>fastjson</artifactId>
@@ -92,7 +96,6 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                <version>2.2.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -108,13 +111,13 @@
             <!-- 数据库相关 直接使用中台基础库配置 -->
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>db-starter</artifactId>
+                <artifactId>com.touchbiz.db.starter</artifactId>
                 <version>${db-starter.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>webflux-starter</artifactId>
+                <artifactId>com.touchbiz.webflux.starter</artifactId>
                 <version>${webflux-starter.version}</version>
             </dependency>
             <dependency>
