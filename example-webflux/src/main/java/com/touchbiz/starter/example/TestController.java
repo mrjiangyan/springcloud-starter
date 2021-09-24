@@ -57,6 +57,13 @@ public class TestController extends BaseController {
     }
 
     @SneakyThrows
+    @GetMapping("/test/cacheTime/{id}")
+    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
+    public String testCacheLocalDateTime(@PathVariable("id") @Validated @Max(10) Integer id) {
+        return LocalDateTime.now().toString();
+    }
+
+    @SneakyThrows
     @GetMapping("/query")
     @RedisCache(keyPrefix = "AAA",redisKey = "#query")
     public ApiResult<AAA> query(AAA query) {

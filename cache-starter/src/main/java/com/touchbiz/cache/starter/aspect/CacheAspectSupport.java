@@ -37,7 +37,6 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
 
     CacheAspectSupport(final IRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
-//        this.cacheResolverMap = new ConcurrentHashMap<>();
         this.cacheTypeMap = new ConcurrentHashMap<>();
     }
 
@@ -95,6 +94,9 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
     private Class<?> getCacheType(final Method method) {
         try {
             return cacheTypeMap.computeIfAbsent(method, m -> {
+                if(!(m.getGenericReturnType() instanceof ParameterizedType)){
+                    return (Class<?>) m.getGenericReturnType();
+                }
                 final ParameterizedType parameterizedType = (ParameterizedType) m.getGenericReturnType();
                 if(!parameterizedType.getRawType().equals(Mono.class) && !parameterizedType.getRawType().equals(Flux.class)){
                     ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType;
@@ -109,7 +111,7 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
 
             });
         } catch (Exception e) {
-            log.info("");
+            log.error("",e);
             throw new IllegalArgumentException("Invalid return type");
         }
 
