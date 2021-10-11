@@ -2,7 +2,7 @@ package com.touchbiz.cache.starter.aspect;
 
 import com.touchbiz.cache.starter.IRedisTemplate;
 import com.touchbiz.cache.starter.annotation.MonoCacheable;
-import com.touchbiz.cache.starter.annotation.RedisCache;
+import com.touchbiz.cache.starter.annotation.NonReactorCacheable;
 import com.touchbiz.cache.starter.reactor.InternalCacheConfig;
 import com.touchbiz.cache.starter.reactor.ReactorCache;
 import com.touchbiz.cache.starter.reactor.SpringMonoCache;
@@ -58,7 +58,7 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
     }
 
 
-    Object execute(RedisCache annotation, final CacheOperationInvoker invoker, final Method method, final Object[] args) {
+    Object execute(NonReactorCacheable annotation, final CacheOperationInvoker invoker, final Method method, final Object[] args) {
         Assert.notNull(invoker, "CacheOperationInvoker should be not null");
         Assert.notNull(method, "Method should be not null");
         Assert.notEmpty(args, "Method argument should be not empty");

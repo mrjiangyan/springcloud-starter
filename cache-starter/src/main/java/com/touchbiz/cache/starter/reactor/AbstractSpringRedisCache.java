@@ -52,14 +52,13 @@ abstract class AbstractSpringRedisCache<T> extends AbstractSpringCache<T> {
             .subscribeOn(Schedulers.boundedElastic())
             .flatMap(t -> Mono.justOrEmpty(Signal.next(t)));
 
-    protected  Mono<T> generactorCacheWriter(Object retriever, InternalCacheConfig config){
-        log.info("---------generactorCacheWriter----------");
+    protected Mono<T> generactorCacheWriter(Object retriever, InternalCacheConfig config){
         log.info("----{}-----",config.getCacheKey());
         Object value = getRedisTemplate().get(config.getCacheKey());
         if (value != null) {
             return Mono.just(JsonUtils.toObject(String.valueOf(value), type));
         }
-        Mono<T> mono = null;
+        Mono<T> mono;
         if(retriever instanceof Mono){
             mono = (Mono<T>) retriever;
         }

@@ -13,8 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-//public @interface NonReactorCacheable
-public @interface RedisCache {
+public @interface NonReactorCacheable {
     // 缓存的key 支持EL表达式
     String redisKey();
 

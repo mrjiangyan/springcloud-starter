@@ -1,7 +1,7 @@
 package com.touchbiz.cache.starter.aspect;
 
 import com.touchbiz.cache.starter.IRedisTemplate;
-import com.touchbiz.cache.starter.annotation.RedisCache;
+import com.touchbiz.cache.starter.annotation.NonReactorCacheable;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -31,7 +31,7 @@ public class NonReactorAnnotationCacheAspect extends AbstractAnnotationCacheAspe
      * 定义切点
      */
     @Around("@annotation(redisCache)")
-    public Object around(ProceedingJoinPoint joinPoint, RedisCache redisCache) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint, NonReactorCacheable redisCache) throws Throwable {
 
         final Method method = getMethod(joinPoint);
         final Object[] args = joinPoint.getArgs().clone();
