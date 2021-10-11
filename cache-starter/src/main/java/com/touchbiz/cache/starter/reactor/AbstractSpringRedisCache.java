@@ -72,7 +72,7 @@ abstract class AbstractSpringRedisCache<T> extends AbstractSpringCache<T> {
             }
         }
         else{
-            mono =   (Mono<T>) Mono.just(retriever);
+            mono = (Mono<T>) Mono.just(retriever);
         }
         return mono.doOnNext(o->{
             boolean cacheData = true;
