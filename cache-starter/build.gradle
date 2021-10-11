@@ -1,6 +1,7 @@
 def artifactId = 'com.touchbiz.cache.starter'
 
 dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: "${ springBootVersion }"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${ springBootVersion }"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: "${commonLang3Version}"
     implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${ jacksonVersion }"

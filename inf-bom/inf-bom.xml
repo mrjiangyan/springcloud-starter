@@ -21,7 +21,7 @@
         <webflux-starter.version>1.8.RELEASE</webflux-starter.version>
         <log-starter.version>1.4.RELEASE</log-starter.version>
         <config-starter.version>1.8.RELEASE</config-starter.version>
-        <cache-starter.version>1.8.RELEASE</cache-starter.version>
+        <cache-starter.version>1.9.RELEASE</cache-starter.version>
         <mq-starter.version>1.8.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 

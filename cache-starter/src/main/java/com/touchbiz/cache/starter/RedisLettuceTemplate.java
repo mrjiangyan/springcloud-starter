@@ -32,6 +32,11 @@ public class RedisLettuceTemplate implements IRedisTemplate {
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
+    public RedisTemplate<String, Object> getRedisTemplate() {
+        return redisTemplate;
+    }
+
+    @Override
     public boolean expire(String key, long time) {
         try {
             if (time > 0) {

@@ -1,10 +1,14 @@
 package com.touchbiz.cache.starter;
 
+import org.springframework.data.redis.core.RedisTemplate;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public interface IRedisTemplate {
+
+    RedisTemplate<String, Object> getRedisTemplate();
 
     /**
      * 指定缓存失效时间
