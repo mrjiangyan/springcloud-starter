@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +85,7 @@ public class TestController extends BaseController {
         return Mono.just(result);
     }
 
+
     @GetMapping("/test/list2")
     @MonoCacheable(keyPrefix = "REDIS", redisKey = "#id")
     private Mono<ApiResult<List<AAA>>> testList2(@RequestParam Integer id) {
@@ -97,7 +100,8 @@ public class TestController extends BaseController {
     }
 
     @GetMapping("/test/list1")
-    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
+//    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
+    @Cacheable(key = "targetClass + methodName + #p0", cacheNames = {"myCache"})
     public ApiResult<List<AAA>> testList1(@Valid @NotNull(message = "sdjksjf")Integer id) {
         AAA a = new AAA();
         a.setTime(LocalDateTime.now());

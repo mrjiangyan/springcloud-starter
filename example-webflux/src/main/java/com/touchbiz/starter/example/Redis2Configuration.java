@@ -65,10 +65,11 @@ public class Redis2Configuration {
      *
      * @return
      */
-    @Bean(name = "redisTemplate2")
-    public RedisTemplate cacheRedisTemplate(Redis2Config config,  GenericObjectPoolConfig redis2Pool) {
-        return RedisConfiguration.template(cacheRedisConnectionFactory(config,redis2Pool.clone()));
-    }
+//    @Bean(name = "redisTemplate2")
+//    public RedisTemplate cacheRedisTemplate(Redis2Config config,  GenericObjectPoolConfig redis2Pool) {
+//        return RedisConfiguration.template(cacheRedisConnectionFactory(config,redis2Pool.clone()));
+//    }
+
     @Bean(name = "redisLettuceTemplate2")
     public RedisLettuceTemplate template(RedisTemplate redisTemplate2){
         return new RedisLettuceTemplate(redisTemplate2);

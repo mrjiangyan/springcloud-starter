@@ -1,6 +1,5 @@
-package com.touchbiz.cache.starter.cache;
+package com.touchbiz.cache.starter.cache.configuration;
 
-import lombok.Data;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.interceptor.CacheErrorHandler;

@@ -167,7 +167,6 @@ public class CustomeRedisCacheWriter implements RedisCacheWriter {
 
     private void executeLockFree(Consumer<RedisConnection> callback) {
         RedisConnection connection = this.connectionFactory.getConnection();
-
         try {
             callback.accept(connection);
         } finally {

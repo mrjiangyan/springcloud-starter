@@ -1,5 +1,7 @@
-package com.touchbiz.cache.starter.cache;
+package com.touchbiz.cache.starter.cache.configuration;
 
+import com.touchbiz.cache.starter.cache.CaffeineRedisCacheResolver;
+import com.touchbiz.cache.starter.cache.CaffeineRedisManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

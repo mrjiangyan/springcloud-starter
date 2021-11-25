@@ -1,12 +1,14 @@
 package com.touchbiz.cache.starter.cache;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
 import org.springframework.util.ObjectUtils;
 
 import java.util.concurrent.Callable;
 
+@Slf4j
 public class CaffeineRedisCache implements Cache {
 
     private final String name;
@@ -41,12 +43,21 @@ public class CaffeineRedisCache implements Cache {
         if (!ObjectUtils.isEmpty(caffeineCache) && !ObjectUtils.isEmpty(redisCache)) {
             //一级缓存获取值
             value = caffeineCache.get(key);
+            if(value != null){
+                log.info("1获取到caffeineCache缓存"+ key);
+            }
             //如果一级缓存没有该值，降低redis访问压力
             if (ObjectUtils.isEmpty(value)) {
                 synchronized (lock) {
                     value = caffeineCache.get(key);
+                    if(value != null){
+                        log.info("2。获取到caffeineCache缓存"+ key);
+                    }
                     if (ObjectUtils.isEmpty(value)) {
                         value = redisCache.get(key);
+                        if(value != null){
+                            log.info("获取到redisCache缓存"+ key);
+                        }
                         caffeineCache.put(key, value);
                     }
                 }

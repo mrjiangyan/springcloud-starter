@@ -61,6 +61,7 @@ public class LocalDateTimeSerializerConfig {
         objectMapper.registerModule(javaTimeModule);
         //设置为中国上海时区
         objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+
         //空值不序列化
 //        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //反序列化时，属性不存在的兼容处理

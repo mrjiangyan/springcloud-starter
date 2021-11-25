@@ -16,6 +16,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
@@ -28,8 +29,10 @@ public class RedisConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.redis.lettuce.pool")
-    public GenericObjectPoolConfig redisPool() {
-        return new GenericObjectPoolConfig();
+    public GenericObjectPoolConfig redisPool(RedisConfig config) {
+        var poolConfig =  new GenericObjectPoolConfig();
+        poolConfig.setTimeBetweenEvictionRunsMillis(config.getTimeBetweenEvictionRuns());
+        return poolConfig;
     }
 
     @Bean
@@ -51,20 +54,18 @@ public class RedisConfiguration {
 
     @Bean("redisTemplate")
     @Primary
-    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory) {
-        return template(factory);
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory, RedisSerializer redisSerializer) {
+        return template(factory, redisSerializer);
     }
 
-    public static Jackson2JsonRedisSerializer getRedisSerializer(){
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
-        return jackson2JsonRedisSerializer;
+    @Bean("redisSerializer")
+    public RedisSerializer getRedisSerializer(ObjectMapper objectMapper){
+        Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
+        serializer.setObjectMapper(objectMapper);
+        return serializer;
     }
 
-    public static RedisTemplate<String, Object> template(LettuceConnectionFactory factory) {
+    public RedisTemplate<String, Object> template(LettuceConnectionFactory factory, RedisSerializer redisSerializer) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
 
@@ -73,13 +74,12 @@ public class RedisConfiguration {
         template.setKeySerializer(stringRedisSerializer);
         // hash的key也采用String的序列化方式
         template.setHashKeySerializer(stringRedisSerializer);
-        var serializer = getRedisSerializer();
+        var serializer = redisSerializer;
         // value序列化方式采用jackson
         template.setValueSerializer(serializer);
         // hash的value序列化方式采用jackson
         template.setHashValueSerializer(serializer);
         template.afterPropertiesSet();
-
         return template;
     }
 }
