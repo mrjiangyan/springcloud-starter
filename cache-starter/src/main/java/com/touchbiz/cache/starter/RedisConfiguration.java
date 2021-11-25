@@ -27,11 +27,14 @@ public class RedisConfiguration {
     @Value("${spring.redis.timeout}")
     private int timeout;
 
+    @Value("${spring.redis.lettuce.time-between-eviction-runs:1000}")
+    private int timeBetweenEvictionRuns;
+
     @Bean
     @ConfigurationProperties(prefix = "spring.redis.lettuce.pool")
     public GenericObjectPoolConfig redisPool(RedisConfig config) {
         var poolConfig =  new GenericObjectPoolConfig();
-        poolConfig.setTimeBetweenEvictionRunsMillis(config.getTimeBetweenEvictionRuns());
+        poolConfig.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRuns);
         return poolConfig;
     }
 

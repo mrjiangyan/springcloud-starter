@@ -19,6 +19,4 @@ class RedisConfig {
 
     private int timeout;
 
-    private int timeBetweenEvictionRuns;
-
 }
