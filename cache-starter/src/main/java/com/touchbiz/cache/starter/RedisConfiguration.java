@@ -24,36 +24,16 @@ import java.time.Duration;
 @Configuration
 public class RedisConfiguration {
 
-    @Value("${spring.redis.timeout}")
-    private int timeout;
+//    @Value("${spring.redis.timeout}")
+//    private int timeout;
 
-    @Value("${spring.redis.lettuce.time-between-eviction-runs:1000}")
-    private int timeBetweenEvictionRuns;
-
-    @Bean
-    @ConfigurationProperties(prefix = "spring.redis.lettuce.pool")
-    public GenericObjectPoolConfig redisPool(RedisConfig config) {
-        var poolConfig =  new GenericObjectPoolConfig();
-        poolConfig.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRuns);
-        return poolConfig;
-    }
-
-    @Bean
-    public RedisStandaloneConfiguration redisConf(RedisConfig config) {
-        RedisStandaloneConfiguration redisConfiguration = new
-                RedisStandaloneConfiguration(config.getHost(), config.getPort());
-        redisConfiguration.setDatabase(config.getDatabase());
-        redisConfiguration.setPassword(config.getPassword());
-        return redisConfiguration;
-    }
-
-    @Bean
-    @Primary
-    public LettuceConnectionFactory factory(GenericObjectPoolConfig config, RedisStandaloneConfiguration redisConf) {
-        LettuceClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder()
-                .poolConfig(config).commandTimeout(Duration.ofMillis(timeout)).build();
-        return new LettuceConnectionFactory(redisConf, clientConfiguration);
-    }
+//    @Bean
+//    @Primary
+//    public LettuceConnectionFactory factory(GenericObjectPoolConfig config, RedisStandaloneConfiguration redisConf) {
+//        LettuceClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder()
+//                .poolConfig(config).commandTimeout(Duration.ofMillis(timeout)).build();
+//        return new LettuceConnectionFactory(redisConf, clientConfiguration);
+//    }
 
     @Bean("redisTemplate")
     @Primary
