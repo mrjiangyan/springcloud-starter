@@ -21,8 +21,8 @@ public class MySqlDataSourceConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.dataSource")
-    public MysqlDataSourceConfig config() {
-        MysqlDataSourceConfig config = new MysqlDataSourceConfig();
+    public MySqlDataSourceConfig config() {
+        MySqlDataSourceConfig config = new MySqlDataSourceConfig();
         return config;
     }
 
@@ -34,7 +34,7 @@ public class MySqlDataSourceConfiguration {
      */
     @Bean(initMethod = "init", destroyMethod = "close")
     public DataSource druidDataSource() throws Exception {
-        MysqlDataSourceConfig config = config();
+        MySqlDataSourceConfig config = config();
         log.warn("DataSourceConfig:{}", config);
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUsername(config.getUsername());
