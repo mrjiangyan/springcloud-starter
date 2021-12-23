@@ -1,8 +1,7 @@
 allprojects {
-//    apply plugin: 'maven'
+    apply plugin: 'maven'
     apply plugin: 'maven-publish'
     apply plugin: 'java'
-    apply plugin: 'idea'
 
 
     group = 'com.touchbiz.starter'
@@ -15,7 +14,7 @@ allprojects {
             springVersion = '5.2.8.RELEASE'
             springCloudVersion = '2.1.2.RELEASE'
             mavenUserName = '61402da4c364e0737d2e4d14'
-            mavenPassword = 'Gl9SYH4Xz'
+            mavenPassword = 'Gl9SYH4Xz]OB'
 
             lombokVersion = '1.18.12'
             nacosStarterVersion = '2.1.0.RELEASE'
@@ -34,9 +33,7 @@ allprojects {
             mysqlVerision = '8.0.25'
             revision = '2.4.RELEASE'
             jacksonVersion = '2.11.1'
-            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN'
-            //toplist 配置
-//            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2041383-release-F0cHwt/'
+            repositoryUrl = 'https://packages.aliyun.com/maven/repository/2137731-release-WXgfEj'
 
         }
         repositories {
@@ -46,39 +43,15 @@ allprojects {
 
     }
 
-
-    allprojects {
-        repositories {
-            maven {
-                url 'https://maven.aliyun.com/repository/public'
-            }
-            maven {
-                credentials {
-                    username "$mavenUserName"
-                    password "$mavenPassword"
-                }
-                url 'https://packages.aliyun.com/maven/repository/2137731-release-WXgfEj/'
-            }
-            maven {
-                credentials {
-                    username "$mavenUserName"
-                    password "$mavenPassword"
-                }
-                url 'https://packages.aliyun.com/maven/repository/2137731-snapshot-r3SMMA/'
-            }
-        }
-    }
-
 }
 
 
 /**所有子项目应用Java插件*/
 
 subprojects {
-//    apply plugin: 'maven'
+    apply plugin: 'maven'
     apply plugin: 'maven-publish'
     apply plugin: 'java'
-    apply plugin: 'idea'
 
     sourceCompatibility = '1.8'
     group = 'com.touchbiz.starter'
@@ -125,40 +98,8 @@ subprojects {
         archives sourcesJar
     }
 
-
-//    publishing {
-//        publications {
-//            mavenJava(MavenPublication) {
-//                //指定group/artifact/version信息
-//                groupId "$project.group"
-//                version "$project.version"
-//                artifactId "$artifactId"
-//                description '公共类库'
-//                from components.java
-//
-//                // 增加 sourcesJar 任务
-//                artifact sourcesJar
-//            }
-//        }
-//        // 发布仓库
-//        repositories {
-//            mavenLocal()
-//
-//            maven {
-//                // 凭证
-//                credentials {
-//                    username "$mavenUserName" // 仓库发布用户名
-//                    password "$mavenPassword" // 仓库发布用户密码
-//                }
-//                // 地址
-//                url 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN/'
-//            }
-//        }
-//    }
-
     dependencies {
         compileOnly group: 'org.projectlombok', name: 'lombok', version: "${ lombokVersion }"
         annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${ lombokVersion }"
     }
-
 }
