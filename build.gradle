@@ -25,6 +25,7 @@ allprojects {
             swaggerLayerVersion = '1.1.3'
             commonEntityVersion = '1.8.RELEASE'
             commonVersion = '1.7.RELEASE'
+            commonPoolVersion = '1.6'
             mybatisVersion = '2.1.3'
             druidVersion = '1.2.3'
             tkVersion = '4.1.5'
