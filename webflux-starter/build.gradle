@@ -17,6 +17,7 @@ dependencies {
 }
 
 
+
 uploadArchives {
     configuration = configurations['archives']
     repositories {
@@ -38,3 +39,4 @@ uploadArchives {
         }
     }
 }
+
