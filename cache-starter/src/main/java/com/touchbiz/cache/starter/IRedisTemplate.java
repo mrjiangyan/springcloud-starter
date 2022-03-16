@@ -1,10 +1,14 @@
 package com.touchbiz.cache.starter;
 
+import org.springframework.data.redis.core.RedisTemplate;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public interface IRedisTemplate {
+
+    RedisTemplate<String, Object> getRedisTemplate();
 
     /**
      * 指定缓存失效时间
@@ -125,4 +129,27 @@ public interface IRedisTemplate {
      * @return
      */
     Object getSet(String key, Object value);
+
+    /**
+     * 根据关键字模糊检索Redis缓存
+     * @param query
+     * @return
+     */
+    List<Object> scan(String query);
+
+    Long zRank(String key, Object value);
+
+    Double zScore(String key, Object value);
+
+    Double zIncrScore(String key, Object value, double delta);
+
+    void zAdd(String key, Object value, double score);
+
+    Long zSize(String key);
+
+    Set<Object> zRevRange(String key, int start, int end);
+
+    void zRemove(String key, Object value);
+
+    Set<Object> ZRange(String key, int start, int end);
 }

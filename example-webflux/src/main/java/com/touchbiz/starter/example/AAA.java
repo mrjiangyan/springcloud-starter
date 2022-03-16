@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class AAA extends BaseQuery {
+public class AAA {
 
     @NotNull(message = "233222")
     private String data;

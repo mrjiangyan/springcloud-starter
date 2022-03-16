@@ -1,8 +1,10 @@
 package com.touchbiz.webflux.starter.configuration.feign;
 
 import feign.Feign;
+import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -21,6 +23,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @ConditionalOnClass(Feign.class)
@@ -55,4 +58,24 @@ public class OkHttpFeignConfig {
         return new SpringEncoder(feignHttpMessageConverter());
     }
 
+    @Bean
+    public okhttp3.OkHttpClient okHttpClient() {
+        return new okhttp3.OkHttpClient.Builder()
+                //设置连接超时
+                .connectTimeout(5000, TimeUnit.MILLISECONDS)
+                //设置读超时
+                .readTimeout(10000, TimeUnit.MILLISECONDS)
+                //设置写超时
+                .writeTimeout(10000, TimeUnit.MILLISECONDS)
+                //是否自动重连
+                .retryOnConnectionFailure(true)
+                .connectionPool(new ConnectionPool(10, 5L, TimeUnit.MINUTES))
+                .build();
+    }
+
+    @Bean
+    @Primary
+    public Retryer feignRetryer() {
+        return Retryer.NEVER_RETRY;
+    }
 }

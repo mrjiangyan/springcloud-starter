@@ -3,7 +3,7 @@
 //import lombok.Data;
 //
 //@Data
-//public class MysqlDataSourceConfig {
+//public class MySqlDataSourceConfig {
 //
 //    private String dbUrl;
 //

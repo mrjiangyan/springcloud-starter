@@ -5,15 +5,15 @@ import com.touchbiz.common.utils.tools.JsonUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,6 +30,11 @@ public class RedisLettuceTemplate implements IRedisTemplate {
      * 注入redisTemplate bean
      */
     private final RedisTemplate<String, Object> redisTemplate;
+
+    @Override
+    public RedisTemplate<String, Object> getRedisTemplate() {
+        return redisTemplate;
+    }
 
     @Override
     public boolean expire(String key, long time) {
@@ -691,5 +696,111 @@ public class RedisLettuceTemplate implements IRedisTemplate {
     public Object getSet(String key, Object value) {
         return key == null ? null : redisTemplate.opsForValue().getAndSet(key, value);
 
+    }
+
+    @Override
+    public List<Object> scan(String query) {
+        Set<String> keys = redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
+            Set<String> keysTmp = new HashSet<>();
+            Cursor<byte[]> cursor = connection.scan(new ScanOptions.ScanOptionsBuilder().match(query).count(1000).build());
+            while (cursor.hasNext()) {
+                keysTmp.add(new String(cursor.next()));
+            }
+            return keysTmp;
+        });
+        return new ArrayList<>(keys);
+    }
+
+    @Override
+    public void zAdd(String key, Object value, double score) {
+        redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+    /**
+     * score的增加or减少 zincrby
+     *
+     * @param key
+     * @param value
+     * @param delta -1 表示减 1 表示加1
+     */
+    @Override
+    public Double zIncrScore(String key, Object value, double delta) {
+        return redisTemplate.opsForZSet().incrementScore(key, value, delta);
+    }
+
+    /**
+     * 查询value对应的score   zscore
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    @Override
+    public Double zScore(String key, Object value) {
+        return redisTemplate.opsForZSet().score(key, value);
+    }
+
+    /**
+     * 判断value在zset中的排名  zrank
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    @Override
+    public Long zRank(String key, Object value) {
+        return redisTemplate.opsForZSet().rank(key, value);
+    }
+
+    /**
+     * 返回集合的长度
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public Long zSize(String key) {
+        return redisTemplate.opsForZSet().zCard(key);
+    }
+
+    /**
+     * 查询集合中指定顺序的值  zrevrange
+     *
+     * 返回有序的集合中，score大的在前面
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    @Override
+    public Set<Object> zRevRange(String key, int start, int end) {
+        return redisTemplate.opsForZSet().reverseRange(key, start, end);
+    }
+
+    /**
+     * 删除元素 zrem
+     *
+     * @param key
+     * @param value
+     */
+    @Override
+    public void zRemove(String key, Object value) {
+        redisTemplate.opsForZSet().remove(key, value);
+    }
+
+    /**
+     * 查询集合中指定顺序的值， 0 -1 表示获取全部的集合内容  zrange
+     *
+     * 返回有序的集合，score小的在前面
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    @Override
+    public Set<Object> ZRange(String key, int start, int end) {
+        return redisTemplate.opsForZSet().range(key, start, end);
     }
 }
