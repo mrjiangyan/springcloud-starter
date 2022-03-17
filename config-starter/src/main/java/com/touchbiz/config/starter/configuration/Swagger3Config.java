@@ -4,7 +4,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
+
+import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +56,7 @@ public class Swagger3Config {
         private final String WEBJAR_PATH = "/webjars/**";
 
         @Autowired
-        private ResourceProperties resourceProperties;
+        private WebProperties webProperties;
 
         /**
          * 1-配置静态访问资源
@@ -69,7 +70,7 @@ public class Swagger3Config {
             }
             String staticPathPattern = "*.html";
             registry.addResourceHandler(staticPathPattern)
-                    .addResourceLocations(resourceProperties.getStaticLocations());
+                    .addResourceLocations(webProperties.getResources().getStaticLocations());
 
         }
     }

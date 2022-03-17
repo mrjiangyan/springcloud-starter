@@ -1,6 +1,5 @@
 def artifactId = 'com.touchbiz.db.starter'
 
-//apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
@@ -28,12 +27,12 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
-    implementation group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
-    implementation group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"
-    implementation group: 'commons-pool', name: 'commons-pool', version: "${ commonPoolVersion }"
-    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: "${ mybatisVersion }"
-    implementation group: 'tk.mybatis', name: 'mapper', version: "${ tkVersion }"
+    compile group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
+    compile group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
+   // compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"
+//    compile group: 'commons-pool', name: 'commons-pool', version: "${ commonPoolVersion }"
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: "${ mybatisVersion }"
+    compile group: 'tk.mybatis', name: 'mapper', version: "${ tkVersion }"
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }
 

@@ -701,7 +701,7 @@ public class RedisLettuceTemplate implements IRedisTemplate {
     public List<Object> scan(String query) {
         Set<String> keys = redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
             Set<String> keysTmp = new HashSet<>();
-            Cursor<byte[]> cursor = connection.scan(new ScanOptions.ScanOptionsBuilder().match(query).count(1000).build());
+            Cursor<byte[]> cursor = connection.scan(ScanOptions.scanOptions().match(query).count(1000).build());
             while (cursor.hasNext()) {
                 keysTmp.add(new String(cursor.next()));
             }

@@ -10,7 +10,6 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 dependencies {
-   // implementation 'com.github.ben-manes.caffeine:caffeine:2.5.5'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: "${springBootVersion}"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${springBootVersion}"
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.8.0'
@@ -21,7 +20,7 @@ dependencies {
     implementation project(':config-starter')
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.2'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.1.RELEASE'
+    implementation group:"com.alibaba.cloud",name: "spring-cloud-starter-alibaba-nacos-discovery",version:"${nacosStarterVersion}"
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${springBootVersion}"

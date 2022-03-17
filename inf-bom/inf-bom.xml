@@ -16,10 +16,10 @@
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <spring-boot.version>2.4.13</spring-boot.version>
-        <spring-cloud.version>2020.0.5</spring-cloud.version>
-        <springcloudalibaba.version>2020.0.0</springcloudalibaba.version>
-        <spring-cloud-commons.version>2020.0.5</spring-cloud-commons.version>
+        <spring-boot.version>2.6.4</spring-boot.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <springcloudalibaba.version>2021.1</springcloudalibaba.version>
+        <spring-cloud-commons.version>2021.0.1</spring-cloud-commons.version>
 
         <db-starter.version>2022.3.17.RELEASE</db-starter.version>
         <webflux-starter.version>2022.3.17.RELEASE</webflux-starter.version>

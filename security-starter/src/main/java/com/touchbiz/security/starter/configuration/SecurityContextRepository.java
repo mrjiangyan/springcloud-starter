@@ -1,7 +1,6 @@
 package com.touchbiz.security.starter.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;

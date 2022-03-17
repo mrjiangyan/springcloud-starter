@@ -1,6 +1,6 @@
 package com.touchbiz.webflux.starter.exception;
 
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
@@ -20,10 +20,10 @@ public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHan
 
 
     public GlobalErrorWebExceptionHandler(ErrorAttributes errorAttributes,
-                                          ResourceProperties resourceProperties,
+                                          WebProperties webProperties,
                                           ServerCodecConfigurer serverCodecConfigurer,
                                           ApplicationContext applicationContext) {
-        super(errorAttributes, resourceProperties, applicationContext);
+        super(errorAttributes, webProperties.getResources(), applicationContext);
         this.setMessageWriters(serverCodecConfigurer.getWriters());
     }
 

@@ -5,6 +5,7 @@ import com.touchbiz.common.entity.result.IResultMsg;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.ConversionNotSupportedException;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotWritableException;
@@ -22,7 +23,7 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
 
     @SneakyThrows
     @Override
-    public Map<String, Object> getErrorAttributes(ServerRequest request, boolean includeStackTrace) {
+    public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         Throwable error = getError(request);
         ApiResult result;
         if (error instanceof ConversionNotSupportedException || error instanceof HttpMessageNotWritableException) {
