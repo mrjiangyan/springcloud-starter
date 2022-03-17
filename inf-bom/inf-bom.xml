@@ -6,30 +6,31 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>1.2</version>
+    <version>2.0</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
     <description>第三方jar包统一管理</description>
 
     <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
-        <db-starter.version>2.4.RELEASE</db-starter.version>
-        <webflux-starter.version>2.4.RELEASE</webflux-starter.version>
-        <log-starter.version>1.4.RELEASE</log-starter.version>
-        <config-starter.version>2.4.RELEASE</config-starter.version>
-        <cache-starter.version>2.4.RELEASE</cache-starter.version>
-        <mq-starter.version>2.4.RELEASE</mq-starter.version>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <spring-boot.version>2.4.13</spring-boot.version>
+        <spring-cloud.version>2020.0.5</spring-cloud.version>
+        <springcloudalibaba.version>2020.0.0</springcloudalibaba.version>
+        <spring-cloud-commons.version>2020.0.5</spring-cloud-commons.version>
+
+        <db-starter.version>2022.3.17.RELEASE</db-starter.version>
+        <webflux-starter.version>2022.3.17.RELEASE</webflux-starter.version>
+        <log-starter.version>2022.3.17.RELEASE</log-starter.version>
+        <config-starter.version>2022.3.17.RELEASE</config-starter.version>
+        <cache-starter.version>2022.3.17.RELEASE</cache-starter.version>
+        <mq-starter.version>2022.3.17.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 
         <common.version>1.7.RELEASE</common.version>
-        <lombok.version>1.18.12</lombok.version>
-        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-        <springcloudalibaba.version>2.2.1.RELEASE</springcloudalibaba.version>
-        <spring-cloud-commons.version>2.2.1.RELEASE</spring-cloud-commons.version>
+        <lombok.version>1.18.16</lombok.version>
         <jmock.version>1.41</jmock.version>
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.5.20</swagger.version>

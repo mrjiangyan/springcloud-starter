@@ -17,6 +17,7 @@ dependencies {
 }
 
 
+apply plugin: 'maven'
 
 uploadArchives {
     configuration = configurations['archives']

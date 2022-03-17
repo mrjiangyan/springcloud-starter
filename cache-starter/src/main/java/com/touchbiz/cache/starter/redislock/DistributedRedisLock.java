@@ -2,7 +2,6 @@ package com.touchbiz.cache.starter.redislock;
 
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.connection.ReturnType;
 import org.springframework.data.redis.core.RedisCallback;

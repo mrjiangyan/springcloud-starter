@@ -3,8 +3,8 @@ def artifactId = 'com.touchbiz.config.starter'
 dependencies {
     implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
-    compileOnly group: 'org.springframework', name: 'spring-webflux', version: "${ springVersion }"
-    compileOnly group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: "${ springBootVersion }"
+    implementation group: 'org.springframework', name: 'spring-webflux', version: "${ springVersion }"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: "${ springBootVersion }"
     implementation "io.springfox:springfox-bean-validators:${swaggerVersion}"
     implementation "io.springfox:springfox-core:${swaggerVersion}"
     implementation "io.swagger:swagger-annotations:1.5.20"
@@ -15,6 +15,7 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }
 
+apply plugin: 'maven'
 
 uploadArchives {
     configuration = configurations['archives']

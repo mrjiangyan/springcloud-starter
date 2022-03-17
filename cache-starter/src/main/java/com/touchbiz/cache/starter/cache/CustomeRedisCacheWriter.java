@@ -1,6 +1,8 @@
 package com.touchbiz.cache.starter.cache;
 
 import org.springframework.dao.PessimisticLockingFailureException;
+import org.springframework.data.redis.cache.CacheStatistics;
+import org.springframework.data.redis.cache.CacheStatisticsCollector;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -124,6 +126,16 @@ public class CustomeRedisCacheWriter implements RedisCacheWriter {
         });
     }
 
+    @Override
+    public void clearStatistics(String name) {
+        
+    }
+
+    @Override
+    public RedisCacheWriter withStatisticsCollector(CacheStatisticsCollector cacheStatisticsCollector) {
+        return null;
+    }
+
     void lock(String name) {
         this.execute(name, (connection) -> {
             return this.doLock(name, connection);
@@ -197,4 +209,8 @@ public class CustomeRedisCacheWriter implements RedisCacheWriter {
         return (name + "~lock").getBytes(StandardCharsets.UTF_8);
     }
 
+    @Override
+    public CacheStatistics getCacheStatistics(String cacheName) {
+        return null;
+    }
 }

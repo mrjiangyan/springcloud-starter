@@ -8,12 +8,11 @@ import com.touchbiz.cache.starter.reactor.ReactorCache;
 import com.touchbiz.cache.starter.reactor.SpringMonoCache;
 import com.touchbiz.cache.starter.reactor.SpringNonReactorCache;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.cache.interceptor.CacheOperationInvoker;
 import org.springframework.util.Assert;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+//import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -99,13 +98,13 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
                 }
                 final ParameterizedType parameterizedType = (ParameterizedType) m.getGenericReturnType();
                 if(!parameterizedType.getRawType().equals(Mono.class) && !parameterizedType.getRawType().equals(Flux.class)){
-                    ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType;
-                    return type.getRawType();
+                   // ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType;
+                    return parameterizedType.getRawType().getClass();
                 }
                 var clazz = parameterizedType.getActualTypeArguments()[0];
-                if(clazz instanceof ParameterizedTypeImpl){
-                    ParameterizedTypeImpl type = (ParameterizedTypeImpl)clazz;
-                    return type.getRawType();
+                if(clazz instanceof ParameterizedType){
+                    ParameterizedType type = (ParameterizedType)clazz;
+                    return type.getRawType().getClass();
                 }
                 return (Class<?>) clazz;
 

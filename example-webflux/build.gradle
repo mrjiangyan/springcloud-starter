@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'org.springframework.boot' version '2.4.13'
     id 'java'
 }
 
@@ -7,10 +7,10 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.touchbiz.starter'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 dependencies {
-    implementation 'com.github.ben-manes.caffeine:caffeine:2.5.5'
+   // implementation 'com.github.ben-manes.caffeine:caffeine:2.5.5'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: "${springBootVersion}"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${springBootVersion}"
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.8.0'
