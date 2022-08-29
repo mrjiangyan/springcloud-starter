@@ -5,9 +5,11 @@ dependencies {
 
     implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
     implementation group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.0'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${ springBootVersion }"
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: "${openFeignVersion}"
-    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${ springBootVersion }"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${ springBootVersion }"
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: "${openFeignVersion}"
+    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: "${ nacosStarterVersion }"
     implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.3.11.RELEASE'

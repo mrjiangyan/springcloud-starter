@@ -13,17 +13,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfiguration {
 
-//    @Value("${spring.redis.timeout}")
-//    private int timeout;
-
-//    @Bean
-//    @Primary
-//    public LettuceConnectionFactory factory(GenericObjectPoolConfig config, RedisStandaloneConfiguration redisConf) {
-//        LettuceClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder()
-//                .poolConfig(config).commandTimeout(Duration.ofMillis(timeout)).build();
-//        return new LettuceConnectionFactory(redisConf, clientConfiguration);
-//    }
-
     @Bean("redisTemplate")
     @Primary
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory, RedisSerializer redisSerializer) {
