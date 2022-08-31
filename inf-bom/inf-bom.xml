@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2022.8.30</version>
+    <version>2022.8.31</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -17,19 +17,19 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <spring-boot.version>2.7.0</spring-boot.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
         <springcloudalibaba.version>2021.1</springcloudalibaba.version>
-        <spring-cloud-commons.version>2021.0.1</spring-cloud-commons.version>
+        <spring-cloud-commons.version>3.1.2</spring-cloud-commons.version>
 
         <db-starter.version>2022.8.30</db-starter.version>
-        <webflux-starter.version>2022.8.30</webflux-starter.version>
+        <webflux-starter.version>2022.8.31</webflux-starter.version>
         <log-starter.version>2022.3.17.RELEASE</log-starter.version>
         <config-starter.version>2022.8.30</config-starter.version>
         <cache-starter.version>2022.8.30</cache-starter.version>
         <mq-starter.version>2022.3.17.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 
-        <common.version>1.7.RELEASE</common.version>
+        <common.version>2022.8.30</common.version>
         <lombok.version>1.18.16</lombok.version>
         <jmock.version>1.41</jmock.version>
         <springfox.version>3.0.0</springfox.version>
