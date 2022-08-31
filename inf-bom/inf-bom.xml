@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2022.8.31</version>
+    <version>2022.8.31.01</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -30,11 +30,10 @@
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 
         <common.version>2022.8.30</common.version>
-        <lombok.version>1.18.16</lombok.version>
+        <lombok.version>1.18.22</lombok.version>
         <jmock.version>1.41</jmock.version>
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.5.20</swagger.version>
-        <aliyun.oss.version>3.10.2</aliyun.oss.version>
         <hibernate.version>6.1.6.Final</hibernate.version>
         <servlet.version>4.0.1</servlet.version>
         <fastjson.version>1.2.62</fastjson.version>
@@ -155,11 +154,6 @@
                 <version>${springfox.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.aliyun.oss</groupId>
-                <artifactId>aliyun-sdk-oss</artifactId>
-                <version>${aliyun.oss.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
