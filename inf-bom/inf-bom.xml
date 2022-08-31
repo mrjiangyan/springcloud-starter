@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2022.8.31.01</version>
+    <version>2022.8.31.6</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -21,15 +21,15 @@
         <springcloudalibaba.version>2021.1</springcloudalibaba.version>
         <spring-cloud-commons.version>3.1.2</spring-cloud-commons.version>
 
-        <db-starter.version>2022.8.30</db-starter.version>
-        <webflux-starter.version>2022.8.31</webflux-starter.version>
+        <db-starter.version>2022.8.31.5</db-starter.version>
+        <webflux-starter.version>2022.8.31.3</webflux-starter.version>
         <log-starter.version>2022.3.17.RELEASE</log-starter.version>
         <config-starter.version>2022.8.30</config-starter.version>
         <cache-starter.version>2022.8.30</cache-starter.version>
         <mq-starter.version>2022.3.17.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 
-        <common.version>2022.8.30</common.version>
+        <common.version>2022.8.31.2</common.version>
         <lombok.version>1.18.22</lombok.version>
         <jmock.version>1.41</jmock.version>
         <springfox.version>3.0.0</springfox.version>
@@ -38,7 +38,7 @@
         <servlet.version>4.0.1</servlet.version>
         <fastjson.version>1.2.62</fastjson.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <commonEntity.version>1.9.RELEASE</commonEntity.version>
+        <commonEntity.version>2022.8.31.1</commonEntity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
     </properties>

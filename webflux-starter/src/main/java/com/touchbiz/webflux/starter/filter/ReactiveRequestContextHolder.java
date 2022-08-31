@@ -4,11 +4,14 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ReactiveRequestContextHolder {
     private static final ThreadLocal<ServerHttpRequest> REQUEST_THREAD_LOCAL = new InheritableThreadLocal<>();
 
     private static final ThreadLocal<Object> USER_THREAD_LOCAL = new InheritableThreadLocal<>();
+
+    private static final ThreadLocal<ConcurrentHashMap> ATTRIBUTE_THREAD_LOCAL = new InheritableThreadLocal<>();
 
     public static final Class<ServerHttpRequest> CONTEXT_KEY = ServerHttpRequest.class;
 
@@ -18,6 +21,16 @@ public class ReactiveRequestContextHolder {
         return Mono.subscriberContext()
                 .map(ctx -> ctx.get(MAP_KEY));
     }
+
+    public static Map<String,Object> getLocalAttributes() {
+        if(ATTRIBUTE_THREAD_LOCAL.get() == null){
+            if(ATTRIBUTE_THREAD_LOCAL.get() == null) {
+                ATTRIBUTE_THREAD_LOCAL.set(new ConcurrentHashMap());
+            }
+        }
+        return ATTRIBUTE_THREAD_LOCAL.get();
+    }
+
 
     public static ServerHttpRequest get(){
         return REQUEST_THREAD_LOCAL.get();

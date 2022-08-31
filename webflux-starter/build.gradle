@@ -14,7 +14,7 @@ dependencies {
     api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: "${ nacosStarterVersion }"
     api group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     api group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
-    api group: 'io.projectreactor', name: 'reactor-core', version: '3.3.11.RELEASE'
+    api group: 'io.projectreactor', name: 'reactor-core', version: '3.3.20.RELEASE'
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
     testImplementation 'io.projectreactor:reactor-test:3.3.8.RELEASE'
