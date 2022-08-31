@@ -1,6 +1,7 @@
 allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'java'
+    apply plugin: 'java-library'
 
     group = 'com.touchbiz.starter'
     version = '1.0'
@@ -9,8 +10,8 @@ allprojects {
         ext {
             commonLang3Version = '3.10'
             aspectjVersion = 'deploy.sh.5'
-            springBootVersion = '2.6.4'
-            springVersion = '5.3.13'
+            springBootVersion = '2.7.0'
+            springVersion = '5.3.20'
             springCloudVersion = '3.1.1'
             mavenUserName = '61402da4c364e0737d2e4d14'
             mavenPassword = 'Gl9SYH4Xz]OB'
@@ -30,7 +31,7 @@ allprojects {
             openFeignVersion = '2.2.3.RELEASE'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.25'
-            revision = '2022.3.17.RELEASE'
+            revision = '2022.8.30'
             jacksonVersion = '2.11.1'
             repositoryUrl = 'https://packages.aliyun.com/maven/repository/2137731-release-WXgfEj'
 

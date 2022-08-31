@@ -1,17 +1,17 @@
 def artifactId = 'com.touchbiz.config.starter'
 
 dependencies {
-    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
-    implementation group: 'org.springframework', name: 'spring-webflux', version: "${ springVersion }"
-    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: "${ springBootVersion }"
-    implementation "io.springfox:springfox-bean-validators:${swaggerVersion}"
-    implementation "io.springfox:springfox-core:${swaggerVersion}"
-    implementation "io.swagger:swagger-annotations:1.5.20"
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.2"
-    implementation "io.springfox:springfox-oas:${swaggerVersion}"
-    implementation "io.springfox:springfox-spi:${swaggerVersion}"
-    implementation "io.springfox:springfox-spring-web:${swaggerVersion}"
+    api group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    api group: 'org.springframework', name: 'spring-webflux', version: "${ springVersion }"
+    api group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: "${ springBootVersion }"
+    api "io.springfox:springfox-bean-validators:${swaggerVersion}"
+    api "io.springfox:springfox-core:${swaggerVersion}"
+    api "io.swagger:swagger-annotations:1.5.20"
+    api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.2"
+    api "io.springfox:springfox-oas:${swaggerVersion}"
+    api "io.springfox:springfox-spi:${swaggerVersion}"
+    api "io.springfox:springfox-spring-web:${swaggerVersion}"
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }
 

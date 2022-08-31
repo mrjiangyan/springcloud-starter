@@ -6,26 +6,26 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2.0</version>
+    <version>2022.8.30</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
     <description>第三方jar包统一管理</description>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <spring-boot.version>2.6.4</spring-boot.version>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <spring-boot.version>2.7.0</spring-boot.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <springcloudalibaba.version>2021.1</springcloudalibaba.version>
         <spring-cloud-commons.version>2021.0.1</spring-cloud-commons.version>
 
-        <db-starter.version>2022.3.17.RELEASE</db-starter.version>
-        <webflux-starter.version>2022.3.17.RELEASE</webflux-starter.version>
+        <db-starter.version>2022.8.30</db-starter.version>
+        <webflux-starter.version>2022.8.30</webflux-starter.version>
         <log-starter.version>2022.3.17.RELEASE</log-starter.version>
-        <config-starter.version>2022.3.17.RELEASE</config-starter.version>
-        <cache-starter.version>2022.3.17.RELEASE</cache-starter.version>
+        <config-starter.version>2022.8.30</config-starter.version>
+        <cache-starter.version>2022.8.30</cache-starter.version>
         <mq-starter.version>2022.3.17.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 

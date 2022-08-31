@@ -1,7 +1,6 @@
 package com.touchbiz.starter.example;
 
 import com.touchbiz.cache.starter.annotation.MonoCacheable;
-import com.touchbiz.cache.starter.annotation.RedisCache;
 import com.touchbiz.common.entity.exception.BizException;
 import com.touchbiz.common.entity.query.BaseQuery;
 import com.touchbiz.common.entity.result.ApiResult;
@@ -10,8 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+
+//import com.touchbiz.cache.starter.annotation.RedisCache;
 
 @Slf4j
 @RestController
@@ -48,7 +47,7 @@ public class TestController extends BaseController {
 
     @SneakyThrows
     @GetMapping("/test/time/{id}")
-    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
+//    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
     public ApiResult<AAA> testLocalDateTime(@PathVariable("id") @Validated @Max(10) Integer id) {
         AAA a = new AAA();
         a.setTime(LocalDateTime.now());
@@ -60,14 +59,14 @@ public class TestController extends BaseController {
 
     @SneakyThrows
     @GetMapping("/test/cacheTime/{id}")
-    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
+//    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
     public String testCacheLocalDateTime(@PathVariable("id") @Validated @Max(10) Integer id) {
         return LocalDateTime.now().toString();
     }
 
     @SneakyThrows
     @GetMapping("/query")
-    @RedisCache(keyPrefix = "AAA",redisKey = "#query")
+//    @RedisCache(keyPrefix = "AAA",redisKey = "#query")
     public ApiResult<AAA> query(AAA query) {
         return ApiResult.getSuccessResponse(query);
     }
