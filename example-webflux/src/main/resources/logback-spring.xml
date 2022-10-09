@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="warn" scan="true">
     <springProfile name="!local">
-        <property name="logbasedir" value="/home/admin/logs/com.touchbiz.middle.example"/>
+        <property name="logbasedir" value="/opt/logs/com.touchbiz.middle.example"/>
     </springProfile>
     <springProfile name="local">
         <property name="logbasedir" value="/opt/logs/com.touchbiz.middle.example"/>

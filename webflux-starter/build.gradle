@@ -20,28 +20,3 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test:3.3.8.RELEASE'
 }
 
-
-apply plugin: 'maven'
-
-uploadArchives {
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            // 注释1
-            pom.groupId = "$project.group"
-            pom.version = "$project.version"
-            pom.artifactId = "$artifactId"
-            // 注释2
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description '公共类库'
-            }
-            // 注释3
-            repository(url: "$repositoryUrl") {
-                authentication(userName: "$mavenUserName", password: "$mavenPassword")
-            }
-        }
-    }
-}
-

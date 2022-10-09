@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 
 
-sourceCompatibility = '17'
+sourceCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
+    implementation group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
     api group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
     api group: 'org.springframework', name: 'spring-web', version: "${ springVersion }"
     api group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
@@ -44,27 +44,4 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }
 
-apply plugin: 'maven'
-
-uploadArchives {
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            // 注释1
-            pom.groupId = "$project.group"
-            pom.version = "$project.version"
-            pom.artifactId = "$artifactId"
-            // 注释2
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description '数据库访问公共类库'
-            }
-            // 注释3
-            repository(url: "$repositoryUrl") {
-                authentication(userName: "$mavenUserName", password: "$mavenPassword")
-            }
-        }
-    }
-}
 

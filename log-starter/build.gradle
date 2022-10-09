@@ -13,5 +13,3 @@ dependencies {
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     implementation project(':config-starter')
 }
-
-apply plugin: 'maven'
