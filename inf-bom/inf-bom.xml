@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2022.8.31.6</version>
+    <version>2022.10.9.1</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -25,7 +25,7 @@
         <webflux-starter.version>2022.8.31.3</webflux-starter.version>
         <log-starter.version>2022.3.17.RELEASE</log-starter.version>
         <config-starter.version>2022.8.30</config-starter.version>
-        <cache-starter.version>2022.8.30</cache-starter.version>
+        <cache-starter.version>2022.10.9.1</cache-starter.version>
         <mq-starter.version>2022.3.17.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 

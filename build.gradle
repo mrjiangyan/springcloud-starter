@@ -32,7 +32,7 @@ allprojects {
             openFeignVersion = '2.2.3.RELEASE'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.28'
-            revision = '2022.8.31.5'
+            revision = '2022.10.9.1'
             jacksonVersion = '2.11.1'
             repositoryUrl = 'https://packages.aliyun.com/maven/repository/2137731-release-WXgfEj'
         }

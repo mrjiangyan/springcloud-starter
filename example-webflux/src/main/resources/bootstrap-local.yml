@@ -2,8 +2,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.120.96:8848
+        server-addr: nacos.ai-prime.tech:8848
       config:
-        server-addr: 192.168.120.96:8848
+        server-addr: nacos.ai-prime.tech:8848
         file-extension: yaml
         #namespace: b6c45a92-c29c-435e-9fe3-7f5b9b3de152
