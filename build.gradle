@@ -35,7 +35,6 @@ allprojects {
             revision = '2022.8.31.5'
             jacksonVersion = '2.11.1'
             repositoryUrl = 'https://packages.aliyun.com/maven/repository/2137731-release-WXgfEj'
-
         }
         repositories {
             mavenCentral()
