@@ -13,7 +13,7 @@ public final class HttpHeaderConstants {
     public static final String HEADER_CHANNEL = "channel";
     public static final String HEADER_APP_KEY = "appKey";
     public static final String HEADER_TIMESTAMP = "timestamp";
-    public static final String HEADER_TENMANT_ID = "tenantId";
+    public static final String HEADER_TENANT_ID = "tenantId";
     public static final String HEADER_PROJECT = "project";
 
     private HttpHeaderConstants() {

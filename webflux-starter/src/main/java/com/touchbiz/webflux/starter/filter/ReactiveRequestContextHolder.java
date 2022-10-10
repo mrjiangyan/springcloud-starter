@@ -13,6 +13,8 @@ public class ReactiveRequestContextHolder {
 
     private static final ThreadLocal<ConcurrentHashMap> ATTRIBUTE_THREAD_LOCAL = new InheritableThreadLocal<>();
 
+    private static final ThreadLocal<String> TENANT_THREAD_LOCAL = new InheritableThreadLocal<>();
+
     public static final Class<ServerHttpRequest> CONTEXT_KEY = ServerHttpRequest.class;
 
     public static final Class<Map> MAP_KEY = Map.class;
@@ -20,6 +22,19 @@ public class ReactiveRequestContextHolder {
     public static Mono<Map<String,Object>> getAttributes() {
         return Mono.subscriberContext()
                 .map(ctx -> ctx.get(MAP_KEY));
+    }
+
+    public static String getTenantId(){
+        return TENANT_THREAD_LOCAL.get();
+    }
+
+    /**
+     * Gets the {@code Mono<ServerHttpRequest>} from Reactor {@link Context}
+     * @return the {@code Mono<ServerHttpRequest>}
+     */
+    public static Mono<ServerHttpRequest> getRequest() {
+        return Mono.subscriberContext()
+                .map(ctx -> ctx.get(CONTEXT_KEY));
     }
 
     public static Map<String,Object> getLocalAttributes() {
