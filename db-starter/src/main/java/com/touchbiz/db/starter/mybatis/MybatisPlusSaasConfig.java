@@ -73,7 +73,7 @@ public class MybatisPlusSaasConfig {
             }
         }));
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
-        interceptor.addInnerInterceptor(new MybatisInterceptor());
+        //interceptor.addInnerInterceptor(new MybatisInterceptor());
         //update-begin-author:zyf date:20220425 for:【VUEN-606】注入动态表名适配拦截器解决多表名问题
         interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor());
         //update-end-author:zyf date:20220425 for:【VUEN-606】注入动态表名适配拦截器解决多表名问题
@@ -101,6 +101,11 @@ public class MybatisPlusSaasConfig {
             return tableName;
         });
         return dynamicTableNameInnerInterceptor;
+    }
+
+    @Bean
+    public MybatisInterceptor mybatisInterceptor(){
+        return new MybatisInterceptor();
     }
 
 //    /**
