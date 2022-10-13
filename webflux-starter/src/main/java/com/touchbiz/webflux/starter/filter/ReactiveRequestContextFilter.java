@@ -26,6 +26,9 @@ public class ReactiveRequestContextFilter implements WebFilter , Ordered {
             if(map.containsKey(HttpHeaderConstants.HEADER_USER)){
                 ReactiveRequestContextHolder.putUser(map.get(HttpHeaderConstants.HEADER_USER));
             }
+            if(map.containsKey(HttpHeaderConstants.HEADER_TENANT_ID)){
+                ReactiveRequestContextHolder.putTenantId(String.valueOf(map.get(HttpHeaderConstants.HEADER_TENANT_ID)));
+            }
         }
         return chain.filter(exchange)
                 .doFinally(signalType -> {

@@ -46,7 +46,6 @@ public class ReactiveRequestContextHolder {
         return ATTRIBUTE_THREAD_LOCAL.get();
     }
 
-
     public static ServerHttpRequest get(){
         return REQUEST_THREAD_LOCAL.get();
     }
@@ -64,10 +63,15 @@ public class ReactiveRequestContextHolder {
         USER_THREAD_LOCAL.set(user);
     }
 
+    public static void putTenantId(String tenantId){
+        TENANT_THREAD_LOCAL.set(tenantId);
+    }
+
 
     public static void remove(){
         REQUEST_THREAD_LOCAL.remove();
         USER_THREAD_LOCAL.remove();
+        TENANT_THREAD_LOCAL.remove();
     }
 }
 
