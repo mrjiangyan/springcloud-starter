@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.ai-prime.tech:8848
+        namespace: pangqn
+      config:
+        server-addr: nacos.ai-prime.tech:8848
+        namespace: pangqn
+        file-extension: yaml
+        #namespace: b6c45a92-c29c-435e-9fe3-7f5b9b3de152

@@ -104,9 +104,14 @@ public class MybatisPlusSaasConfig {
     }
 
     @Bean
-    public MybatisInterceptor mybatisInterceptor(){
-        return new MybatisInterceptor();
+    public MybatisUpdateInterceptor mybatisUpdateInterceptorr(){
+        return new MybatisUpdateInterceptor();
     }
+
+//    @Bean
+//    public MybatisQueryInterceptor mybatisQueryInterceptorr(){
+//        return new MybatisQueryInterceptor();
+//    }
 
 //    /**
 //     * 下个版本会删除，现在为了避免缓存出现问题不得不配置

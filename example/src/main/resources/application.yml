@@ -1,0 +1,25 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: com.example
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url:  jdbc:mysql://192.168.48.106:3306/standard4?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&useInformationSchema=true
+          username: root
+          password: Aiprime@2019
+  redis:
+    database: 0
+    host: 192.168.48.106
+    password: Aiprime@2019
+    port: 6379
+
+
+
+
+
+

@@ -10,7 +10,6 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -23,9 +22,9 @@ import java.util.Properties;
  *
  */
 @Slf4j
-@Component
+//@Component
 @Intercepts({ @Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }) })
-public class MybatisInterceptor implements Interceptor {
+public class MybatisUpdateInterceptor implements Interceptor {
 
 	@Autowired
 	private IDataAutor dataAutor;
@@ -38,6 +37,9 @@ public class MybatisInterceptor implements Interceptor {
 		SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
 		Object parameter = invocation.getArgs()[1];
 		log.debug("------sqlCommandType------" + sqlCommandType);
+
+		//获取request对象
+		//RequestContextHolder.getRequestAttributes();
 
 		if (parameter == null) {
 			return invocation.proceed();
@@ -82,6 +84,20 @@ public class MybatisInterceptor implements Interceptor {
 							if (sysUser != null) {
 								field.setAccessible(true);
 								field.set(parameter, sysUser.getSysOrgCode());
+								field.setAccessible(false);
+							}
+						}
+					}
+					//注入租户ID
+					if ("tenant_id".equals(field.getName())) {
+						field.setAccessible(true);
+						Object localTenantId = field.get(parameter);
+						field.setAccessible(false);
+						if (localTenantId == null || "".equals(localTenantId)) {
+							// 获取登录用户信息
+							if (sysUser != null) {
+								field.setAccessible(true);
+								//field.set(parameter, sysUser.getTenantId());
 								field.setAccessible(false);
 							}
 						}

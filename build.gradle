@@ -16,11 +16,11 @@ allprojects {
             mavenUserName = '61402da4c364e0737d2e4d14'
             mavenPassword = 'Gl9SYH4Xz]OB'
 
-            lombokVersion = '1.18.16'
+            lombokVersion = '1.18.20'
             nacosStarterVersion = '2021.1'
             swaggerVersion = '3.0.0'
             swaggerLayerVersion = '1.1.3'
-            commonEntityVersion = '2022.8.31.1'
+            commonEntityVersion = '2022.10.13.2'
             commonVersion = '2022.8.31.2'
             commonPoolVersion = '1.6'
             mybatisVersion = '2.2.0'
