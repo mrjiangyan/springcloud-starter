@@ -22,7 +22,7 @@ allprojects {
             swaggerLayerVersion = '1.1.3'
             commonEntityVersion = '2022.10.13.2'
             commonVersion = '2022.8.31.2'
-            commonPoolVersion = '1.6'
+             commonPoolVersion = '1.6'
             mybatisVersion = '2.2.0'
             druidVersion = '1.2.11'
             mybatisplusVersion = '3.5.2'
@@ -49,8 +49,6 @@ allprojects {
 /**所有子项目应用Java插件*/
 
 subprojects {
-
-
 
     sourceCompatibility = '11'
     group = 'com.touchbiz.starter'
