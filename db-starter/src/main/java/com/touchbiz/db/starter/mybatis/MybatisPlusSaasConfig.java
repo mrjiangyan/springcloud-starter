@@ -1,17 +1,18 @@
 package com.touchbiz.db.starter.mybatis;
 
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.touchbiz.common.utils.security.IDataAutor;
 import com.touchbiz.common.utils.text.CommonConstant;
-import com.touchbiz.common.utils.text.oConvertUtils;
-import com.touchbiz.db.starter.configuration.TenantContext;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,6 +45,8 @@ public class MybatisPlusSaasConfig {
 //        tenantTable.add("sys_depart");
     }
 
+    @Autowired
+    private IDataAutor dataAutor;
 
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
@@ -52,7 +55,11 @@ public class MybatisPlusSaasConfig {
         interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {
             @Override
             public Expression getTenantId() {
-                String tenantId = oConvertUtils.getString(TenantContext.getTenant(),"0");
+                //String tenantId = oConvertUtils.getString(TenantContext.getTenant(),"0");\
+                String tenantId = this.loadTenantId();
+                if (StringUtils.isEmpty(tenantId)){
+                    tenantId = "1";
+                }
                 return new LongValue(tenantId);
             }
 
@@ -66,10 +73,14 @@ public class MybatisPlusSaasConfig {
             public boolean ignoreTable(String tableName) {
                 for(String temp: TENANT_TABLE){
                     if(temp.equalsIgnoreCase(tableName)){
-                        return false;
+                        return true;
                     }
                 }
-                return true;
+                return false;
+            }
+
+            private String loadTenantId() {
+                return dataAutor.loadTenantId();
             }
         }));
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
@@ -104,8 +115,8 @@ public class MybatisPlusSaasConfig {
     }
 
     @Bean
-    public MybatisUpdateInterceptor mybatisUpdateInterceptorr(){
-        return new MybatisUpdateInterceptor();
+    public MybatisInterceptor mybatisInterceptorr(){
+        return new MybatisInterceptor();
     }
 
 //    @Bean

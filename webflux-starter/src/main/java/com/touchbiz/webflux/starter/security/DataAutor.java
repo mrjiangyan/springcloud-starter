@@ -92,5 +92,13 @@ public class DataAutor implements IDataAutor {
         return (SysUserCacheInfo) ReactiveRequestContextHolder.getUser();
     }
 
+    /**
+     * 从request获取租户ID信息
+     * @return
+     */
+    public String loadTenantId() {
+        return ReactiveRequestContextHolder.getTenantId();
+    }
+
 }
 

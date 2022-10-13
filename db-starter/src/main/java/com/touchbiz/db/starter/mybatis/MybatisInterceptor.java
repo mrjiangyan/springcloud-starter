@@ -24,7 +24,7 @@ import java.util.Properties;
 @Slf4j
 //@Component
 @Intercepts({ @Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }) })
-public class MybatisUpdateInterceptor implements Interceptor {
+public class MybatisInterceptor implements Interceptor {
 
 	@Autowired
 	private IDataAutor dataAutor;
@@ -37,9 +37,6 @@ public class MybatisUpdateInterceptor implements Interceptor {
 		SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
 		Object parameter = invocation.getArgs()[1];
 		log.debug("------sqlCommandType------" + sqlCommandType);
-
-		//获取request对象
-		//RequestContextHolder.getRequestAttributes();
 
 		if (parameter == null) {
 			return invocation.proceed();
@@ -88,21 +85,7 @@ public class MybatisUpdateInterceptor implements Interceptor {
 							}
 						}
 					}
-					//注入租户ID
-					if ("tenant_id".equals(field.getName())) {
-						field.setAccessible(true);
-						Object localTenantId = field.get(parameter);
-						field.setAccessible(false);
-						if (localTenantId == null || "".equals(localTenantId)) {
-							// 获取登录用户信息
-							if (sysUser != null) {
-								field.setAccessible(true);
-								//field.set(parameter, sysUser.getTenantId());
-								field.setAccessible(false);
-							}
-						}
-					}
-				} catch (Exception e) {
+			} catch (Exception e) {
 				}
 			}
 		}
@@ -176,4 +159,7 @@ public class MybatisUpdateInterceptor implements Interceptor {
 	}
 	//update-end--Author:scott  Date:20191213 for：关于使用Quzrtz 开启线程任务， #465
 
+	private String getTenantId() {
+		return dataAutor.loadTenantId();
+	}
 }
