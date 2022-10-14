@@ -8,13 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.util.Random;
 
 
@@ -45,5 +44,16 @@ public class TestController extends BaseController {
         return Mono.justOrEmpty(ApiResult.getSuccessResponse());
     }
 
+    @GetMapping("/{id}")
+    public Mono<ApiResult> query(@PathVariable("id") @Validated @NotNull Long id) {
+        Test test = testMapper.selectById(id);
+        return Mono.justOrEmpty(ApiResult.getSuccessResponse(test));
+    }
 
+    @PutMapping
+    public Mono<ApiResult> edit( @RequestBody @Validated Test test) {
+        log.info("test:{}", test);
+        testMapper.updateById(test);
+        return Mono.justOrEmpty(ApiResult.getSuccessResponse(test));
+    }
 }
