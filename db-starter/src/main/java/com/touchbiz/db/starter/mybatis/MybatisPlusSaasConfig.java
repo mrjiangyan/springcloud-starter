@@ -119,6 +119,11 @@ public class MybatisPlusSaasConfig {
         return new MybatisInterceptor();
     }
 
+    @Bean
+    public SqlLogInterceptor sqlLogInterceptor(){
+        return new SqlLogInterceptor();
+    }
+
 //    @Bean
 //    public MybatisQueryInterceptor mybatisQueryInterceptorr(){
 //        return new MybatisQueryInterceptor();
