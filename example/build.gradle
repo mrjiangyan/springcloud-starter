@@ -21,17 +21,19 @@ dependencies {
     implementation project(':config-starter')
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.2'
-//    implementation group:"com.alibaba.cloud",name: "spring-cloud-starter-alibaba-nacos-discovery",version:"${nacosStarterVersion}"
+//    implementation (group:"com.alibaba.cloud",name: "spring-cloud-starter-alibaba-nacos-discovery",version:"${nacosStarterVersion}"){
+//        exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-netflix-ribbon'
+//    }
+//    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '2.2.2.RELEASE'
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
 //    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"
 //    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${springBootVersion}"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: "${springBootVersion}"
-
-//    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.3.RELEASE'
 //    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }") {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-ribbon', version: "2.2.2.RELEASE"
     testImplementation("junit:junit:4.12")
     testImplementation 'io.projectreactor:reactor-test:3.3.8.RELEASE'
 }

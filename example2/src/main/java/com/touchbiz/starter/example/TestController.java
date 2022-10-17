@@ -1,9 +1,9 @@
 package com.touchbiz.starter.example;
 
 import com.touchbiz.common.entity.result.ApiResult;
-import com.touchbiz.starter.example.cli.FeignTestApi;
 import com.touchbiz.webflux.starter.controller.BaseController;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.util.Random;
 
@@ -23,10 +24,6 @@ public class TestController extends BaseController {
 
     @Autowired
     private TestMapper testMapper;
-
-    //feign调用生产者api
-    @Autowired
-    private FeignTestApi feignTestApi;
 
     @GetMapping("/test")
     public ApiResult<String> test() {
@@ -44,12 +41,6 @@ public class TestController extends BaseController {
         test = testMapper.selectById(test.getId());
         test.setAge(new Random().nextInt(100));
         testMapper.updateById(test);
-        return Mono.justOrEmpty(ApiResult.getSuccessResponse());
-    }
-
-    @PostMapping("/test3")
-    public Mono<ApiResult> feignTest(@RequestBody @Validated Test test) {
-        Object res = feignTestApi.test();
         return Mono.justOrEmpty(ApiResult.getSuccessResponse());
     }
 

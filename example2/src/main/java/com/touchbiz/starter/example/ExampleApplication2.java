@@ -29,13 +29,13 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableKnife4j
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableFeignClients(basePackages =  {"com.touchbiz.starter.example.cli"})
+@EnableFeignClients(basePackages = {})
 @MapperScan(basePackages = {"com.touchbiz.starter.example"})
-public class ExampleApplication extends BaseController {
+public class ExampleApplication2 extends BaseController {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(ExampleApplication.class, args);
+        SpringApplication.run(ExampleApplication2.class, args);
     }
 
 

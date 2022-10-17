@@ -9,5 +9,6 @@ include ':webflux-starter'
 include ':cache-starter'
 include ':security-starter'
 include ':example'
-include ':example-webflux'
+include ':example2'
+//include ':example-webflux'
 

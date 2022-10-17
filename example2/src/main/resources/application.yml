@@ -1,9 +1,9 @@
 server:
-  port: 8200
+  port: 8201
 
 spring:
   application:
-    name: com-example
+    name: com-example2
   datasource:
     dynamic:
       datasource:
@@ -17,6 +17,7 @@ spring:
     host: 192.168.48.106
     password: Aiprime@2019
     port: 6379
+
 
 
 
