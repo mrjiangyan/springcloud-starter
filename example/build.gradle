@@ -16,6 +16,7 @@ dependencies {
     implementation project(':log-starter')
     implementation project(':config-starter')
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.2'
     implementation 'io.netty:netty-all'
     implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: "${springBootVersion}"

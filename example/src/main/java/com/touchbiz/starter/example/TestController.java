@@ -4,12 +4,12 @@ import com.touchbiz.cache.starter.annotation.MonoCacheable;
 import com.touchbiz.common.entity.exception.BizException;
 import com.touchbiz.common.entity.query.BaseQuery;
 import com.touchbiz.common.entity.result.ApiResult;
-import com.touchbiz.common.utils.tools.JsonUtils;
 import com.touchbiz.webflux.starter.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
@@ -23,46 +23,24 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @RestController
 @Api
 public class TestController extends BaseController {
 
-    @ApiOperation("dddd")
-    @PostMapping
-    public Mono<ApiResult> post(@ApiIgnore ServerHttpRequest request, @RequestBody @Validated AAA aaa) {
-        log.info("aaa:{}", aaa);
-        return Mono.justOrEmpty(ApiResult.getSuccessResponse());
-    }
+    @Autowired
+    private ExampleWebFluxClient feignClient;
 
 
-    @PostMapping("/test")
-    public Mono<ApiResult<AAA>> test(@RequestBody @Valid BaseQuery query) {
-        log.info("query:{}", query);
-        AAA aaa = new AAA();
-        aaa.setTime(LocalDateTime.now());
-        log.info("response:{}", JsonUtils.toJson(aaa));
-        return Mono.just(ApiResult.getSuccessResponse(aaa));
-    }
 
     @SneakyThrows
-    @GetMapping("/test/time/{id}")
-//    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
-    public ApiResult<AAA> testLocalDateTime(@PathVariable("id") @Validated @Max(10) Integer id) {
-        AAA a = new AAA();
-        a.setTime(LocalDateTime.now());
-        if(id>100){
-            throw new BizException(LocalDateTime.now().toString());
-        }
-        return ApiResult.getSuccessResponse(a);
-    }
+    @GetMapping("/test/")
+    public Object testCacheLocalDateTime() {
+        CompletableFuture<ApiResult<AAA>> completableFuture = CompletableFuture.supplyAsync(() -> feignClient.test(new BaseQuery()));
+        return completableFuture;
 
-    @SneakyThrows
-    @GetMapping("/test/cacheTime/{id}")
-//    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
-    public String testCacheLocalDateTime(@PathVariable("id") @Validated @Max(10) Integer id) {
-        return LocalDateTime.now().toString();
     }
 
     @SneakyThrows

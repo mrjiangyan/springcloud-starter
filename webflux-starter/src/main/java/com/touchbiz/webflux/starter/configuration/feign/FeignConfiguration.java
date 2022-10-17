@@ -1,14 +1,37 @@
 package com.touchbiz.webflux.starter.configuration.feign;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.touchbiz.common.utils.date.DateTimeFormat;
 import com.touchbiz.common.utils.tools.JsonUtils;
 import com.touchbiz.webflux.starter.configuration.HttpHeaderConstants;
 import com.touchbiz.webflux.starter.filter.ReactiveRequestContextHolder;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import feign.Retryer;
+import feign.codec.Decoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 @Slf4j
 @Configuration
@@ -72,10 +95,24 @@ public class FeignConfiguration implements RequestInterceptor {
 //    }
 
 
-//    @Bean
-//    @Primary
-//    public Retryer feignRetryer() {
-//        return Retryer.NEVER_RETRY;
-//    }
+    @Bean
+    @Primary
+    public Retryer feignRetryer() {
+        return Retryer.NEVER_RETRY;
+    }
+
+    @Bean
+    public Decoder feignDecoder(ObjectMapper objectMapper) {
+        return new ResponseEntityDecoder(new SpringDecoder(messageConverters(objectMapper)));
+    }
+
+    public ObjectFactory<HttpMessageConverters> messageConverters(ObjectMapper objectMapper) {
+        return () -> new HttpMessageConverters(mappingJackson2HttpMessageConverter(objectMapper));
+    }
+
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
+        return new MappingJackson2HttpMessageConverter(objectMapper);
+    }
+
 
 }

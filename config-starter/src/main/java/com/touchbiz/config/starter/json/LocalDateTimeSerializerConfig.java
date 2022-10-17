@@ -3,7 +3,12 @@ package com.touchbiz.config.starter.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.touchbiz.common.utils.date.DateTimeFormat;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -13,9 +18,11 @@ import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 /**
@@ -55,12 +62,19 @@ public class LocalDateTimeSerializerConfig {
     @Primary
     public ObjectMapper serializingObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
-        objectMapper.registerModule(javaTimeModule);
+
+        objectMapper.setDateFormat(new SimpleDateFormat(DateTimeFormat.DATE_FORMAT_FULL));
         //设置为中国上海时区
         objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
+
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DateTimeFormat.DATE_FORMAT_FULL)));
+        javaTimeModule.addDeserializer(LocalDateTime.class, new com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DateTimeFormat.DATE_FORMAT_FULL)));
+        objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule())
+            .registerModule(new Jdk8Module());;
 
         //空值不序列化
 //        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

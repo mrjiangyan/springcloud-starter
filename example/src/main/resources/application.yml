@@ -1,9 +1,10 @@
 server:
-  port: 8200
+  port: 8210
 
 spring:
   application:
-    name: com.example.webflux
+#    name: com.touchbiz.starter.example
+    name: com.example
   mvc:
     throw-exception-if-no-handler-found: true
   main:
@@ -26,6 +27,9 @@ spring:
         max-idle: 8
         max-wait: 500
         min-idle: 0
+  cache:
+    enable: true
+    type: caffeine-redis
 management:
   endpoints:
     web:
