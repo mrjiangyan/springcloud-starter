@@ -1,5 +1,7 @@
 package com.touchbiz.webflux.starter.filter;
 
+import com.touchbiz.common.entity.model.SysUserCacheInfo;
+import com.touchbiz.common.utils.tools.JsonUtils;
 import com.touchbiz.webflux.starter.configuration.HttpHeaderConstants;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +31,14 @@ public class ReactiveRequestContextFilter implements WebFilter , Ordered {
             if(map.containsKey(HttpHeaderConstants.HEADER_TENANT_ID)){
                 ReactiveRequestContextHolder.putTenantId(String.valueOf(map.get(HttpHeaderConstants.HEADER_TENANT_ID)));
             }
+        }
+        var headers = exchange.getRequest().getHeaders();
+        if(headers.containsKey(HttpHeaderConstants.HEADER_USER)){
+            ReactiveRequestContextHolder.putUser(JsonUtils.toObject(headers.getFirst(HttpHeaderConstants.HEADER_USER),
+                    SysUserCacheInfo.class));
+        }
+        if(headers.containsKey(HttpHeaderConstants.HEADER_TENANT_ID)){
+            ReactiveRequestContextHolder.putTenantId(headers.getFirst(HttpHeaderConstants.HEADER_TENANT_ID));
         }
         return chain.filter(exchange)
                 .doFinally(signalType -> {
