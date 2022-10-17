@@ -3,22 +3,20 @@ def artifactId = 'com.touchbiz.webflux.starter'
 dependencies {
     // https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp
 
-//    api group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
     api group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.10'
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: "${ springCloudVersion }"
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: "${ springCloudVersion }"
     api group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${ springBootVersion }"
     api group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${ springBootVersion }"
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: "${openFeignVersion}"
-//    api group: 'org.springframework.cloud', name: 'spring-cloud-config-client', version: "${ springCloudVersion }"
 
     api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: "${ nacosStarterVersion }"
     api group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     api group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
-    api group: 'io.projectreactor', name: 'reactor-core', version: '3.3.20.RELEASE'
+    api group: 'io.projectreactor', name: 'reactor-core', version: "${ reactorVersion }"
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
-    testImplementation 'io.projectreactor:reactor-test:3.3.8.RELEASE'
+    testImplementation group: 'io.projectreactor', name: 'reactor-test', version: "${ reactorVersion }"
 }
 
