@@ -24,9 +24,6 @@ import reactor.core.publisher.SignalType;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class DynamicDatasourceInterceptor implements WebFilter, Ordered {
 
-
-
-
     @Override
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;

@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2022.10.13.1</version>
+    <version>2022.10.17.1</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -21,11 +21,11 @@
         <springcloudalibaba.version>2021.1</springcloudalibaba.version>
         <spring-cloud-commons.version>3.1.2</spring-cloud-commons.version>
 
-        <db-starter.version>2022.9.27.3</db-starter.version>
-        <webflux-starter.version>2022.8.31.3</webflux-starter.version>
+        <db-starter.version>2022.10.17.1</db-starter.version>
+        <webflux-starter.version>2022.10.17.1</webflux-starter.version>
         <log-starter.version>2022.3.17.RELEASE</log-starter.version>
-        <config-starter.version>2022.8.30</config-starter.version>
-        <cache-starter.version>2022.10.9.1</cache-starter.version>
+        <config-starter.version>2022.10.17.1</config-starter.version>
+        <cache-starter.version>2022.10.17.1</cache-starter.version>
         <mq-starter.version>2022.3.17.RELEASE</mq-starter.version>
         <validation-starter.version>1.0.RELEASE</validation-starter.version>
 
@@ -33,7 +33,7 @@
         <lombok.version>1.18.22</lombok.version>
         <jmock.version>1.41</jmock.version>
         <springfox.version>3.0.0</springfox.version>
-        <swagger.version>1.5.20</swagger.version>
+        <swagger.version>1.6.7</swagger.version>
         <hibernate.version>6.1.6.Final</hibernate.version>
         <servlet.version>4.0.1</servlet.version>
         <fastjson.version>1.2.62</fastjson.version>

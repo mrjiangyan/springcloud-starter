@@ -1,5 +1,6 @@
 package com.touchbiz.db.starter.mybatis;
 
+import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.touchbiz.common.entity.model.SysUserCacheInfo;
 import com.touchbiz.common.utils.security.IDataAutor;
 import com.touchbiz.common.utils.text.oConvertUtils;
