@@ -6,7 +6,7 @@
 
     <groupId>com.touchbiz</groupId>
     <artifactId>inf-bom</artifactId>
-    <version>2022.10.17.1</version>
+    <version>2022.10.21.1</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -40,7 +40,7 @@
         <knife4j.version>3.0.2</knife4j.version>
         <commonEntity.version>2022.10.13.2</commonEntity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
 
 
@@ -74,7 +74,7 @@
             </dependency>
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.cache.starter</artifactId>
+                <artifactId>cache-starter</artifactId>
                 <version>${cache-starter.version}</version>
             </dependency>
             <dependency>
@@ -108,13 +108,13 @@
             <!-- 数据库相关 直接使用中台基础库配置 -->
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.db.starter</artifactId>
+                <artifactId>db-starter</artifactId>
                 <version>${db-starter.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.webflux.starter</artifactId>
+                <artifactId>webflux-starter</artifactId>
                 <version>${webflux-starter.version}</version>
             </dependency>
             <dependency>
@@ -129,7 +129,7 @@
             </dependency>
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.config.starter</artifactId>
+                <artifactId>config-starter</artifactId>
                 <version>${config-starter.version}</version>
             </dependency>
             <dependency>
@@ -140,7 +140,7 @@
 
             <dependency>
                 <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.cache.starter</artifactId>
+                <artifactId>cache-starter</artifactId>
                 <version>${cache-starter.version}</version>
             </dependency>
             <dependency>
