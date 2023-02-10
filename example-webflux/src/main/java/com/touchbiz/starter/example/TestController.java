@@ -46,6 +46,12 @@ public class TestController extends BaseController {
         return Mono.just(ApiResult.getSuccessResponse(aaa));
     }
 
+    @PostMapping("/form")
+    public String form(@RequestParam("name") String name,
+                             @RequestParam("age") Integer age) {
+      return "name：" + name + "\nage：" + age;
+    }
+
     @SneakyThrows
     @GetMapping("/test/time/{id}")
 //    @RedisCache(keyPrefix = "AAA",redisKey = "#id")
