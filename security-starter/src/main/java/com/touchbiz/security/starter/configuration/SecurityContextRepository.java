@@ -25,7 +25,7 @@ public class SecurityContextRepository implements WebFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         //查询用户的权限;
         var permission = new String[]{"/test/time/*"};
-        Boolean exist = false;
+        boolean exist = false;
         for (String s : permission) {
             PathPattern pattern = new PathPatternParser().parse(s);
             if (pattern.matches(request.getPath().pathWithinApplication()) ) {

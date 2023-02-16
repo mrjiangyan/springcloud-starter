@@ -93,17 +93,15 @@ class CacheAspectSupport extends AbstractAnnotationCacheAspect {
     private Class<?> getCacheType(final Method method) {
         try {
             return cacheTypeMap.computeIfAbsent(method, m -> {
-                if(!(m.getGenericReturnType() instanceof ParameterizedType)){
+                if(!(m.getGenericReturnType() instanceof final ParameterizedType parameterizedType)){
                     return (Class<?>) m.getGenericReturnType();
                 }
-                final ParameterizedType parameterizedType = (ParameterizedType) m.getGenericReturnType();
                 if(!parameterizedType.getRawType().equals(Mono.class) && !parameterizedType.getRawType().equals(Flux.class)){
                    // ParameterizedTypeImpl type = (ParameterizedTypeImpl) parameterizedType;
                     return parameterizedType.getRawType().getClass();
                 }
                 var clazz = parameterizedType.getActualTypeArguments()[0];
-                if(clazz instanceof ParameterizedType){
-                    ParameterizedType type = (ParameterizedType)clazz;
+                if(clazz instanceof ParameterizedType type){
                     return type.getRawType().getClass();
                 }
                 return (Class<?>) clazz;

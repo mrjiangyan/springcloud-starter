@@ -17,7 +17,7 @@ public class TenantContext {
     }
 
     public static String getTenant() {
-        return (String)currentTenant.get();
+        return currentTenant.get();
     }
 
     public static void clear() {

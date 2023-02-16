@@ -94,8 +94,7 @@ public class MybatisInterceptor implements Interceptor {
 		if (SqlCommandType.UPDATE == sqlCommandType) {
 			SysUserCacheInfo sysUser = this.getLoginUser();
 			Field[] fields = null;
-			if (parameter instanceof ParamMap) {
-				ParamMap<?> p = (ParamMap<?>) parameter;
+			if (parameter instanceof ParamMap<?> p) {
 				//update-begin-author:scott date:20190729 for:批量更新报错issues/IZA3Q--
                 String et = "et";
 				if (p.containsKey(et)) {

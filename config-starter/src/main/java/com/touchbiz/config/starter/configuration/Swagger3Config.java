@@ -51,7 +51,7 @@ public class Swagger3Config {
 
     @ConditionalOnProperty(name = "knife4j.enable",havingValue = "true")
     @Configuration
-    public class SwaggerDocsConfiguration implements WebFluxConfigurer {
+    public static class SwaggerDocsConfiguration implements WebFluxConfigurer {
 
         private final String WEBJAR_PATH = "/webjars/**";
 

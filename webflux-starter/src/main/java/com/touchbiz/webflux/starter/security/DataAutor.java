@@ -31,9 +31,7 @@ public class DataAutor implements IDataAutor {
             // 2.如果不存在，则new一个list
             list = new ArrayList();
         }
-        for (SysPermissionDataRuleModel tsDataRule : dataRules) {
-            list.add(tsDataRule);
-        }
+        list.addAll(dataRules);
         // 3.往list里面增量存指
         ReactiveRequestContextHolder.getLocalAttributes().put(MENU_DATA_AUTHOR_RULES, list);
     }

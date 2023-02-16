@@ -67,9 +67,7 @@ public class DistributedRedisLock {
          */
         var bytes = key.getBytes();
         try {
-            RedisCallback<Boolean> callback = (connection) -> {
-                return connection.eval(UNLOCK_LUA.getBytes(), ReturnType.BOOLEAN, 1, bytes, bytes);
-            };
+            RedisCallback<Boolean> callback = (connection) -> connection.eval(UNLOCK_LUA.getBytes(), ReturnType.BOOLEAN, 1, bytes, bytes);
             return redisTemplate.execute(callback);
         } catch (Exception e) {
             log.error("release lock occured an exception", e);

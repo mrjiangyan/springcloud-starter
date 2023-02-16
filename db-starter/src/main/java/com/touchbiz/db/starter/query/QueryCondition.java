@@ -1,5 +1,6 @@
 package com.touchbiz.db.starter.query;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -8,6 +9,7 @@ import java.io.Serializable;
  */
 public class QueryCondition implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 4740166316629191651L;
 	
 	private String field;
@@ -63,7 +65,7 @@ public class QueryCondition implements Serializable {
 
 	@Override
 	public String toString(){
-		StringBuffer sb =new StringBuffer();
+		StringBuilder sb =new StringBuilder();
 		if(field == null || "".equals(field)){
 			return "";
 		}

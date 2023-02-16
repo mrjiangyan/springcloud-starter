@@ -1,7 +1,6 @@
 package com.touchbiz.webflux.starter.exception;
 
-import com.touchbiz.common.entity.result.ApiResult;
-import com.touchbiz.common.entity.result.IResultMsg;
+import com.touchbiz.common.entity.result.Result;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.ConversionNotSupportedException;
@@ -25,19 +24,19 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
     @Override
     public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         Throwable error = getError(request);
-        ApiResult result;
+        Result result;
         if (error instanceof ConversionNotSupportedException || error instanceof HttpMessageNotWritableException) {
             log.error("error:", error);
-            result = ApiResult.getCustomResponse(IResultMsg.APIEnum.SERVER_ERROR);
+            result = Result.OK().error500("服务器错误");
         }
         else if(error instanceof ResponseStatusException
                 && ((ResponseStatusException)error).getStatus() == HttpStatus.NOT_FOUND){
             log.error("error:{}", error.getMessage());
-            result = ApiResult.getCustomResponse(IResultMsg.APIEnum.SERVER_ERROR);
+            result = Result.OK().error500("服务器错误");
         }
         else {
             log.error("error:", error);
-            result = ApiResult.getErrorResponse(error);
+            result = Result.OK().error500("服务器错误");
         }
 
         Map<String, Object> map = new HashMap();

@@ -26,19 +26,19 @@ public class AlarmWechatProperties {
     /**
      * 预警组
      */
-    public static List<String> warnGroup = Arrays.asList();
+    public static List<String> warnGroup = List.of();
     /**
      * 黑猫预警组
      */
-    public static List<String> blackCatGroup = Arrays.asList();
+    public static List<String> blackCatGroup = List.of();
     /**
      * 黄鹰预警组
      */
-    public static List<String> yellowEagle = Arrays.asList();
+    public static List<String> yellowEagle = List.of();
     /**
      * 绿草预警组
      */
-    public static List<String> greenGrass = Arrays.asList();
+    public static List<String> greenGrass = List.of();
 
 
 }

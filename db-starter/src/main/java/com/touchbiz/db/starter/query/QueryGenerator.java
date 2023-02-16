@@ -91,7 +91,7 @@ public class QueryGenerator {
 	public  final String TO_DATE = "to_date";
 
 	/**时间格式化 */
-	private  final ThreadLocal<SimpleDateFormat> LOCAL = new ThreadLocal<SimpleDateFormat>();
+	private  final ThreadLocal<SimpleDateFormat> LOCAL = new ThreadLocal<>();
 	private  SimpleDateFormat getTime(){
 		SimpleDateFormat time = LOCAL.get();
 		if(time == null){
@@ -109,7 +109,7 @@ public class QueryGenerator {
 	 */
 	public  <T> QueryWrapper<T> initQueryWrapper(T searchObj,Map<String, String> parameterMap){
 		long start = System.currentTimeMillis();
-		QueryWrapper<T> queryWrapper = new QueryWrapper<T>();
+		QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 		installMplus(queryWrapper, searchObj, parameterMap);
 		log.debug("---查询条件构造器初始化完成,耗时:"+(System.currentTimeMillis()-start)+"毫秒----");
 		return queryWrapper;
@@ -147,25 +147,25 @@ public class QueryGenerator {
 		// update-begin--Author:taoyan Date:20200923 for：issues/1671 如果字段加注解了@TableField(exist = false),不走DB查询-------
 		//定义实体字段和数据库字段名称的映射 高级查询中 只能获取实体字段 如果设置TableField注解 那么查询条件会出问题
 		Map<String,String> fieldColumnMap = new HashMap<>(5);
-		for (int i = 0; i < origDescriptors.length; i++) {
+		for (PropertyDescriptor origDescriptor : origDescriptors) {
 			//aliasName = origDescriptors[i].getName(); mybatis 不存在实体属性 不用处理别名的情况
-			name = origDescriptors[i].getName();
-			type = origDescriptors[i].getPropertyType().toString();
+			name = origDescriptor.getName();
+			type = origDescriptor.getPropertyType().toString();
 			try {
-				if (judgedIsUselessField(name)|| !PropertyUtils.isReadable(searchObj, name)) {
+				if (judgedIsUselessField(name) || !PropertyUtils.isReadable(searchObj, name)) {
 					continue;
 				}
 
 				Object value = PropertyUtils.getSimpleProperty(searchObj, name);
 				column = getTableFieldName(searchObj.getClass(), name);
-				if(column==null){
+				if (column == null) {
 					//column为null只有一种情况 那就是 添加了注解@TableField(exist = false) 后续都不用处理了
 					continue;
 				}
-				fieldColumnMap.put(name,column);
+				fieldColumnMap.put(name, column);
 				//数据权限查询
-				if(ruleMap.containsKey(name)) {
-					addRuleToQueryWrapper(ruleMap.get(name), column, origDescriptors[i].getPropertyType(), queryWrapper);
+				if (ruleMap.containsKey(name)) {
+					addRuleToQueryWrapper(ruleMap.get(name), column, origDescriptor.getPropertyType(), queryWrapper);
 				}
 				//区间查询
 				doIntervalQuery(queryWrapper, parameterMap, type, name, column);
@@ -173,35 +173,35 @@ public class QueryGenerator {
 				//TODO 这种前后带逗号的支持分割后模糊查询(多选字段查询生效) 示例：,1,3,
 				if (null != value && value.toString().startsWith(COMMA) && value.toString().endsWith(COMMA)) {
 					String multiLikeval = value.toString().replace(",,", COMMA);
-					String[] vals = multiLikeval.substring(1, multiLikeval.length()).split(COMMA);
+					String[] vals = multiLikeval.substring(1).split(COMMA);
 					final String field = oConvertUtils.camelToUnderline(column);
-					if(vals.length>1) {
+					if (vals.length > 1) {
 						queryWrapper.and(j -> {
-              log.info("---查询过滤器，Query规则---field:{}, rule:{}, value:{}", field, "like", vals[0]);
-							j = j.like(field,vals[0]);
-							for (int k=1;k<vals.length;k++) {
-								j = j.or().like(field,vals[k]);
+							log.info("---查询过滤器，Query规则---field:{}, rule:{}, value:{}", field, "like", vals[0]);
+							j = j.like(field, vals[0]);
+							for (int k = 1; k < vals.length; k++) {
+								j = j.or().like(field, vals[k]);
 								log.info("---查询过滤器，Query规则 .or()---field:{}, rule:{}, value:{}", field, "like", vals[k]);
 							}
 							//return j;
 						});
-					}else {
+					} else {
 						log.info("---查询过滤器，Query规则---field:{}, rule:{}, value:{}", field, "like", vals[0]);
-						queryWrapper.and(j -> j.like(field,vals[0]));
+						queryWrapper.and(j -> j.like(field, vals[0]));
 					}
-				}else {
+				} else {
 					//根据参数值带什么关键字符串判断走什么类型的查询
 					QueryRuleEnum rule = convert2Rule(value);
-					value = replaceValue(rule,value);
+					value = replaceValue(rule, value);
 					// add -begin 添加判断为字符串时设为全模糊查询
 					//if( (rule==null || QueryRuleEnum.EQ.equals(rule)) && "class java.lang.String".equals(type)) {
-						// 可以设置左右模糊或全模糊，因人而异
-						//rule = QueryRuleEnum.LIKE;
+					// 可以设置左右模糊或全模糊，因人而异
+					//rule = QueryRuleEnum.LIKE;
 					//}
 					// add -end 添加判断为字符串时设为全模糊查询
 					addEasyQuery(queryWrapper, column, rule, value);
 				}
-				
+
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);
 			}
@@ -273,7 +273,7 @@ public class QueryGenerator {
 			// 排序规则修改
 			// 将现有排序 _ 前端传递排序条件{....,column: 'column1,column2',order: 'desc'} 翻译成sql "column1,column2 desc"
 			// 修改为 _ 前端传递排序条件{....,column: 'column1,column2',order: 'desc'} 翻译成sql "column1 desc,column2 desc"
-			if (order.toUpperCase().indexOf(ORDER_TYPE_ASC)>=0) {
+			if (order.toUpperCase().contains(ORDER_TYPE_ASC)) {
 				//queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
 				String columnStr = oConvertUtils.camelToUnderline(column);
 				String[] columnArray = columnStr.split(",");
@@ -295,7 +295,7 @@ public class QueryGenerator {
 	 */
 	private boolean allColumnExist(String columnStr, Set<String> allFields){
 		boolean exist = true;
-		if(columnStr.indexOf(COMMA)>=0){
+		if(columnStr.contains(COMMA)){
 			String[] arr = columnStr.split(COMMA);
 			for(String column: arr){
 				if(!allFields.contains(column)){
@@ -333,7 +333,7 @@ public class QueryGenerator {
 						rule -> oConvertUtils.isNotEmpty(rule.getField())
 								&& oConvertUtils.isNotEmpty(rule.getRule())
 								&& oConvertUtils.isNotEmpty(rule.getVal())
-				).collect(Collectors.toList());
+				).toList();
 				if (filterConditions.size() == 0) {
 					return;
 				}
@@ -362,28 +362,15 @@ public class QueryGenerator {
 								try {
 									String valueStr = String.valueOf(queryValue);
 									switch (dbType.toLowerCase().trim()) {
-										case "int":
-											queryValue = Integer.parseInt(valueStr);
-											break;
-										case "bigdecimal":
-											queryValue = new BigDecimal(valueStr);
-											break;
-										case "short":
-											queryValue = Short.parseShort(valueStr);
-											break;
-										case "long":
-											queryValue = Long.parseLong(valueStr);
-											break;
-										case "float":
-											queryValue = Float.parseFloat(valueStr);
-											break;
-										case "double":
-											queryValue = Double.parseDouble(valueStr);
-											break;
-										case "boolean":
-											queryValue = Boolean.parseBoolean(valueStr);
-											break;
-                    default:
+										case "int" -> queryValue = Integer.parseInt(valueStr);
+										case "bigdecimal" -> queryValue = new BigDecimal(valueStr);
+										case "short" -> queryValue = Short.parseShort(valueStr);
+										case "long" -> queryValue = Long.parseLong(valueStr);
+										case "float" -> queryValue = Float.parseFloat(valueStr);
+										case "double" -> queryValue = Double.parseDouble(valueStr);
+										case "boolean" -> queryValue = Boolean.parseBoolean(valueStr);
+										default -> {
+										}
 									}
 								} catch (Exception e) {
 									log.error("高级查询值转换失败：", e);
@@ -423,7 +410,7 @@ public class QueryGenerator {
 		if (value == null) {
 			return QueryRuleEnum.EQ;
 		}
-		String val = (value + "").toString().trim();
+		String val = (value + "").trim();
 		if (val.length() == 0) {
 			return QueryRuleEnum.EQ;
 		}
@@ -480,7 +467,7 @@ public class QueryGenerator {
 
 		//update-begin--Author:taoyan Date:20201229 for：initQueryWrapper组装sql查询条件错误 #284---------------------
 		//特殊处理：Oracle的表达式to_date('xxx','yyyy-MM-dd')含有逗号，会被识别为in查询，转为等于查询
-		if(rule == QueryRuleEnum.IN && val.indexOf(YYYY_MM_DD)>=0 && val.indexOf(TO_DATE)>=0){
+		if(rule == QueryRuleEnum.IN && val.contains(YYYY_MM_DD) && val.contains(TO_DATE)){
 			rule = QueryRuleEnum.EQ;
 		}
 		//update-end--Author:taoyan Date:20201229 for：initQueryWrapper组装sql查询条件错误 #284---------------------
@@ -502,7 +489,7 @@ public class QueryGenerator {
 		if (! (value instanceof String)){
 			return value;
 		}
-		String val = (value + "").toString().trim();
+		String val = (value + "").trim();
 		//update-begin-author:taoyan date:20220302 for: 查询条件的值为等号（=）bug #3443
 		if(QueryRuleEnum.EQ.getValue().equals(val)){
 			return val;
@@ -568,33 +555,16 @@ public class QueryGenerator {
 	 * @throws ParseException
 	 */
 	private  Object parseByType(String value, String type, QueryRuleEnum rule) throws ParseException {
-		Object temp;
-		switch (type) {
-			case "class java.lang.Integer":
-				temp = Integer.parseInt(value);
-				break;
-			case "class java.math.BigDecimal":
-				temp = new BigDecimal(value);
-				break;
-			case "class java.lang.Short":
-				temp = Short.parseShort(value);
-				break;
-			case "class java.lang.Long":
-				temp = Long.parseLong(value);
-				break;
-			case "class java.lang.Float":
-				temp =  Float.parseFloat(value);
-				break;
-			case "class java.lang.Double":
-				temp = Double.parseDouble(value);
-				break;
-			case "class java.util.Date":
-				temp = getDateQueryByRule(value, rule);
-				break;
-			default:
-				temp = value;
-				break;
-		}
+		Object temp = switch (type) {
+			case "class java.lang.Integer" -> Integer.parseInt(value);
+			case "class java.math.BigDecimal" -> new BigDecimal(value);
+			case "class java.lang.Short" -> Short.parseShort(value);
+			case "class java.lang.Long" -> Long.parseLong(value);
+			case "class java.lang.Float" -> Float.parseFloat(value);
+			case "class java.lang.Double" -> Double.parseDouble(value);
+			case "class java.util.Date" -> getDateQueryByRule(value, rule);
+			default -> value;
+		};
 		return temp;
 	}
 	
@@ -792,7 +762,7 @@ public class QueryGenerator {
 		if(oConvertUtils.isEmpty(sql)){
 			return null;
 		}
-		Set<String> varParams = new HashSet<String>();
+		Set<String> varParams = new HashSet<>();
 		String regex = "\\#\\{\\w+\\}";
 		
 		Pattern p = Pattern.compile(regex);
@@ -844,45 +814,20 @@ public class QueryGenerator {
 	 * @return
 	 */
 	private  String getSingleSqlByRule(QueryRuleEnum rule,String field,Object value,boolean isString, String dataBaseType) {
-		String res = "";
-		switch (rule) {
-		case GT:
-			res =field+rule.getValue()+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case GE:
-			res = field+rule.getValue()+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case LT:
-			res = field+rule.getValue()+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case LE:
-			res = field+rule.getValue()+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case EQ:
-			res = field+rule.getValue()+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case EQ_WITH_ADD:
-			res = field+" = "+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case NE:
-			res = field+" <> "+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		case IN:
-			res = field + " in "+getInConditionValue(value, isString);
-			break;
-		case LIKE:
-			res = field + " like "+getLikeConditionValue(value, QueryRuleEnum.LIKE);
-			break;
-		case LEFT_LIKE:
-			res = field + " like "+getLikeConditionValue(value, QueryRuleEnum.LEFT_LIKE);
-			break;
-		case RIGHT_LIKE:
-			res = field + " like "+getLikeConditionValue(value, QueryRuleEnum.RIGHT_LIKE);
-			break;
-		default:
-			res = field+" = "+getFieldConditionValue(value, isString, dataBaseType);
-			break;
-		}
+		String res = switch (rule) {
+			case GT -> field + rule.getValue() + getFieldConditionValue(value, isString, dataBaseType);
+			case GE -> field + rule.getValue() + getFieldConditionValue(value, isString, dataBaseType);
+			case LT -> field + rule.getValue() + getFieldConditionValue(value, isString, dataBaseType);
+			case LE -> field + rule.getValue() + getFieldConditionValue(value, isString, dataBaseType);
+			case EQ -> field + rule.getValue() + getFieldConditionValue(value, isString, dataBaseType);
+			case EQ_WITH_ADD -> field + " = " + getFieldConditionValue(value, isString, dataBaseType);
+			case NE -> field + " <> " + getFieldConditionValue(value, isString, dataBaseType);
+			case IN -> field + " in " + getInConditionValue(value, isString);
+			case LIKE -> field + " like " + getLikeConditionValue(value, QueryRuleEnum.LIKE);
+			case LEFT_LIKE -> field + " like " + getLikeConditionValue(value, QueryRuleEnum.LEFT_LIKE);
+			case RIGHT_LIKE -> field + " like " + getLikeConditionValue(value, QueryRuleEnum.RIGHT_LIKE);
+			default -> field + " = " + getFieldConditionValue(value, isString, dataBaseType);
+		};
 		return res;
 	}
 
@@ -989,7 +934,7 @@ public class QueryGenerator {
 				return "'"+str.substring(0,str.length()-1)+"%'";
 			}
 		}else {
-			if(str.indexOf(SymbolConstant.PERCENT_SIGN)>=0) {
+			if(str.contains(SymbolConstant.PERCENT_SIGN)) {
 				if(DataBaseConstant.DB_TYPE_SQLSERVER.equals(getDbType())){
 					if(str.startsWith(SymbolConstant.SINGLE_QUOTATION_MARK) && str.endsWith(SymbolConstant.SINGLE_QUOTATION_MARK)){
 						return "N"+str;
@@ -1039,39 +984,39 @@ public class QueryGenerator {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public  String installAuthJdbc(Class<?> clazz) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		//权限查询
 		Map<String,SysPermissionDataRuleModel> ruleMap = getRuleMap();
 		PropertyDescriptor[] origDescriptors = PropertyUtils.getPropertyDescriptors(clazz);
 		String sqlAnd = " and ";
 		for (String c : ruleMap.keySet()) {
 			if(oConvertUtils.isNotEmpty(c) && c.startsWith(SQL_RULES_COLUMN)){
-				sb.append(sqlAnd+getSqlRuleValue(ruleMap.get(c).getRuleValue()));
+				sb.append(sqlAnd).append(getSqlRuleValue(ruleMap.get(c).getRuleValue()));
 			}
 		}
 		String name, column;
-		for (int i = 0; i < origDescriptors.length; i++) {
-			name = origDescriptors[i].getName();
+		for (PropertyDescriptor origDescriptor : origDescriptors) {
+			name = origDescriptor.getName();
 			if (judgedIsUselessField(name)) {
 				continue;
 			}
-			if(ruleMap.containsKey(name)) {
+			if (ruleMap.containsKey(name)) {
 				column = getTableFieldName(clazz, name);
-				if(column==null){
+				if (column == null) {
 					continue;
 				}
 				SysPermissionDataRuleModel dataRule = ruleMap.get(name);
 				QueryRuleEnum rule = QueryRuleEnum.getByValue(dataRule.getRuleConditions());
-				Class propType = origDescriptors[i].getPropertyType();
+				Class propType = origDescriptor.getPropertyType();
 				boolean isString = propType.equals(String.class);
 				Object value;
-				if(isString) {
+				if (isString) {
 					value = converRuleValue(dataRule.getRuleValue());
-				}else {
-					value = NumberUtils.parseNumber(dataRule.getRuleValue(),propType);
+				} else {
+					value = NumberUtils.parseNumber(dataRule.getRuleValue(), propType);
 				}
-				String filedSql = getSingleSqlByRule(rule, oConvertUtils.camelToUnderline(column), value,isString);
-				sb.append(sqlAnd+filedSql);
+				String filedSql = getSingleSqlByRule(rule, oConvertUtils.camelToUnderline(column), value, isString);
+				sb.append(sqlAnd).append(filedSql);
 			}
 		}
 		log.info("query auth sql is:"+sb.toString());
@@ -1094,17 +1039,17 @@ public class QueryGenerator {
 			}
 		}
 		String name, column;
-		for (int i = 0; i < origDescriptors.length; i++) {
-			name = origDescriptors[i].getName();
+		for (PropertyDescriptor origDescriptor : origDescriptors) {
+			name = origDescriptor.getName();
 			if (judgedIsUselessField(name)) {
 				continue;
 			}
 			column = getTableFieldName(clazz, name);
-			if(column==null){
+			if (column == null) {
 				continue;
 			}
-			if(ruleMap.containsKey(name)) {
-				addRuleToQueryWrapper(ruleMap.get(name), column, origDescriptors[i].getPropertyType(), queryWrapper);
+			if (ruleMap.containsKey(name)) {
+				addRuleToQueryWrapper(ruleMap.get(name), column, origDescriptor.getPropertyType(), queryWrapper);
 			}
 		}
 	}
@@ -1123,7 +1068,7 @@ public class QueryGenerator {
 	 * @return
 	 */
 	public  String getAllConfigAuth() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		//权限查询
 		Map<String,SysPermissionDataRuleModel> ruleMap = getRuleMap();
 		String sqlAnd = " and ";
@@ -1134,7 +1079,7 @@ public class QueryGenerator {
 				continue;
 			}
 			if(oConvertUtils.isNotEmpty(c) && c.startsWith(SQL_RULES_COLUMN)){
-				sb.append(sqlAnd+getSqlRuleValue(ruleValue));
+				sb.append(sqlAnd).append(getSqlRuleValue(ruleValue));
 			}else{
 				boolean isString = false;
 				ruleValue = ruleValue.trim();
@@ -1145,7 +1090,7 @@ public class QueryGenerator {
 				QueryRuleEnum rule = QueryRuleEnum.getByValue(dataRule.getRuleConditions());
 				String value = converRuleValue(ruleValue);
 				String filedSql = getSingleSqlByRule(rule, c, value,isString);
-				sb.append(sqlAnd+filedSql);
+				sb.append(sqlAnd).append(filedSql);
 			}
 		}
 		log.info("query auth sql is = "+sb.toString());
@@ -1179,29 +1124,26 @@ public class QueryGenerator {
 	 */
 	private  String getDatabaseTypeByDataSource(DataSource dataSource) throws SQLException{
 		if("".equals(DB_TYPE)) {
-			Connection connection = dataSource.getConnection();
-			try {
+			try (Connection connection = dataSource.getConnection()) {
 				DatabaseMetaData md = connection.getMetaData();
 				String dbType = md.getDatabaseProductName().toUpperCase();
-				String sqlserver= "SQL SERVER";
-				if(dbType.indexOf(DataBaseConstant.DB_TYPE_MYSQL)>=0) {
+				String sqlserver = "SQL SERVER";
+				if (dbType.indexOf(DataBaseConstant.DB_TYPE_MYSQL) >= 0) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_MYSQL;
-				}else if(dbType.indexOf(DataBaseConstant.DB_TYPE_ORACLE)>=0 ||dbType.indexOf(DataBaseConstant.DB_TYPE_DM)>=0) {
+				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_ORACLE) >= 0 || dbType.indexOf(DataBaseConstant.DB_TYPE_DM) >= 0) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_ORACLE;
-				}else if(dbType.indexOf(DataBaseConstant.DB_TYPE_SQLSERVER)>=0||dbType.indexOf(sqlserver)>=0) {
+				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_SQLSERVER) >= 0 || dbType.indexOf(sqlserver) >= 0) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_SQLSERVER;
-				}else if(dbType.indexOf(DataBaseConstant.DB_TYPE_POSTGRESQL)>=0) {
+				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_POSTGRESQL) >= 0) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_POSTGRESQL;
-				}else if(dbType.indexOf(DataBaseConstant.DB_TYPE_MARIADB)>=0) {
+				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_MARIADB) >= 0) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_MARIADB;
-				}else {
+				} else {
 					log.error("数据库类型:[" + dbType + "]不识别!");
 					//throw new JeecgBootException("数据库类型:["+dbType+"]不识别!");
 				}
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);
-			}finally {
-				connection.close();
 			}
 		}
 		return DB_TYPE;
@@ -1216,13 +1158,11 @@ public class QueryGenerator {
 	 * @return
 	 */
 	private  List<Field> getClassFields(Class<?> clazz) {
-		List<Field> list = new ArrayList<Field>();
+		List<Field> list = new ArrayList<>();
 		Field[] fields;
 		do{
 			fields = clazz.getDeclaredFields();
-			for(int i = 0;i<fields.length;i++){
-				list.add(fields[i]);
-			}
+			Collections.addAll(list, fields);
 			clazz = clazz.getSuperclass();
 		}while(clazz!= Object.class&&clazz!=null);
 		return list;
@@ -1247,7 +1187,7 @@ public class QueryGenerator {
 			//如果为空，则去父类查找字段
 			if (field == null) {
 				List<Field> allFields = getClassFields(clazz);
-				List<Field> searchFields = allFields.stream().filter(a -> a.getName().equals(name)).collect(Collectors.toList());
+				List<Field> searchFields = allFields.stream().filter(a -> a.getName().equals(name)).toList();
 				if(searchFields!=null && searchFields.size()>0){
 					field = searchFields.get(0);
 				}
@@ -1284,7 +1224,7 @@ public class QueryGenerator {
 		if (DataBaseConstant.DB_TYPE_MYSQL.equals(getDbType()) || DataBaseConstant.DB_TYPE_MARIADB.equals(getDbType())) {
 			String[] specialStr = LIKE_MYSQL_SPECIAL_STRS.split(",");
 			for (String str : specialStr) {
-				if (value.indexOf(str) !=-1) {
+				if (value.contains(str)) {
 					value = value.replace(str, "\\" + str);
 				}
 			}

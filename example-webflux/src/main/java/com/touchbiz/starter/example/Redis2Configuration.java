@@ -1,6 +1,5 @@
 package com.touchbiz.starter.example;
 
-import com.touchbiz.cache.starter.RedisConfiguration;
 import com.touchbiz.cache.starter.RedisLettuceTemplate;
 import org.apache.commons.pool2.impl.BaseObjectPoolConfig;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;

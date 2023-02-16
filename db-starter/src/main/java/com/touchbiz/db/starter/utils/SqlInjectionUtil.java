@@ -73,7 +73,7 @@ public class SqlInjectionUtil {
 
         String[] xssArr = XSS_STR.split("\\|");
         for (int i = 0; i < xssArr.length; i++) {
-            if (value.indexOf(xssArr[i]) > -1) {
+            if (value.contains(xssArr[i])) {
                 log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
                 log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
@@ -83,7 +83,7 @@ public class SqlInjectionUtil {
         if (customXssString != null) {
             String[] xssArr2 = customXssString.split("\\|");
             for (int i = 0; i < xssArr2.length; i++) {
-                if (value.indexOf(xssArr2[i]) > -1) {
+                if (value.contains(xssArr2[i])) {
                     log.error("请注意，存在SQL注入关键词---> {}", xssArr2[i]);
                     log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                     throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
@@ -94,7 +94,6 @@ public class SqlInjectionUtil {
         if(Pattern.matches(SHOW_TABLES, value) || Pattern.matches(REGULAR_EXPRE_USER, value)){
             throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
         }
-        return;
     }
 
     /**
@@ -123,7 +122,7 @@ public class SqlInjectionUtil {
             value = value.replaceAll("/\\*.*\\*/","");
 
             for (int i = 0; i < xssArr.length; i++) {
-                if (value.indexOf(xssArr[i]) > -1) {
+                if (value.contains(xssArr[i])) {
                     log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
                     log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                     throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
@@ -133,7 +132,7 @@ public class SqlInjectionUtil {
             if (customXssString != null) {
                 String[] xssArr2 = customXssString.split("\\|");
                 for (int i = 0; i < xssArr2.length; i++) {
-                    if (value.indexOf(xssArr2[i]) > -1) {
+                    if (value.contains(xssArr2[i])) {
                         log.error("请注意，存在SQL注入关键词---> {}", xssArr2[i]);
                         log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                         throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
@@ -145,7 +144,6 @@ public class SqlInjectionUtil {
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
             }
         }
-        return;
     }
 
     /**
@@ -168,7 +166,7 @@ public class SqlInjectionUtil {
         value = value.replaceAll("/\\*.*\\*/","");
 
         for (int i = 0; i < xssArr.length; i++) {
-            if (value.indexOf(xssArr[i]) > -1 || value.startsWith(xssArr[i].trim())) {
+            if (value.contains(xssArr[i]) || value.startsWith(xssArr[i].trim())) {
                 log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
                 log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
@@ -177,7 +175,6 @@ public class SqlInjectionUtil {
         if(Pattern.matches(SHOW_TABLES, value) || Pattern.matches(REGULAR_EXPRE_USER, value)){
             throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
         }
-        return;
     }
 
 
@@ -200,7 +197,7 @@ public class SqlInjectionUtil {
         value = value.replaceAll("/\\*.*\\*/","");
 
         for (int i = 0; i < xssArr.length; i++) {
-            if (value.indexOf(xssArr[i]) > -1 || value.startsWith(xssArr[i].trim())) {
+            if (value.contains(xssArr[i]) || value.startsWith(xssArr[i].trim())) {
                 log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
                 log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
@@ -210,7 +207,6 @@ public class SqlInjectionUtil {
         if(Pattern.matches(SHOW_TABLES, value) || Pattern.matches(REGULAR_EXPRE_USER, value)){
             throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
         }
-        return;
     }
 
 

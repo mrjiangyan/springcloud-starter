@@ -1,7 +1,7 @@
 package com.touchbiz.cache.starter.reactor;
 
 import com.touchbiz.cache.starter.IRedisTemplate;
-import com.touchbiz.common.entity.result.ApiResult;
+import com.touchbiz.common.entity.result.Result;
 import com.touchbiz.common.utils.tools.JsonUtils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -77,7 +77,7 @@ abstract class AbstractSpringRedisCache<T> extends AbstractSpringCache<T> {
         return mono.doOnNext(o->{
             boolean cacheData = true;
             boolean isError =false;
-            if(config.getIgnoreError() && o instanceof ApiResult && !((ApiResult)o).isSuccess()){
+            if(config.getIgnoreError() && o instanceof Result && !((Result)o).isSuccess()){
                 cacheData =false;
                 isError = true;
             }

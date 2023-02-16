@@ -38,7 +38,6 @@ dependencies {
     api group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"
     api group: 'commons-pool', name: 'commons-pool', version: "${ commonPoolVersion }"
     api group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: "${ mybatisVersion }"
-//    api group: 'tk.mybatis', name: 'mapper', version: "${ tkVersion }"
     api group: 'io.projectreactor', name: 'reactor-core', version: "${ reactorVersion }"
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"

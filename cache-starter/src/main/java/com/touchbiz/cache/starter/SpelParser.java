@@ -22,7 +22,7 @@ public class SpelParser {
         // 获取解析器
         EvaluationContext context = new StandardEvaluationContext();
 
-        if (args.length <= 0) {
+        if (args.length == 0) {
             return null;
         }
         for (int i = 0; i < args.length; i++) {

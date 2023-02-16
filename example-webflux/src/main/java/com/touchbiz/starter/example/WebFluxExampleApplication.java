@@ -1,6 +1,5 @@
 package com.touchbiz.starter.example;
 
-import com.touchbiz.webflux.starter.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -7,7 +7,7 @@ public interface DataBaseConstant {
 	//*********数据库类型****************************************
 
     /**MYSQL数据库*/
-	public static final String DB_TYPE_MYSQL = "MYSQL";
+	public final String DB_TYPE_MYSQL = "MYSQL";
 
     /** ORACLE*/
 	public static final String DB_TYPE_ORACLE = "ORACLE";
