@@ -1,4 +1,3 @@
-def artifactId = 'tech.touchbiz.db.starter'
 def description = '数据库调用启动包'
 
 dependencies {

@@ -1,9 +1,4 @@
 allprojects {
-    apply plugin: 'maven-publish'
-    apply plugin: 'java'
-    apply plugin: 'java-library'
-    apply plugin: 'signing'
-
     buildscript {
         ext {
             commonLang3Version = '3.10'
@@ -11,11 +6,9 @@ allprojects {
             springBootVersion = '2.7.0'
             springVersion = '5.3.20'
             springCloudVersion = '3.1.2'
-
             lombokVersion = '1.18.24'
             nacosStarterVersion = '2021.1'
-            swaggerVersion = '3.0.0'
-            swaggerLayerVersion = '1.1.3'
+            springfoxVersion = '3.0.0'
             commonEntityVersion = '2023.2.28.2'
             commonVersion = '2023.2.28.1'
             commonPoolVersion = '1.6'
@@ -33,6 +26,11 @@ allprojects {
             revision = '2023.2.28.1'
             jacksonVersion = '2.11.1'
             servletVersion = '4.0.1'
+            fastjsonVersion = '2.0.19'
+            mapstructVersion = '1.5.3.Final'
+            knife4jVersion = '3.0.2'
+            hibernateVersion = '6.1.6.Final'
+
         }
         repositories {
             mavenCentral()
@@ -40,13 +38,23 @@ allprojects {
 
     }
 
-
 }
 
 
 /**所有子项目应用Java插件*/
 
 subprojects {
+
+    if("$project.name" == 'inf-bom'){
+        print "project name is $project.name \n"
+        return
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
     sourceCompatibility = '17'
     group = 'tech.touchbiz.starter'
     version = "${ revision }"
@@ -94,8 +102,6 @@ subprojects {
         annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${ lombokVersion }"
     }
 
-//    apply plugin: 'maven-publish'
-
     publishing {
         publications {
             maven(MavenPublication) {
@@ -109,9 +115,9 @@ subprojects {
                 // 添加 pom 相关信息
                 // https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
                 pom {
-                    name = "common-utils"
-                    description = "公共工具包"
-                    url = "https://github.com/mrjiangyan/common-entity"
+                    name = "tech.touchbiz.starter"
+                    description = "Spring Cloud 启动包，基于Spring Cloud Alibaba再结合业务做了封装"
+                    url = "https://github.com/mrjiangyan/springcloud-starter"
                     licenses {
                         license {
                             name = "The Apache License, Version 2.0"
@@ -128,9 +134,9 @@ subprojects {
                     }
                     // 添加你的 git 仓库 信息
                     scm {
-                        connection = "scm:git:https://github.com/mrjiangyan/common-utils.git"
-                        developerConnection = "scm:git:https://github.com/mrjiangyan/common-utils.git"
-                        url = "https://github.com/mrjiangyan/common-utils"
+                        connection = "scm:git:https://github.com/mrjiangyan/springcloud-starter.git"
+                        developerConnection = "scm:git:https://github.com/mrjiangyan/springcloud-starter.git"
+                        url = "https://github.com/mrjiangyan/springcloud-starter"
                     }
                 }
             }

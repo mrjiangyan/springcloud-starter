@@ -1,4 +1,3 @@
-def artifactId = 'tech.touchbiz.validation.starter'
 
 dependencies {
 }

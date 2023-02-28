@@ -1,7 +1,5 @@
-def artifactId = 'tech.touchbiz.webflux.starter'
 
 dependencies {
-    // https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: "${ servletVersion}"
     api group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.10'
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: "${ springCloudVersion }"

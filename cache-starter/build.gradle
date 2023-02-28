@@ -1,4 +1,3 @@
-def artifactId = 'tech.touchbiz.cache.starter'
 def description = '缓存启动包'
 
 dependencies {

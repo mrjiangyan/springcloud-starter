@@ -1,4 +1,3 @@
-def artifactId = 'tech.touchbiz.mq.starter'
 
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "$springBootVersion"

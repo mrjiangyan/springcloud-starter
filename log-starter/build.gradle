@@ -1,4 +1,3 @@
-def artifactId = 'tech.touchbiz.log.starter'
 
 dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}"

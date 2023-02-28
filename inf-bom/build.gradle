@@ -1,0 +1,105 @@
+
+apply plugin: 'maven-publish'
+apply plugin: 'java-platform'
+apply plugin: 'signing'
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+    api platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.1")
+    api platform("org.springframework.cloud:spring-cloud-commons-dependencies:${springCloudVersion}")
+    api platform("org.springframework.cloud:spring-cloud-dependencies:2021.0.3")
+
+    constraints {
+        // 声明一些三方包及其版本号
+        api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:${nacosStarterVersion}"
+        api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:${nacosStarterVersion}"
+
+        api "com.touchbiz:common-entity:${commonEntityVersion}"
+        api "com.touchbiz:common-utils:${commonVersion}"
+
+        api "tech.touchbiz.starter:cache-starter:${revision}"
+        api "tech.touchbiz.starter:db-starter:${revision}"
+        api "tech.touchbiz.starter:config-starter:${revision}"
+        api "tech.touchbiz.starter:log-starter:${revision}"
+        api "tech.touchbiz.starter:webflux-starter:${revision}"
+        api "tech.touchbiz.starter:mq-starter:${revision}"
+
+        api "io.swagger:swagger-annotations:1.6.7"
+        api "io.springfox:springfox-core:${springfoxVersion}"
+
+        api "org.hibernate.validator:hibernate-validator:${hibernateVersion}"
+        api "javax.servlet:javax.servlet-api:${servletVersion}"
+        api "com.alibaba:fastjson:${fastjsonVersion}"
+        api group: 'org.projectlombok', name: 'lombok', version: "${ lombokVersion }"
+
+        api "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+        api "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+        api "org.mapstruct:mapstruct:${mapstructVersion}"
+        api "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
+
+    }
+}
+
+publishing {
+    publications {
+        mavenPom(MavenPublication) {
+            groupId = "tech.touchbiz"
+            artifactId = "$artifactId"
+            version = "2028.2.28.1"
+            from components.javaPlatform
+            // 添加 pom 相关信息
+            // https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
+            pom {
+                name = "inf-bom"
+                description = "Spring Cloud 启动包，基于Spring Cloud Alibaba再结合业务做了封装"
+                url = "https://github.com/mrjiangyan/springcloud-starter"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    // 添加开发者描述，这个id不知道是什么
+                    developer {
+                        id = "mrjiangyan"
+                        name = "steven jiang"
+                        email = "mrjiangyan@hotmail.com"
+                    }
+                }
+                // 添加你的 git 仓库 信息
+                scm {
+                    connection = "scm:git:https://github.com/mrjiangyan/springcloud-starter.git"
+                    developerConnection = "scm:git:https://github.com/mrjiangyan/springcloud-starter.git"
+                    url = "https://github.com/mrjiangyan/springcloud-starter"
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+        maven {
+            name 'sonatype'
+            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = "${NEXUS_USERNAME}"
+                password = "${NEXUS_PASSWORD}"
+            }
+        }
+        maven {
+            name = 'sonatypeSnapshot'
+            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            credentials {
+                username = "${NEXUS_USERNAME}"
+                password = "${NEXUS_PASSWORD}"
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenPom
+}

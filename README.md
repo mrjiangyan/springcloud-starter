@@ -5,3 +5,7 @@
 3. 服务治理和配置中心推荐采用Nacos
 
 
+BOM 的制作可以见 https://blog.csdn.net/Emmliy/article/details/118683700
+
+MAVEN 仓库的上传见 https://blog.csdn.net/JHIII/article/details/126529447
+

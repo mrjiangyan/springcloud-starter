@@ -227,17 +227,8 @@
         </dependencies>
     </dependencyManagement>
 
+
     <build>
     </build>
 
-    <distributionManagement>
-        <repository>
-            <id>touchbiz-releases</id>
-            <url>https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN/</url>
-        </repository>
-<!--        <snapshotRepository>-->
-<!--            <id>rdc-snapshots</id>-->
-<!--            <url>https://packages.aliyun.com/maven/repository/2041383-snapshot-zwplf4/</url>-->
-<!--        </snapshotRepository>-->
-    </distributionManagement>
 </project>
