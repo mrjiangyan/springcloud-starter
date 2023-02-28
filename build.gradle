@@ -45,7 +45,7 @@ allprojects {
 
 subprojects {
 
-    if("$project.name" == 'inf-bom'){
+    if("$project.name" == 'touchbiz-dependencies'){
         print "project name is $project.name \n"
         return
     }

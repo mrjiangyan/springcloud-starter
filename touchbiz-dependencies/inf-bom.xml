@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tech.touchbiz</groupId>
-    <artifactId>inf-bom</artifactId>
-    <version>2023.2.28.1</version>
+    <artifactId>touchbiz-dependencies</artifactId>
+    <version>2023.2.28.2</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -49,12 +49,13 @@
         <db-starter.version>2023.2.28.1</db-starter.version>
         <webflux-starter.version>2023.2.28.1</webflux-starter.version>
         <log-starter.version>2023.2.28.1</log-starter.version>
-        <config-starter.version>2023.2.16.2</config-starter.version>
+        <config-starter.version>2023.2.28.1</config-starter.version>
         <cache-starter.version>2023.2.28.1</cache-starter.version>
         <mq-starter.version>2023.2.28.1</mq-starter.version>
-        <validation-starter.version>1.0.RELEASE</validation-starter.version>
+        <validation-starter.version>2023.2.28.1</validation-starter.version>
 
         <common.version>2023.2.28.1</common.version>
+
         <lombok.version>1.18.22</lombok.version>
         <jmock.version>1.49</jmock.version>
         <springfox.version>3.0.0</springfox.version>
@@ -132,39 +133,34 @@
 
             <!-- 数据库相关 直接使用中台基础库配置 -->
             <dependency>
-                <groupId>com.touchbiz.starter</groupId>
+                <groupId>tech.touchbiz.starter</groupId>
                 <artifactId>db-starter</artifactId>
                 <version>${db-starter.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.touchbiz.starter</groupId>
+                <groupId>tech.touchbiz.starter</groupId>
                 <artifactId>webflux-starter</artifactId>
                 <version>${webflux-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.mq.starter</artifactId>
+                <groupId>tech.touchbiz.starter</groupId>
+                <artifactId>mq-starter</artifactId>
                 <version>${mq-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.validation.starter</artifactId>
-                <version>${validation-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.touchbiz.starter</groupId>
+                <groupId>tech.touchbiz.starter</groupId>
                 <artifactId>config-starter</artifactId>
                 <version>${config-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.touchbiz.starter</groupId>
-                <artifactId>com.touchbiz.log.starter</artifactId>
+                <groupId>tech.touchbiz.starter</groupId>
+                <artifactId>log-starter</artifactId>
                 <version>${log-starter.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.touchbiz.starter</groupId>
+                <groupId>tech.touchbiz.starter</groupId>
                 <artifactId>cache-starter</artifactId>
                 <version>${cache-starter.version}</version>
             </dependency>
@@ -226,9 +222,5 @@
 
         </dependencies>
     </dependencyManagement>
-
-
-    <build>
-    </build>
 
 </project>

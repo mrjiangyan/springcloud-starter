@@ -9,5 +9,5 @@ include ':webflux-starter'
 include ':cache-starter'
 include ':security-starter'
 include ':example-webflux'
-include ':inf-bom'
+include ':touchbiz-dependencies'
 
