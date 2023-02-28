@@ -1,37 +1,12 @@
-def artifactId = 'com.touchbiz.db.starter'
-
-apply plugin: 'maven-publish'
-apply plugin: 'java'
-
-
-sourceCompatibility = '17'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        credentials {
-            username "$mavenUserName"
-            password "$mavenPassword"
-        }
-        url 'https://packages.aliyun.com/maven/repository/2031284-release-KDf3XN/'
-    }
-
-    maven { url 'https://repo.spring.io/snapshot' }
-    maven { url 'https://repo.spring.io/milestone' }
-}
+def artifactId = 'tech.touchbiz.db.starter'
+def description = '数据库调用启动包'
 
 dependencies {
     implementation group: 'mysql', name: 'mysql-connector-java', version: "${ mysqlVerision }"
     api group: 'org.springframework', name: 'spring-jdbc', version: "${ springVersion }"
     api group: 'org.springframework', name: 'spring-web', version: "${ springVersion }"
-    api group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-    api group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
+    api group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    api group: 'tech.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     api group: 'commons-beanutils', name: 'commons-beanutils', version: "1.9.4"
     api group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: "${ mybatisplusVersion }"
     api group: 'com.baomidou', name: 'dynamic-datasource-spring-boot-starter', version: "${ dynamicVersion }"

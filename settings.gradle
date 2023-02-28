@@ -1,4 +1,4 @@
-rootProject.name = 'com.touchbiz.starter'
+rootProject.name = 'tech.touchbiz.starter'
 
 include ':db-starter'
 include ':config-starter'

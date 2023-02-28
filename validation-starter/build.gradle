@@ -1,4 +1,4 @@
-def artifactId = 'com.touchbiz.validation.starter'
+def artifactId = 'tech.touchbiz.validation.starter'
 
 dependencies {
 }

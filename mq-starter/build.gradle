@@ -1,9 +1,9 @@
-def artifactId = 'com.touchbiz.mq.starter'
+def artifactId = 'tech.touchbiz.mq.starter'
 
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "$springBootVersion"
     implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     implementation group: 'com.aliyun.openservices', name: 'ons-client', version: "${ oneVersion }"
-    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    implementation group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }

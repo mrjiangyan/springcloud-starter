@@ -1,4 +1,4 @@
-def artifactId = 'com.touchbiz.log.starter'
+def artifactId = 'tech.touchbiz.log.starter'
 
 dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}"
@@ -9,7 +9,7 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${ springBootVersion }"
     implementation group: 'org.springframework', name: 'spring-web', version: "${ springVersion }"
     implementation group: 'joda-time', name: 'joda-time', version: '2.10'
-    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-    implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
+    implementation group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    implementation group: 'tech.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     implementation project(':config-starter')
 }

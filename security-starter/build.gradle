@@ -1,9 +1,9 @@
-def artifactId = 'com.touchbiz.security.starter'
+def artifactId = 'tech.touchbiz.security.starter'
 
 
 dependencies {
-    implementation group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-    implementation group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
+    implementation group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    implementation group: 'tech.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
 
     compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: "${springBootVersion}"
 

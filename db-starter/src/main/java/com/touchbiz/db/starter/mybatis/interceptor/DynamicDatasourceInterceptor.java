@@ -1,8 +1,10 @@
 package com.touchbiz.db.starter.mybatis.interceptor;
 
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration;
 import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -22,6 +24,7 @@ import reactor.core.publisher.SignalType;
 @Slf4j
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
+@ConditionalOnBean(DynamicDataSourceAutoConfiguration.class)
 public class DynamicDatasourceInterceptor implements WebFilter, Ordered {
 
     @Override

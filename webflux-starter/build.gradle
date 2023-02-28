@@ -1,4 +1,4 @@
-def artifactId = 'com.touchbiz.webflux.starter'
+def artifactId = 'tech.touchbiz.webflux.starter'
 
 dependencies {
     // https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp
@@ -12,8 +12,8 @@ dependencies {
 
     api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
     api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: "${ nacosStarterVersion }"
-    api group: 'com.touchbiz', name: 'common-utils', version: "${ commonVersion }"
-    api group: 'com.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
+    api group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    api group: 'tech.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     api group: 'io.projectreactor', name: 'reactor-core', version: "${ reactorVersion }"
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
