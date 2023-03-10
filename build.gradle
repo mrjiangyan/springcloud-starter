@@ -10,7 +10,7 @@ allprojects {
             nacosStarterVersion = '2021.1'
             springfoxVersion = '3.0.0'
             commonEntityVersion = '2023.2.28.2'
-            commonVersion = '2023.2.28.1'
+            commonVersion = '2023.3.3.1'
             commonPoolVersion = '1.6'
             mybatisVersion = '3.0.1'
             druidVersion = '1.2.11'
@@ -23,7 +23,7 @@ allprojects {
             openFeignVersion = '3.1.2'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.30'
-            revision = '2023.3.10.1'
+            revision = '2023.3.10.2'
             jacksonVersion = '2.11.1'
             servletVersion = '4.0.1'
             fastjsonVersion = '2.0.19'
@@ -33,7 +33,11 @@ allprojects {
 
         }
         repositories {
+            mavenLocal()
             mavenCentral()
+            maven {
+                url = uri('https://s01.oss.sonatype.org/content/repositories/releases/')
+            }
         }
 
     }
@@ -60,9 +64,13 @@ subprojects {
     version = "${ revision }"
 
     repositories {
+        mavenLocal()
         mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url = uri('https://s01.oss.sonatype.org/content/repositories/releases/')
         }
     }
 

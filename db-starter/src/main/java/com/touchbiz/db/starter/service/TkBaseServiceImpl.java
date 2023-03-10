@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.touchbiz.db.starter.domain.BaseDomain;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @author steve
  */
 
+@Slf4j
 public abstract class TkBaseServiceImpl<T, M extends BaseMapper<T>> extends ServiceImpl<M,T> implements TkBaseService<T> {
 
     private final Class<T> persistentClass;
@@ -29,6 +31,7 @@ public abstract class TkBaseServiceImpl<T, M extends BaseMapper<T>> extends Serv
 
     public TkBaseServiceImpl() {
         this.persistentClass = (Class<T>) getSuperClassGenricType(getClass(), 0);
+
     }
 
     public static Class<Object> getSuperClassGenricType(final Class clazz, final int index) {
@@ -61,6 +64,12 @@ public abstract class TkBaseServiceImpl<T, M extends BaseMapper<T>> extends Serv
 
     @Override
     public T selectByPrimaryKey(Serializable id) {
+        var superClass = this.persistentClass.getSuperclass();
+        if(superClass != null && superClass.equals(BaseDomain.class)){
+            var wrapper = createQueryWrapper();
+            wrapper.apply("id='" + id + "'");
+            return mapper.selectOne(wrapper);
+        }
         if(id instanceof Long){
             return mapper.selectById(String.valueOf(id));
         }
