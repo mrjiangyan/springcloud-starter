@@ -1,8 +1,10 @@
 
 dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: "$springBootVersion"
-    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
-    implementation group: 'com.aliyun.openservices', name: 'ons-client', version: "${ oneVersion }"
-    implementation group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
+    api "com.alibaba:fastjson:${fastjsonVersion}"
+    api group: 'org.apache.commons', name: 'commons-lang3', version: "${commonLang3Version}"
+    api group: 'org.springframework.boot', name: 'spring-boot-starter', version: "$springBootVersion"
+    api group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: "${ nacosStarterVersion }"
+    api group: 'com.aliyun.openservices', name: 'ons-client', version: "${ oneVersion }"
+    api group: 'tech.touchbiz', name: 'common-utils', version: "${ commonVersion }"
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${ springBootVersion }"
 }

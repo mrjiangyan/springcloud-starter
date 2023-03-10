@@ -30,13 +30,11 @@ public class DynamicTableAspect {
     public void dynamicTable() {
     }
 
-
     @Around("dynamicTable()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
         DynamicTable dynamicTable = method.getAnnotation(DynamicTable.class);
-//        HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
         //获取前端传递的版本标记
         String version = "v4.0";//request.getHeader(CommonConstant.VERSION);
         //存储版本号到本地线程变量

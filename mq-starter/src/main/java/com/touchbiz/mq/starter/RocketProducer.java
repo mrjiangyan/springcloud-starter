@@ -1,7 +1,7 @@
 package com.touchbiz.mq.starter;
 
-import com.alibaba.fastjson.JSONObject;
 import com.aliyun.openservices.ons.api.*;
+import com.alibaba.fastjson.JSONObject;
 import com.touchbiz.common.utils.text.StringSpliceUtils;
 import com.touchbiz.common.utils.tools.JsonUtils;
 import com.touchbiz.mq.starter.configuration.MqConfigProperties;

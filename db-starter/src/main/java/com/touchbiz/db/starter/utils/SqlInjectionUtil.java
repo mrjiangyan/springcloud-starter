@@ -19,7 +19,6 @@ public class SqlInjectionUtil {
      * sign 用于表字典加签的盐值【SQL漏洞】
      * （上线修改值 20200501，同步修改前端的盐值）
      */
-    private final static String TABLE_DICT_SIGN_SALT = "20200501";
     private final static String XSS_STR = "and |exec |insert |select |delete |update |drop |count |chr |mid |master |truncate |char |declare |;|or |+|user()";
 
     /**
