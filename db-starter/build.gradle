@@ -8,8 +8,12 @@ dependencies {
     api group: 'tech.touchbiz', name: 'common-entity', version: "${ commonEntityVersion }"
     api group: 'commons-beanutils', name: 'commons-beanutils', version: "1.9.4"
     api group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: "${ mybatisplusVersion }"
+    api group: 'com.baomidou', name: 'mybatis-plus-extension', version: "${ mybatisplusVersion }"
     api group: 'com.baomidou', name: 'dynamic-datasource-spring-boot-starter', version: "${ dynamicVersion }"
     api group: 'com.alibaba', name: 'druid-spring-boot-starter', version: "${ druidVersion }"
+    // https://mvnrepository.com/artifact/cn.hutool/hutool-core
+    api group: 'cn.hutool', name: 'hutool-core', version: "${hutoolVersion}"
+
     api group: 'commons-pool', name: 'commons-pool', version: "${ commonPoolVersion }"
     api group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: "${ mybatisVersion }"
     api group: 'io.projectreactor', name: 'reactor-core', version: "${ reactorVersion }"

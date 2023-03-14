@@ -48,7 +48,7 @@ publishing {
         mavenPom(MavenPublication) {
             groupId = "tech.touchbiz"
             artifactId = "$artifactId"
-            version = "2023.3.10.2"
+            version = "2023.3.13.1"
             from components.javaPlatform
             // 添加 pom 相关信息
             // https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
