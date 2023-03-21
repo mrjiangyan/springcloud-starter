@@ -23,7 +23,7 @@ allprojects {
             openFeignVersion = '3.1.2'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.30'
-            revision = '2023.3.13.1'
+            revision = '2023.3.16.1'
             jacksonVersion = '2.11.1'
             servletVersion = '4.0.1'
             fastjsonVersion = '2.0.19'
