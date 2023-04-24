@@ -14,7 +14,7 @@ public enum MatchTypeEnum {
     /**查询链接规则 OR*/
     OR("OR");
 
-    private String value;
+    private final String value;
 
     MatchTypeEnum(String value) {
         this.value = value;

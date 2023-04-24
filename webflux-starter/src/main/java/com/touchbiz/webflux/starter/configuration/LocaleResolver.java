@@ -1,5 +1,6 @@
 package com.touchbiz.webflux.starter.configuration;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.SimpleLocaleContext;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import java.util.Locale;
 
 public class LocaleResolver implements LocaleContextResolver {
 
+    @NotNull
     @Override
     public LocaleContext resolveLocaleContext(ServerWebExchange exchange) {
        return resolveLocaleContext(exchange.getRequest());
@@ -26,7 +28,7 @@ public class LocaleResolver implements LocaleContextResolver {
     }
 
     @Override
-    public void setLocaleContext(ServerWebExchange exchange, LocaleContext localeContext) {
+    public void setLocaleContext(@NotNull ServerWebExchange exchange, LocaleContext localeContext) {
         throw new UnsupportedOperationException("Not Supported");
     }
 

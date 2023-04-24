@@ -3,7 +3,8 @@ package com.touchbiz.cache.starter.aspect;
 import com.touchbiz.cache.starter.SpelParser;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.StandardReflectionParameterNameDiscoverer;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -29,9 +30,9 @@ abstract class AbstractAnnotationCacheAspect {
      */
     protected String getCacheKey(Method method, String redisKey, String keyPrefix,Object[] args) {
         // 获取行参列表
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(method);
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(method);
         String key = SpelParser.getKey(redisKey, parameterNames, args);
-        if (!StringUtils.isEmpty(keyPrefix)) {
+        if (!ObjectUtils.isEmpty(keyPrefix)) {
             key = keyPrefix + key;
         }
         return key;

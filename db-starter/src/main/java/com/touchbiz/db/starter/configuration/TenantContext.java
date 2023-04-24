@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class TenantContext {
     private static final Logger log = LoggerFactory.getLogger(TenantContext.class);
-    private static ThreadLocal<String> currentTenant = new ThreadLocal();
+    private static final ThreadLocal<String> currentTenant = new ThreadLocal();
 
     public TenantContext() {
     }

@@ -6,7 +6,7 @@
 
     <groupId>tech.touchbiz</groupId>
     <artifactId>touchbiz-dependencies</artifactId>
-    <version>2023.2.28.2</version>
+    <version>2023.4.24.3</version>
     <packaging>pom</packaging>
 
     <name>inf-bom</name>
@@ -46,15 +46,15 @@
         <springcloudalibaba.version>2021.1</springcloudalibaba.version>
         <spring-cloud-commons.version>3.1.2</spring-cloud-commons.version>
 
-        <db-starter.version>2023.2.28.1</db-starter.version>
-        <webflux-starter.version>2023.2.28.1</webflux-starter.version>
+        <db-starter.version>2023.4.24.1</db-starter.version>
+        <webflux-starter.version>2023.4.24.1</webflux-starter.version>
         <log-starter.version>2023.2.28.1</log-starter.version>
-        <config-starter.version>2023.2.28.1</config-starter.version>
-        <cache-starter.version>2023.2.28.1</cache-starter.version>
-        <mq-starter.version>2023.2.28.1</mq-starter.version>
+        <config-starter.version>2023.4.24.1</config-starter.version>
+        <cache-starter.version>2023.4.24.2</cache-starter.version>
+        <mq-starter.version>2023.4.24.1</mq-starter.version>
         <validation-starter.version>2023.2.28.1</validation-starter.version>
 
-        <common.version>2023.2.28.1</common.version>
+        <common.version>2023.3.3.1</common.version>
 
         <lombok.version>1.18.22</lombok.version>
         <jmock.version>1.49</jmock.version>

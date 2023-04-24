@@ -7,6 +7,7 @@ import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import com.touchbiz.mq.starter.configuration.RocketMqConfig;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Properties;
@@ -40,7 +41,7 @@ public class RocketConsumer {
         // consumer 实例配置初始化
         Properties properties = new Properties();
         //您在控制台创建的 Group ID
-        if (!StringUtils.isEmpty(groupId)) {
+        if (!ObjectUtils.isEmpty(groupId)) {
             properties.put(PropertyKeyConst.GROUP_ID, groupId);
         }
 

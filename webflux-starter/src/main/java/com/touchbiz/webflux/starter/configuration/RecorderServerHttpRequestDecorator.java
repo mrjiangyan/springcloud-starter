@@ -2,6 +2,7 @@ package com.touchbiz.webflux.starter.configuration;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
@@ -18,6 +19,7 @@ public class RecorderServerHttpRequestDecorator extends ServerHttpRequestDecorat
         super(delegate);
     }
 
+    @NotNull
     @Override
     public Flux<DataBuffer> getBody() {
         synchronized (this) {

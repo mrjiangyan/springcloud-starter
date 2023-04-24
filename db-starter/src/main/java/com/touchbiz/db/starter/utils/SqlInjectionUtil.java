@@ -71,9 +71,9 @@ public class SqlInjectionUtil {
         value = value.replaceAll("/\\*.*\\*/","");
 
         String[] xssArr = XSS_STR.split("\\|");
-        for (int i = 0; i < xssArr.length; i++) {
-            if (value.contains(xssArr[i])) {
-                log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
+        for (String s : xssArr) {
+            if (value.contains(s)) {
+                log.error("请注意，存在SQL注入关键词---> {}", s);
                 log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
             }
@@ -81,9 +81,9 @@ public class SqlInjectionUtil {
         //update-begin-author:taoyan date:2022-7-13 for: 除了XSS_STR这些提前设置好的，还需要额外的校验比如 单引号
         if (customXssString != null) {
             String[] xssArr2 = customXssString.split("\\|");
-            for (int i = 0; i < xssArr2.length; i++) {
-                if (value.contains(xssArr2[i])) {
-                    log.error("请注意，存在SQL注入关键词---> {}", xssArr2[i]);
+            for (String s : xssArr2) {
+                if (value.contains(s)) {
+                    log.error("请注意，存在SQL注入关键词---> {}", s);
                     log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                     throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
                 }
@@ -120,9 +120,9 @@ public class SqlInjectionUtil {
             //SQL注入检测存在绕过风险 https://gitee.com/jeecg/jeecg-boot/issues/I4NZGE
             value = value.replaceAll("/\\*.*\\*/","");
 
-            for (int i = 0; i < xssArr.length; i++) {
-                if (value.contains(xssArr[i])) {
-                    log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
+            for (String s : xssArr) {
+                if (value.contains(s)) {
+                    log.error("请注意，存在SQL注入关键词---> {}", s);
                     log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                     throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
                 }
@@ -130,9 +130,9 @@ public class SqlInjectionUtil {
             //update-begin-author:taoyan date:2022-7-13 for: 除了XSS_STR这些提前设置好的，还需要额外的校验比如 单引号
             if (customXssString != null) {
                 String[] xssArr2 = customXssString.split("\\|");
-                for (int i = 0; i < xssArr2.length; i++) {
-                    if (value.contains(xssArr2[i])) {
-                        log.error("请注意，存在SQL注入关键词---> {}", xssArr2[i]);
+                for (String s : xssArr2) {
+                    if (value.contains(s)) {
+                        log.error("请注意，存在SQL注入关键词---> {}", s);
                         log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                         throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
                     }
@@ -164,9 +164,9 @@ public class SqlInjectionUtil {
         //SQL注入检测存在绕过风险 https://gitee.com/jeecg/jeecg-boot/issues/I4NZGE
         value = value.replaceAll("/\\*.*\\*/","");
 
-        for (int i = 0; i < xssArr.length; i++) {
-            if (value.contains(xssArr[i]) || value.startsWith(xssArr[i].trim())) {
-                log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
+        for (String s : xssArr) {
+            if (value.contains(s) || value.startsWith(s.trim())) {
+                log.error("请注意，存在SQL注入关键词---> {}", s);
                 log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
             }
@@ -195,9 +195,9 @@ public class SqlInjectionUtil {
         //SQL注入检测存在绕过风险 https://gitee.com/jeecg/jeecg-boot/issues/I4NZGE
         value = value.replaceAll("/\\*.*\\*/","");
 
-        for (int i = 0; i < xssArr.length; i++) {
-            if (value.contains(xssArr[i]) || value.startsWith(xssArr[i].trim())) {
-                log.error("请注意，存在SQL注入关键词---> {}", xssArr[i]);
+        for (String s : xssArr) {
+            if (value.contains(s) || value.startsWith(s.trim())) {
+                log.error("请注意，存在SQL注入关键词---> {}", s);
                 log.error("请注意，值可能存在SQL注入风险!---> {}", value);
                 throw new RuntimeException("请注意，值可能存在SQL注入风险!--->" + value);
             }
@@ -217,10 +217,10 @@ public class SqlInjectionUtil {
      */
     public static boolean isClassField(String field, Class clazz){
         Field[] fields = clazz.getDeclaredFields();
-        for(int i=0;i<fields.length;i++){
-            String fieldName = fields[i].getName();
+        for (Field value : fields) {
+            String fieldName = value.getName();
             String tableColumnName = oConvertUtils.camelToUnderline(fieldName);
-            if(fieldName.equalsIgnoreCase(field) || tableColumnName.equalsIgnoreCase(field)){
+            if (fieldName.equalsIgnoreCase(field) || tableColumnName.equalsIgnoreCase(field)) {
                 return true;
             }
         }
@@ -237,10 +237,10 @@ public class SqlInjectionUtil {
         Field[] fields = clazz.getDeclaredFields();
         for(String field: fieldSet){
             boolean exist = false;
-            for(int i=0;i<fields.length;i++){
-                String fieldName = fields[i].getName();
+            for (Field value : fields) {
+                String fieldName = value.getName();
                 String tableColumnName = oConvertUtils.camelToUnderline(fieldName);
-                if(fieldName.equalsIgnoreCase(field) || tableColumnName.equalsIgnoreCase(field)){
+                if (fieldName.equalsIgnoreCase(field) || tableColumnName.equalsIgnoreCase(field)) {
                     exist = true;
                     break;
                 }

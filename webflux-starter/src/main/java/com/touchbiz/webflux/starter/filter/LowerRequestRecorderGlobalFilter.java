@@ -5,6 +5,7 @@ import com.touchbiz.webflux.starter.configuration.RecorderServerHttpRequestDecor
 import com.touchbiz.webflux.starter.configuration.RecorderServerHttpResponseDecorator;
 import io.netty.handler.codec.http.HttpScheme;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.Ordered;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -32,8 +33,9 @@ public class LowerRequestRecorderGlobalFilter implements WebFilter, Ordered {
         return -1;
     }
 
+    @NotNull
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> filter(ServerWebExchange exchange, @NotNull WebFilterChain chain) {
         ServerHttpRequest originalRequest = exchange.getRequest();
         if (originalRequest.getURI().getRawPath().contains("favicon.ico")) {
             return exchange.getResponse().setComplete();

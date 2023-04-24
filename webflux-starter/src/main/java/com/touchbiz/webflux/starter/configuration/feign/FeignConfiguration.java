@@ -1,6 +1,7 @@
 package com.touchbiz.webflux.starter.configuration.feign;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Charsets;
 import com.touchbiz.common.utils.tools.JsonUtils;
 import com.touchbiz.webflux.starter.configuration.HttpHeaderConstants;
 import com.touchbiz.webflux.starter.filter.ReactiveRequestContextHolder;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Configuration
@@ -28,7 +30,7 @@ public class FeignConfiguration implements RequestInterceptor {
     public void apply(RequestTemplate template) {
         Object user = ReactiveRequestContextHolder.getUser();
         if(user != null){
-            template.header(HttpHeaderConstants.HEADER_USER, URLEncoder.encode(JsonUtils.toJson(user)));
+            template.header(HttpHeaderConstants.HEADER_USER, URLEncoder.encode(JsonUtils.toJson(user), StandardCharsets.UTF_8));
         }
         String tenantId = ReactiveRequestContextHolder.getTenantId();
         if(tenantId != null){

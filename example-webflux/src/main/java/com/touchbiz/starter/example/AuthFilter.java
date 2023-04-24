@@ -3,6 +3,7 @@ package com.touchbiz.starter.example;
 import com.touchbiz.webflux.starter.configuration.HttpHeaderConstants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -19,6 +20,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class AuthFilter implements WebFilter, Ordered {
 
+    @NotNull
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         AAA a = new AAA();

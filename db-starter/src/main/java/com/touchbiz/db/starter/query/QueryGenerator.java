@@ -27,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
@@ -35,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @Description: 查询生成器
@@ -323,7 +323,7 @@ public class QueryGenerator {
       MatchTypeEnum matchType = MatchTypeEnum.getByValue(superQueryMatchType);
       // update-begin--Author:sunjianlei Date:20200325 for：高级查询的条件要用括号括起来，防止和用户的其他条件冲突 -------
       try {
-        superQueryParams = URLDecoder.decode(superQueryParams, "UTF-8");
+        superQueryParams = URLDecoder.decode(superQueryParams, StandardCharsets.UTF_8);
         List<QueryCondition> conditions = JsonUtils.json2list(superQueryParams, QueryCondition.class);
         if (conditions == null || conditions.size() == 0) {
           return;
@@ -347,7 +347,7 @@ public class QueryGenerator {
                 && oConvertUtils.isNotEmpty(rule.getRule())
                 && oConvertUtils.isNotEmpty(rule.getVal())) {
 
-              log.debug("SuperQuery ==> " + rule.toString());
+              log.debug("SuperQuery ==> " + rule);
 
               //update-begin-author:taoyan date:20201228 for: 【高级查询】 oracle 日期等于查询报错
 							Object queryValue = rule.getVal();
@@ -608,51 +608,30 @@ public class QueryGenerator {
 		name = oConvertUtils.camelToUnderline(name);
 		log.info("---查询过滤器，Query规则---field:{}, rule:{}, value:{}",name,rule.getValue(),value);
 		switch (rule) {
-		case GT:
-			queryWrapper.gt(name, value);
-			break;
-		case GE:
-			queryWrapper.ge(name, value);
-			break;
-		case LT:
-			queryWrapper.lt(name, value);
-			break;
-		case LE:
-			queryWrapper.le(name, value);
-			break;
-		case EQ:
-		case EQ_WITH_ADD:
-			queryWrapper.eq(name, value);
-			break;
-		case NE:
-			queryWrapper.ne(name, value);
-			break;
-		case IN:
-			if(value instanceof String) {
-				queryWrapper.in(name, (Object[])value.toString().split(COMMA));
-			}else if(value instanceof String[]) {
-				queryWrapper.in(name, (Object[]) value);
-			}
-			//update-begin-author:taoyan date:20200909 for:【bug】in 类型多值查询 不适配postgresql #1671
-			else if(value.getClass().isArray()) {
-				queryWrapper.in(name, (Object[])value);
-			}else {
-				queryWrapper.in(name, value);
+			case GT -> queryWrapper.gt(name, value);
+			case GE -> queryWrapper.ge(name, value);
+			case LT -> queryWrapper.lt(name, value);
+			case LE -> queryWrapper.le(name, value);
+			case EQ, EQ_WITH_ADD -> queryWrapper.eq(name, value);
+			case NE -> queryWrapper.ne(name, value);
+			case IN -> {
+				if (value instanceof String) {
+					queryWrapper.in(name, (Object[]) value.toString().split(COMMA));
+				} else if (value instanceof String[]) {
+					queryWrapper.in(name, (Object[]) value);
+				}
+				//update-begin-author:taoyan date:20200909 for:【bug】in 类型多值查询 不适配postgresql #1671
+				else if (value.getClass().isArray()) {
+					queryWrapper.in(name, (Object[]) value);
+				} else {
+					queryWrapper.in(name, value);
+				}
 			}
 			//update-end-author:taoyan date:20200909 for:【bug】in 类型多值查询 不适配postgresql #1671
-			break;
-		case LIKE:
-			queryWrapper.like(name, value);
-			break;
-		case LEFT_LIKE:
-			queryWrapper.likeLeft(name, value);
-			break;
-		case RIGHT_LIKE:
-			queryWrapper.likeRight(name, value);
-			break;
-		default:
-			log.info("--查询规则未匹配到---");
-			break;
+			case LIKE -> queryWrapper.like(name, value);
+			case LEFT_LIKE -> queryWrapper.likeLeft(name, value);
+			case RIGHT_LIKE -> queryWrapper.likeRight(name, value);
+			default -> log.info("--查询规则未匹配到---");
 		}
 	}
 	/**
@@ -901,7 +880,7 @@ public class QueryGenerator {
 			}
 			return "("+String.join("," ,res)+")";
 		}else {
-			return "("+value.toString()+")";
+			return "("+ value +")";
 		}
 		//update-end-author:taoyan date:20210628 for: 查询条件如果输入,导致sql报错
 	}
@@ -1019,7 +998,7 @@ public class QueryGenerator {
 				sb.append(sqlAnd).append(filedSql);
 			}
 		}
-		log.info("query auth sql is:"+sb.toString());
+		log.info("query auth sql is:"+ sb);
 		return sb.toString();
 	}
 	
@@ -1093,7 +1072,7 @@ public class QueryGenerator {
 				sb.append(sqlAnd).append(filedSql);
 			}
 		}
-		log.info("query auth sql is = "+sb.toString());
+		log.info("query auth sql is = "+ sb);
 		return sb.toString();
 	}
 
@@ -1107,36 +1086,30 @@ public class QueryGenerator {
 			return DB_TYPE;
 		}
 		DataSource dataSource = SpringUtils.getApplicationContext().getBean(DataSource.class);
-		try {
-			return getDatabaseTypeByDataSource(dataSource);
-		} catch (SQLException e) {
-			//e.printStackTrace();
-			log.warn(e.getMessage(),e);
-			return "";
-		}
+		return getDatabaseTypeByDataSource(dataSource);
+
 	}
 
 	/**
 	 * 获取数据库类型
 	 * @param dataSource
 	 * @return
-	 * @throws SQLException
 	 */
-	private  String getDatabaseTypeByDataSource(DataSource dataSource) throws SQLException{
+	private  String getDatabaseTypeByDataSource(DataSource dataSource) {
 		if("".equals(DB_TYPE)) {
 			try (Connection connection = dataSource.getConnection()) {
 				DatabaseMetaData md = connection.getMetaData();
 				String dbType = md.getDatabaseProductName().toUpperCase();
 				String sqlserver = "SQL SERVER";
-				if (dbType.indexOf(DataBaseConstant.DB_TYPE_MYSQL) >= 0) {
+				if (dbType.contains(DataBaseConstant.DB_TYPE_MYSQL)) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_MYSQL;
-				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_ORACLE) >= 0 || dbType.indexOf(DataBaseConstant.DB_TYPE_DM) >= 0) {
+				} else if (dbType.contains(DataBaseConstant.DB_TYPE_ORACLE) || dbType.contains(DataBaseConstant.DB_TYPE_DM)) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_ORACLE;
-				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_SQLSERVER) >= 0 || dbType.indexOf(sqlserver) >= 0) {
+				} else if (dbType.contains(DataBaseConstant.DB_TYPE_SQLSERVER) || dbType.contains(sqlserver)) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_SQLSERVER;
-				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_POSTGRESQL) >= 0) {
+				} else if (dbType.contains(DataBaseConstant.DB_TYPE_POSTGRESQL)) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_POSTGRESQL;
-				} else if (dbType.indexOf(DataBaseConstant.DB_TYPE_MARIADB) >= 0) {
+				} else if (dbType.contains(DataBaseConstant.DB_TYPE_MARIADB)) {
 					DB_TYPE = DataBaseConstant.DB_TYPE_MARIADB;
 				} else {
 					log.error("数据库类型:[" + dbType + "]不识别!");
@@ -1196,7 +1169,7 @@ public class QueryGenerator {
 			if (field != null) {
 				TableField tableField = field.getAnnotation(TableField.class);
 				if (tableField != null){
-					if(tableField.exist() == false){
+					if(!tableField.exist()){
 						//如果设置了TableField false 这个字段不需要处理
 						return null;
 					}else{

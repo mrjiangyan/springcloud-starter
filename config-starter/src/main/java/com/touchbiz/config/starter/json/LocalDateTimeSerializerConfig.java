@@ -13,6 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.touchbiz.common.utils.date.DateTimeFormat;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -38,7 +39,7 @@ public class LocalDateTimeSerializerConfig {
     WebFluxConfigurer webFluxConfigurer(Jackson2JsonEncoder encoder, Jackson2JsonDecoder decoder){
         return new WebFluxConfigurer() {
             @Override
-            public void configureHttpMessageCodecs(ServerCodecConfigurer configurer) {
+            public void configureHttpMessageCodecs(@NotNull ServerCodecConfigurer configurer) {
                 configurer.defaultCodecs().jackson2JsonEncoder(encoder);
                 configurer.defaultCodecs().jackson2JsonDecoder(decoder);
             }
@@ -84,7 +85,7 @@ public class LocalDateTimeSerializerConfig {
         javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule())
-            .registerModule(new Jdk8Module());;
+            .registerModule(new Jdk8Module());
 
         //空值不序列化
 //        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

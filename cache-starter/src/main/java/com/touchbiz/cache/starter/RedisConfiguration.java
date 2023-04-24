@@ -4,18 +4,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * @author jiangyan
+ */
 @Configuration
 public class RedisConfiguration {
 
     @Bean("redisTemplate")
     @Primary
-    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory, RedisSerializer redisSerializer) {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory, RedisSerializer redisSerializer) {
         return template(factory, redisSerializer);
     }
 
@@ -26,7 +29,7 @@ public class RedisConfiguration {
         return serializer;
     }
 
-    public RedisTemplate<String, Object> template(LettuceConnectionFactory factory, RedisSerializer redisSerializer) {
+    public RedisTemplate<String, Object> template(RedisConnectionFactory factory, RedisSerializer redisSerializer) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
 

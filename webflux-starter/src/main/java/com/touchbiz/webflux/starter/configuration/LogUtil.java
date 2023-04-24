@@ -76,7 +76,7 @@ public class LogUtil {
 
         logBuffer
                 .append(method.toString()).append(' ')
-                .append(uri.toString());
+                .append(uri);
 
         logBuffer.append(",requestHeader:");
         headers.forEach((name, values) -> values.forEach(value -> logBuffer.append(name).append(":").append(value).append(';')));

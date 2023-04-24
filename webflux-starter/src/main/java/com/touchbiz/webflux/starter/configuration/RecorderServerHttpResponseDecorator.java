@@ -1,5 +1,6 @@
 package com.touchbiz.webflux.starter.configuration;
 
+import org.jetbrains.annotations.NotNull;
 import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -14,15 +15,17 @@ public class RecorderServerHttpResponseDecorator extends ServerHttpResponseDecor
         super(delegate);
     }
 
+    @NotNull
     @Override
-    public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
+    public Mono<Void> writeWith(@NotNull Publisher<? extends DataBuffer> body) {
         return DataBufferUtilFix.join(Flux.from(body))
                 .doOnNext(d -> this.data = d)
                 .flatMap(d -> super.writeWith(copy()));
     }
 
+    @NotNull
     @Override
-    public Mono<Void> writeAndFlushWith(Publisher<? extends Publisher<? extends DataBuffer>> body) {
+    public Mono<Void> writeAndFlushWith(@NotNull Publisher<? extends Publisher<? extends DataBuffer>> body) {
         return writeWith(Flux.from(body)
                 .flatMapSequential(p -> p));
     }

@@ -4,7 +4,6 @@ package com.touchbiz.starter.example;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.touchbiz.db.starter.domain.BaseDomain;
 import com.touchbiz.db.starter.service.TkBaseServiceImpl;
-import org.junit.Test;
 
 public class SimpleTest {
 
@@ -18,11 +17,11 @@ public class SimpleTest {
 
     }
 
-    public static interface AMapper extends BaseMapper<A> {
+    public interface AMapper extends BaseMapper<A> {
 
     }
 
-    public class Test extends TkBaseServiceImpl<A,AMapper> {
+    public static class Test extends TkBaseServiceImpl<A,AMapper> {
 
     }
 }

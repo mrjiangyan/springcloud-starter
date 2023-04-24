@@ -3,6 +3,7 @@ package com.touchbiz.webflux.starter.filter;
 import com.touchbiz.common.entity.model.SysUserCacheInfo;
 import com.touchbiz.common.utils.tools.JsonUtils;
 import com.touchbiz.webflux.starter.configuration.HttpHeaderConstants;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -19,12 +20,13 @@ import java.util.Map;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class ReactiveRequestContextFilter implements WebFilter , Ordered {
 
+    @NotNull
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> filter(ServerWebExchange exchange, @NotNull WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ReactiveRequestContextHolder.put(request);
         if(exchange.getAttributes() != null){
-            Map map = exchange.getAttributes();
+            Map<String, Object> map = exchange.getAttributes();
             if(map.containsKey(HttpHeaderConstants.HEADER_USER)){
                 ReactiveRequestContextHolder.putUser(map.get(HttpHeaderConstants.HEADER_USER));
             }

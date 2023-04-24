@@ -23,7 +23,7 @@ import java.util.function.Function;
 abstract class AbstractSpringRedisCache<T> extends AbstractSpringCache<T> {
 
     @Getter
-    private IRedisTemplate redisTemplate;
+    private final IRedisTemplate redisTemplate;
 
     /**
      * Constructor
@@ -77,7 +77,7 @@ abstract class AbstractSpringRedisCache<T> extends AbstractSpringCache<T> {
         return mono.doOnNext(o->{
             boolean cacheData = true;
             boolean isError =false;
-            if(config.getIgnoreError() && o instanceof Result && !((Result)o).isSuccess()){
+            if(config.getIgnoreError() && o instanceof Result && !((Result<?>)o).isSuccess()){
                 cacheData =false;
                 isError = true;
             }

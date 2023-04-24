@@ -20,7 +20,7 @@ dependencies {
         api "tech.touchbiz:common-entity:${commonEntityVersion}"
         api "tech.touchbiz:common-utils:${commonVersion}"
 
-        api "tech.touchbiz.starter:cache-starter:${revision}"
+        api "tech.touchbiz.starter:cache-starter:2023.4.24.3"
         api "tech.touchbiz.starter:db-starter:${revision}"
         api "tech.touchbiz.starter:config-starter:${revision}"
         api "tech.touchbiz.starter:log-starter:${revision}"
@@ -48,7 +48,7 @@ publishing {
         mavenPom(MavenPublication) {
             groupId = "tech.touchbiz"
             artifactId = "$artifactId"
-            version = "2023.3.13.1"
+            version = "2023.4.25.3"
             from components.javaPlatform
             // 添加 pom 相关信息
             // https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html

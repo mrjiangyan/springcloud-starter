@@ -22,7 +22,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 })
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableFeignClients(basePackages = {})
+@EnableFeignClients()
 public class WebFluxExampleApplication {
 
 

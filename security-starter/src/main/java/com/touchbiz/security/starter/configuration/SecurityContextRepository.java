@@ -1,6 +1,7 @@
 package com.touchbiz.security.starter.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -20,8 +21,9 @@ public class SecurityContextRepository implements WebFilter, Ordered {
         return Ordered.HIGHEST_PRECEDENCE;
     }
 
+    @NotNull
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> filter(ServerWebExchange exchange, @NotNull WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         //查询用户的权限;
         var permission = new String[]{"/test/time/*"};

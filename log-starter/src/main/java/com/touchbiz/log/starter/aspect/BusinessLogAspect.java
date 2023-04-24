@@ -8,11 +8,6 @@ import java.util.concurrent.Executors;
 
 public class BusinessLogAspect {
 
-    /**
-     * 线程池 异步记录日志
-     */
-    private static ExecutorService logExecutorService =  Executors.newFixedThreadPool(10);
-
     @Pointcut("@annotation(com.example.demo.annotation.SysLog)")
     public void logPointCut() {
 
