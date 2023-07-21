@@ -23,7 +23,7 @@ allprojects {
             openFeignVersion = '3.1.2'
             validationVersion = '2.0.1.Final'
             mysqlVerision = '8.0.30'
-            revision = '2023.4.24.2'
+            revision = '2023.4.24.4'
             jacksonVersion = '2.11.1'
             servletVersion = '4.0.1'
             fastjsonVersion = '2.0.19'
@@ -31,7 +31,7 @@ allprojects {
             knife4jVersion = '3.0.2'
             hibernateVersion = '6.1.6.Final'
             hutoolVersion = '5.8.15'
-            redissionVersion = '3.20.1'
+            redissionVersion = '3.17.4'
         }
         repositories {
             mavenLocal()
